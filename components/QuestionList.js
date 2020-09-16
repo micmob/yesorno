@@ -1,16 +1,16 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, TouchableNativeFeedback } from 'react-native';
 import TitleText from '../components/TitleText'
-import SmallText from '../components/SmallText'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Colors from '../Constants/Colors';
+import Colors from '../constants/Colors';
 import Overline from './Overline';
+import HomeHeader from './HomeHeader';
+import HotHeader from './HotHeader';
+import QuestionActions from './QuestionActions'
 
 const QuestionList = props => {
-    
 
     const renderQuestion = itemData => {
-
         return (
             <View style={styles.card}>
                 <TouchableNativeFeedback
@@ -19,13 +19,14 @@ const QuestionList = props => {
                         'Question',{
                             question: itemData.item
                         })}>
-                    
                     <View style={styles.insideTouchable}>
                         <Overline question={itemData.item} />
                         <TitleText>
                             {itemData.item.title}
                         </TitleText>
+                        <QuestionActions question={itemData.item} />
                     </View>
+                
                 </TouchableNativeFeedback>
             </View>
         )
@@ -37,6 +38,7 @@ const QuestionList = props => {
                 data={props.questions}
                 keyExtractor={(item, index) => item.id}
                 renderItem={renderQuestion}
+                ListHeaderComponent={(props.routeName === 'Home') ? <HomeHeader /> : <HotHeader />}
             />
         </SafeAreaView>
 
@@ -59,8 +61,9 @@ const styles = StyleSheet.create({
     },
     insideTouchable: {
         flex: 1,
-        padding: 10,
-    }
+        paddingHorizontal: 15,
+        paddingVertical: 5,
+    },
 });
 
 export default QuestionList;

@@ -6,10 +6,11 @@ export default {
     positiveColor: '#cfff8c',
     negativeColor: '#ffa3a3',
 
+    brandColor: '#b173ff',
     backgroundColor: '#121212',
     surfaceColor: '#1d1d1d',
     onBackgroundColor: '#aeaeae',
-    onSurfaceColor: '#c9c9c9',
+    onSurfaceColor: '#bababa',
     onSurfaceSmallColor: 'rgba(201, 201, 201, 0.5)', // 50% opacity of onSurfaceColor
     onPressColor: '#4a4a4a',
 }

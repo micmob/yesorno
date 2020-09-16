@@ -1,5 +1,16 @@
 import Category from '../models/category.js';
 import Question from '../models/question.js';
+import Hello from '../models/hello.js'
+
+export const HELLO = [
+    new Hello('h1', 'What\'s up?'),
+    new Hello('h2', 'What\'s good?'),
+    new Hello('h3', 'Hiya.'),
+    new Hello('h4', 'What\'s popping?'),
+    new Hello('h5', 'Hola.'),
+    new Hello('h6', 'Bonjour.'),
+    new Hello('h7', 'Buenas noches.'),
+]
 
 export const CATEGORIES = [
     new Category('c1', 'Adult'),
