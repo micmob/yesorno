@@ -35,8 +35,11 @@ const HomeHeader = () => {
     const SayHi = () => {
         let nr = Math.floor(Math.random() * Math.floor(HELLO.length));
         return(
+            // <TitleText style={styles.text}>
+            //     { HELLO[nr].name }
+            // </TitleText>
             <TitleText style={styles.text}>
-                { HELLO[nr].name }
+                How's it going?
             </TitleText>
         )
     }

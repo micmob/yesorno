@@ -16,7 +16,7 @@ const HotScreen = props => {
         .filter(item => now - item.date < three_days_ago)
         .sort((a, b) =>
                 (Math.log10(a.upvotes) + (now - a.date)/45000)
-                >
+                <
                 (Math.log10(b.upvotes) + (now - b.date)/45000));
 
     return (

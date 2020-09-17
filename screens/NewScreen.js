@@ -1,22 +1,28 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useState } from 'react';
+import { View, StyleSheet, Modal, Button } from 'react-native';
 import TitleText from '../components/TitleText';
 import Colors from '../constants/Colors';
 
 const NewScreen = () => {
+
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.insideContainer}>
-                <TitleText style={styles.title}>Type something..</TitleText>
+        <Modal>
+            <View style={styles.container}>
+                <View style={styles.insideContainer}>
+                    <TitleText style={styles.title}>Type something..</TitleText>
+                </View>
+                <Button title='Post' />
+                <Button title='Cancel' />
             </View>
-        </SafeAreaView>
+        </Modal>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height: 400,
+        width: 400,
+        borderRadius: 20,
         flexDirection: 'column',
         backgroundColor: Colors.backgroundColor,
         alignItems: 'center',

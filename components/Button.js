@@ -5,7 +5,6 @@ import TitleText from '../components/TitleText';
 
 const Button = props => {
     let color = props.style;
-    console.log(styles.button);
     return (
         <View style={[styles.button, color]}>
             <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(Colors.onPressColor, true)}>

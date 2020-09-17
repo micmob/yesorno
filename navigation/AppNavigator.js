@@ -1,11 +1,11 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, HeaderTitle } from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 
 import HomeScreen from '../screens/HomeScreen';
 import QuestionScreen from '../screens/QuestionScreen';
+import CategoryScreen from '../screens/CategoryScreen';
 import HotScreen from '../screens/HotScreen';
 import NewScreen from '../screens/NewScreen';
 import SearchScreen from '../screens/SearchScreen';
@@ -16,19 +16,20 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-const AppNavigator = () => {
+const AppNavigator = props => {
+
+    const [showNewScreen, setShowNewScreen] = useState(true);
 
     const HomeStack = () => {
         return (
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 <Stack.Screen name='Home' component={HomeScreen} />
                 <Stack.Screen name='Question' component={QuestionScreen} />
+                <Stack.Screen name='Category' component={CategoryScreen} />
+                <Stack.Screen name='New' component={NewScreen} />
             </Stack.Navigator>
         )
-
-
     }
-
 
     return (
         <NavigationContainer>
@@ -72,7 +73,16 @@ const AppNavigator = () => {
             })}>
                 <Tab.Screen name='Home' component={HomeStack} />
                 <Tab.Screen name='Hot' component={HotScreen}/>
-                <Tab.Screen name='New' component={NewScreen}/>
+                <Tab.Screen
+                    name='New'
+                    component={NewScreen}
+                    listeners={({ navigation }) => ({
+                        tabPress: event => {
+                            event.preventDefault();
+                            props.showNewModal(true);
+                        }
+                    })}
+                />
                 <Tab.Screen name='Search' component={SearchScreen}/>
                 <Tab.Screen name='Profile' component={ProfileScreen}/>
             </Tab.Navigator>

@@ -1,14 +1,30 @@
-import React from 'react';
-import { View, StyleSheet, FlatList, TouchableNativeFeedback } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, FlatList, TouchableNativeFeedback, RefreshControl } from 'react-native';
 import TitleText from '../components/TitleText'
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, withSafeAreaInsets } from 'react-native-safe-area-context';
 import Colors from '../constants/Colors';
 import Overline from './Overline';
 import HomeHeader from './HomeHeader';
 import HotHeader from './HotHeader';
-import QuestionActions from './QuestionActions'
+import QuestionActions from './QuestionActions';
+import DisplayCat from './DisplayCat';
+import { Grid, Col, Row } from 'react-native-easy-grid';
 
 const QuestionList = props => {
+
+    const [refreshing, setRefreshing] = useState(false);
+
+    function fetchData () {
+        return;
+    }
+
+    const onRefresh = () => {
+        setRefreshing(true);
+        setRefreshing(false); //delete this
+        // fetchData().then(() => {
+        //   setRefreshing(false);
+        // });
+    }
 
     const renderQuestion = itemData => {
         return (
@@ -16,18 +32,31 @@ const QuestionList = props => {
                 <TouchableNativeFeedback
                     background={TouchableNativeFeedback.Ripple(Colors.onPressColor)}
                     onPress={() => props.navigation.navigate(
-                        'Question',{
-                            question: itemData.item
-                        })}>
-                    <View style={styles.insideTouchable}>
-                        <Overline question={itemData.item} />
-                        <TitleText>
-                            {itemData.item.title}
-                        </TitleText>
-                        <QuestionActions question={itemData.item} />
+                        'Question', {
+                        question: itemData.item
+                    })}>
+                    <View style={styles.insideCard}>
+                        <View style={{ paddingHorizontal: 15 }}>
+                            <Overline question={itemData.item} />
+                            <TitleText>
+                                {itemData.item.title}
+                            </TitleText>
+                        </View>
+
+                        <Grid>
+                            <Col style={{ height: '100%', flex: 1, marginRight: 5, paddingLeft: 15 }}>
+                                <DisplayCat item={itemData.item.catId} />
+                            </Col>
+                            <Col style={{ height: '100%', flex: 0 }}>
+                                <QuestionActions question={itemData.item} />
+                            </Col>
+                        </Grid>
                     </View>
-                
+
+
                 </TouchableNativeFeedback>
+
+
             </View>
         )
     }
@@ -38,7 +67,19 @@ const QuestionList = props => {
                 data={props.questions}
                 keyExtractor={(item, index) => item.id}
                 renderItem={renderQuestion}
-                ListHeaderComponent={(props.routeName === 'Home') ? <HomeHeader /> : <HotHeader />}
+                ListHeaderComponent={() => {
+                    if(props.routeName === 'Home')
+                        return <HomeHeader />;
+                    else {
+                        return <HotHeader />;
+                    }
+                }}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                    />
+                }
             />
         </SafeAreaView>
 
@@ -59,10 +100,10 @@ const styles = StyleSheet.create({
         color: Colors.textColor,
         fontSize: 10,
     },
-    insideTouchable: {
+    insideCard: {
         flex: 1,
-        paddingHorizontal: 15,
         paddingVertical: 5,
+
     },
 });
 
