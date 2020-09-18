@@ -1,28 +1,33 @@
 import React from 'react';
-import { View, FlatList, StyleSheet, TouchableWithoutFeedback } from 'react-native';
-import SmallText from './SmallText';
-import { CATEGORIES } from '../data/dummy-data';
+import { View, FlatList, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import { Grid, Col } from 'react-native-easy-grid';
 import Colors from '../constants/Colors';
+import SmallText from './SmallText';
+import { CATEGORIES } from '../data/dummy-data';
 
 const DisplayCat = props => {
 
     const renderCat = itemData => {
         return (
             <Col>
-                <TouchableWithoutFeedback>
-                    <View style={styles.catContainer}>
-                        <SmallText style={{ color: Colors.surfaceColor, fontWeight: 'bold' }}>
-                            {CATEGORIES.filter(cat => cat.id === itemData.item)[0].title}
-                        </SmallText>
-                    </View>
-                </TouchableWithoutFeedback>
+                <View style={styles.catContainer}>
+                    <TouchableNativeFeedback
+                        onPress={() => props.navigation.navigate('Category', {id: itemData.item})}
+                        background={TouchableNativeFeedback.Ripple(Colors.brandColor, true)}>
+                        <View style={styles.textContainer}>
+                            <SmallText style={{ color: Colors.onSurfaceColor }}>
+                                {CATEGORIES.filter(cat => cat.id === itemData.item)[0].name}
+                            </SmallText>
+                        </View>
+    
+                    </TouchableNativeFeedback>
+                </View>
+    
             </Col>
-
         )
     }
-    return (
 
+    return (
         <Grid style={{ alignItems: 'center' }}>
             <FlatList
                 horizontal
@@ -42,13 +47,20 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
     },
-    catContainer: {
-        paddingHorizontal: 5,
-        marginRight: 5,
+    catContainer: {        
         borderRadius: 20,
-        backgroundColor: Colors.onSurfaceSmallColor,
-        alignItems: 'center',
-        justifyContent: 'center'
+        color: Colors.onSurfaceColor,
+        margin: 5,
+        fontSize: 14,
+        
+    },
+    textContainer: {
+        flex: 1,
+        borderWidth: 0.5,
+        borderColor: Colors.onSurfaceSmallColor,
+        paddingVertical: 2.5,
+        paddingHorizontal: 10,
+        borderRadius: 20,
     }
 })
 

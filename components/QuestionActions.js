@@ -31,7 +31,7 @@ const QuestionActions = props => {
                     </Col>
                     <Col style={[styles.center, { paddingLeft: 2, alignSelf: 'flex-end' }]}>
                         <View>
-                            <Icon name='arrow-up-bold-circle' color={upvoteButtonColor} size={25} />
+                            <Icon name='arrow-up-bold-circle' color={upvoteButtonColor} size={30} />
                         </View>
 
                     </Col>

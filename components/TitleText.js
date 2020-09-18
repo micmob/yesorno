@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
     titleText: {
         color: Colors.onSurfaceColor,
         fontSize: 18,
-        fontWeight: 'bold'
     }
 })
 

@@ -7,9 +7,9 @@ const Button = props => {
     let color = props.style;
     return (
         <View style={[styles.button, color]}>
-            <TouchableNativeFeedback background={TouchableNativeFeedback.Ripple(Colors.onPressColor, true)}>
-                <View style={styles.answerHolder}>
-                    <TitleText style={styles.answer}>{props.answer}</TitleText>
+            <TouchableNativeFeedback onPress={props.onButtonPress} background={TouchableNativeFeedback.Ripple(Colors.onPressColor, true)}>
+                <View style={styles.textHolder}>
+                    <TitleText style={styles.text}>{props.text}</TitleText>
                 </View>
             </TouchableNativeFeedback>
         </View>
@@ -22,11 +22,11 @@ const styles = StyleSheet.create({
         height: 70,
         borderRadius: 20,
     },
-    answer: {
+    text: {
         fontSize: 30,
         color: Colors.backgroundColor,
     },
-    answerHolder: {
+    textHolder: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',

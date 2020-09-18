@@ -19,8 +19,8 @@ const QuestionScreen = props => {
                 </View>
                 <TitleText style={styles.title}>{question.title}</TitleText>
                 <View style={styles.buttonsHolder}>
-                    <Button answer='NO' style={styles.negative}/>
-                    <Button answer='YES' style={styles.positive} />
+                    <Button text='NO' style={styles.negative}/>
+                    <Button text='YES' style={styles.positive} />
                 </View>
             </View>
         </SafeAreaView>

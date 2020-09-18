@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
-import TitleText from './TitleText';
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
 
 const HotHeader = () => {
@@ -20,11 +19,6 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         padding: 15,
     },
-    text: {
-        color: Colors.onBackgroundColor,
-        marginLeft: 10,
-        flex: 1,
-    }
 });
 
 export default HotHeader;

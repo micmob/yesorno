@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
@@ -17,8 +18,6 @@ const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const AppNavigator = props => {
-
-    const [showNewScreen, setShowNewScreen] = useState(true);
 
     const HomeStack = () => {
         return (
@@ -70,16 +69,20 @@ const AppNavigator = props => {
                     }
                     return <Icon name={iconName} size={25} color={iconColor} />;
                 }
-            })}>
+            })}
+            listeners={({navigation}) => ({
+                
+            })}
+            >
                 <Tab.Screen name='Home' component={HomeStack} />
                 <Tab.Screen name='Hot' component={HotScreen}/>
                 <Tab.Screen
                     name='New'
-                    component={NewScreen}
+                    component={HomeScreen}
                     listeners={({ navigation }) => ({
                         tabPress: event => {
                             event.preventDefault();
-                            props.showNewModal(true);
+                            props.showNewModal();
                         }
                     })}
                 />
