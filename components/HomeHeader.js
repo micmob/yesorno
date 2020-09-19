@@ -9,32 +9,6 @@ import SettingsIcon from 'react-native-vector-icons/SimpleLineIcons'
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 const HomeHeader = () => {
-
-    // const SayHi = () => {
-    //     let nr = Math.floor(Math.random() * Math.floor(HELLO.length));
-    //     return(
-    //         // <TitleText style={styles.text}>
-    //         //     { HELLO[nr].name }
-    //         // </TitleText>
-    //         <TitleText style={styles.text}>
-    //             How's it going?
-    //         </TitleText>
-    //     )
-    // }
-
-    // return(
-    //     <Grid style={styles.container}>
-    //         <Col style={[styles.center, {alignItems: 'center'}]}>
-    //             <SayHi />
-    //         </Col>
-    //         <Col style={styles.center}>
-    //             <View style={styles.settingsContainer}>
-    //                 <SettingsIcon name='settings' color={Colors.onBackgroundColor} size={25} />
-    //             </View>
-    //         </Col>
-            
-    //     </Grid>
-    // )
     return(
         <View style={styles.settingsContainer}>
             <SettingsIcon name='settings' color={Colors.onBackgroundColor} size={25} />

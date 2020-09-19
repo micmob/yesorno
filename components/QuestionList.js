@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, FlatList, TouchableNativeFeedback, RefreshControl, StatusBar } from 'react-native';
-import TitleText from '../components/TitleText'
+import {
+    View,
+    StyleSheet,
+    FlatList,
+    TouchableNativeFeedback,
+    RefreshControl,
+    StatusBar,
+} from 'react-native';
+import TitleText from '../components/TitleText';
 import Colors from '../constants/Colors';
 import Overline from './Overline';
 import HomeHeader from './HomeHeader';
@@ -9,9 +16,9 @@ import CategoryHeader from './CategoryHeader';
 import QuestionActions from './QuestionActions';
 import DisplayCat from './DisplayCat';
 import { Grid, Col, Row } from 'react-native-easy-grid';
+import CategoriesSmallList from './CategoriesSmallList';
 
-const QuestionList = props => {
-
+const QuestionList = (props) => {
     const [refreshing, setRefreshing] = useState(false);
 
     function fetchData() {
@@ -24,17 +31,22 @@ const QuestionList = props => {
         // fetchData().then(() => {
         //   setRefreshing(false);
         // });
-    }
+    };
 
-    const renderQuestion = itemData => {
+    const renderQuestion = (itemData) => {
         return (
             <View style={styles.card}>
                 <TouchableNativeFeedback
-                    background={TouchableNativeFeedback.Ripple(Colors.brandColor, true)}
-                    onPress={() => props.navigation.navigate(
-                        'Question', {
-                        question: itemData.item
-                    })}>
+                    background={TouchableNativeFeedback.Ripple(
+                        Colors.brandColor,
+                        true
+                    )}
+                    onPress={() =>
+                        props.navigation.navigate('Question', {
+                            question: itemData.item,
+                        })
+                    }
+                >
                     <View style={styles.insideCard}>
                         <View style={{ paddingHorizontal: 15 }}>
                             <Overline question={itemData.item} />
@@ -43,8 +55,18 @@ const QuestionList = props => {
                             </TitleText>
                         </View>
                         <Grid>
-                            <Col style={{ height: '100%', flex: 1, marginRight: 5, paddingLeft: 15 }}>
-                                <DisplayCat item={itemData.item.catId} navigation={props.navigation} />
+                            <Col
+                                style={{
+                                    height: '100%',
+                                    flex: 1,
+                                    marginRight: 5,
+                                    paddingLeft: 15,
+                                }}
+                            >
+                                <DisplayCat
+                                    item={itemData.item.catId}
+                                    navigation={props.navigation}
+                                />
                             </Col>
                             <Col style={{ height: '100%', flex: 0 }}>
                                 <QuestionActions question={itemData.item} />
@@ -52,11 +74,9 @@ const QuestionList = props => {
                         </Grid>
                     </View>
                 </TouchableNativeFeedback>
-
-
             </View>
-        )
-    }
+        );
+    };
 
     return (
         <View style={styles.container}>
@@ -64,16 +84,18 @@ const QuestionList = props => {
                 data={props.questions}
                 keyExtractor={(item, index) => item.id}
                 renderItem={renderQuestion}
-                ListHeaderComponent={itemData => {
-                    if (props.routeName === 'Home')
-                        return <HomeHeader />;
+                ListHeaderComponent={(itemData) => {
+                    if (props.routeName === 'Home') return <HomeHeader />;
                     else {
                         if (props.routeName === 'Hot') {
                             return <HotHeader />;
+                        } else {
+                            if (props.routeName === 'Search') {
+                                return <View style={{paddingHorizontal: 20, paddingBottom: 20}}><CategoriesSmallList /></View>;
+                            } else {
+                                return null;
+                            }
                         }
-                        else {
-                            return null;
-                        }                        
                     }
                 }}
                 refreshControl={
@@ -84,9 +106,8 @@ const QuestionList = props => {
                 }
             />
         </View>
-
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -98,6 +119,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         backgroundColor: Colors.surfaceColor,
         borderRadius: 20,
+        marginHorizontal: 5,
     },
     date: {
         color: Colors.textColor,
@@ -106,11 +128,10 @@ const styles = StyleSheet.create({
     insideCard: {
         flex: 1,
         paddingVertical: 5,
-
     },
     title: {
-        marginVertical: 5
-    }
+        marginVertical: 5,
+    },
 });
 
 export default QuestionList;
