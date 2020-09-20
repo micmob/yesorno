@@ -1,37 +1,213 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useState } from 'react';
+import {
+    View,
+    Image,
+    StyleSheet,
+    StatusBar,
+    TouchableWithoutFeedback,
+} from 'react-native';
 import TitleText from '../components/TitleText';
+import SmallText from '../components/SmallText';
 import Colors from '../constants/Colors';
+import { Grid, Col, Row } from 'react-native-easy-grid';
+import Stats from '../components/Stats';
+import { QUESTIONS } from '../data/dummy-data';
+import QuestionList from '../components/QuestionList';
 
-const ProfileScreen = () => {
+const ProfileScreen = (props) => {
+    const [questions, setQuestions] = useState(QUESTIONS);
+
+    const [postsColor, setPostsColor] = useState(Colors.onBackgroundColor);
+
+    const [upvotedColor, setUpvotedColor] = useState(Colors.onBackgroundColor);
+
+    const onQuestions = (q) => {
+        setQuestions(q);
+    };
+
+    const onMenuPress = buttonName => {
+        if(buttonName === 'Posts') {
+            setQuestions(QUESTIONS); //TODO
+            setPostsColor(Colors.brandColor);
+            setUpvotedColor(Colors.onBackgroundColor);
+        } else {
+            setQuestions(QUESTIONS); //TODO
+            setUpvotedColor(Colors.brandColor);
+            setPostsColor(Colors.onBackgroundColor);
+        }
+    }
+
+    const Header = () => {
+        return (
+            <Row style={[styles.row, { height: 120 }]}>
+                <View style={[styles.center, { paddingRight: 20 }]}>
+                    <Image
+                        source={{
+                            uri: 'https://reactjs.org/logo-og.png',
+                        }}
+                        style={styles.image}
+                    />
+                </View>
+                <View style={[styles.center, { flex: 1 }]}>
+                    <TitleText style={styles.username}>
+                        scottytoohottie
+                    </TitleText>
+                </View>
+            </Row>
+        );
+    };
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <View style={styles.insideContainer}>
-                <TitleText style={styles.title}>Your profile.</TitleText>
+                <Grid style={{ height: 250, flex: 0 }}>
+                    <Header />
+                    <Row style={[styles.row, { height: 70 }]}>
+                        <Stats
+                            iconName="arrow-up"
+                            value="3.1k"
+                            text="Most"
+                            borderWidth={0.5}
+                        />
+                        <Stats
+                            iconName="arrow-up"
+                            value="1.3m"
+                            text="Total"
+                            borderWidth={0.5}
+                        />
+                        <Stats
+                            iconName="pen"
+                            value="1438"
+                            text="Posts"
+                            borderWidth={0}
+                        />
+                    </Row>
+                    <Row style={styles.contentRow}>
+                        <Grid style={{ height: 50 }}>
+                            <Row style={styles.menuRow}>
+                                <TouchableWithoutFeedback
+                                    onPress={() => {
+                                        onMenuPress('Posts');
+                                    }}
+                                >
+                                    <Col style={styles.menuCol}>
+                                        <TitleText
+                                            style={[
+                                                styles.menuText,
+                                                { color: postsColor },
+                                            ]}
+                                        >
+                                            Posts
+                                        </TitleText>
+                                    </Col>
+                                </TouchableWithoutFeedback>
+
+                                <TouchableWithoutFeedback
+                                    onPress={() => {
+                                        onMenuPress('Upvoted');
+                                    }}
+                                >
+                                    <Col
+                                        style={[
+                                            styles.menuCol,
+                                            { borderLeftWidth: 0.5 },
+                                        ]}
+                                    >
+                                        <TitleText
+                                            style={[
+                                                styles.menuText,
+                                                { color: upvotedColor },
+                                            ]}
+                                        >
+                                            Upvoted
+                                        </TitleText>
+                                    </Col>
+                                </TouchableWithoutFeedback>
+                            </Row>
+                        </Grid>
+                    </Row>
+                </Grid>
+                <View style={{ flex: 1, marginHorizontal: 5 }}>
+                    <QuestionList
+                        questions={questions}
+                        navigation={props.navigation}
+                        routeName="Profile"
+                    />
+                </View>
             </View>
-        </SafeAreaView>
-    )
-}
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
         backgroundColor: Colors.backgroundColor,
-        alignItems: 'center',
-        justifyContent: 'center',
+        paddingTop: StatusBar.currentHeight,
+    },
+    insideContainer: {
+        flex: 1,
+        paddingTop: 10,
     },
     title: {
         fontSize: 30,
         fontWeight: 'bold',
         textAlign: 'center',
         color: Colors.onBackgroundColor,
-        marginBottom: 70,
-        marginTop: 20,
     },
-    insideContainer: {
-        padding: 20,
+    center: {
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+    },
+    image: {
+        width: 100,
+        height: 100,
+        borderRadius: 100,
+    },
+    row: {
+        flex: 0,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+    },
+    username: {
+        color: Colors.onBackgroundColor,
+        fontSize: 25,
+        fontWeight: 'bold',
+    },
+    icon: {
+        borderRadius: 100,
+        width: 20,
+        backgroundColor: Colors.brandColor,
+    },
+    insideCol: {
+        height: 30,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    centerCol: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 0,
+        paddingVertical: 2,
+    },
+    menuRow: {
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    menuCol: {
+        height: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: Colors.onBackgroundColor,
+    },
+    contentRow: {
+        flex: 1,
+        paddingTop: 10,
+        paddingHorizontal: 5,
+        height: 50,
+    },
+    menuText: {
+        fontWeight: 'bold',
     },
 });
 

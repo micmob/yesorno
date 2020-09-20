@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     },
     selectedTagStyle: {
         backgroundColor: Colors.brandColor,
+        color: Colors.backgroundColor,
     },
     tagContainerStyle: {
         flexDirection: 'row',

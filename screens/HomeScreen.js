@@ -21,6 +21,9 @@ const HomeScreen = (props) => {
           questions={questions}
           navigation={props.navigation}
           routeName="Home"
+          backgroundColor={Colors.surfaceColor}
+          textColor={Colors.onSurfaceColor}
+          smallTextColor={Colors.onSurfaceSmallColor}
         />
       </View>
     </View>

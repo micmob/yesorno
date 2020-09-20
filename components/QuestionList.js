@@ -12,7 +12,6 @@ import Colors from '../constants/Colors';
 import Overline from './Overline';
 import HomeHeader from './HomeHeader';
 import HotHeader from './HotHeader';
-import CategoryHeader from './CategoryHeader';
 import QuestionActions from './QuestionActions';
 import DisplayCat from './DisplayCat';
 import { Grid, Col, Row } from 'react-native-easy-grid';
@@ -91,7 +90,16 @@ const QuestionList = (props) => {
                             return <HotHeader />;
                         } else {
                             if (props.routeName === 'Search') {
-                                return <View style={{paddingHorizontal: 20, paddingBottom: 20}}><CategoriesSmallList /></View>;
+                                return (
+                                    <View
+                                        style={{
+                                            paddingHorizontal: 20,
+                                            paddingBottom: 20,
+                                        }}
+                                    >
+                                        <CategoriesSmallList />
+                                    </View>
+                                );
                             } else {
                                 return null;
                             }
@@ -113,17 +121,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: Colors.backgroundColor,
     },
     card: {
         marginBottom: 5,
-        backgroundColor: Colors.surfaceColor,
         borderRadius: 20,
         marginHorizontal: 5,
-    },
-    date: {
-        color: Colors.textColor,
-        fontSize: 10,
+        backgroundColor: Colors.surfaceColor,
     },
     insideCard: {
         flex: 1,

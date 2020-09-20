@@ -38,7 +38,6 @@ const SearchScreen = (props) => {
 
     const onKeyword = (text) => {
         setKeyword(text);
-        console.log(text);
     };
 
     const onSearch = (text) => {

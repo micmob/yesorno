@@ -6,13 +6,23 @@ export default {
     positiveColor: '#cfff8c',
     negativeColor: '#ffa3a3',
 
-    brandColor: '#b173ff',
-    backgroundColor: '#121212',
-    surfaceColor: '#1d1d1d',
-    onBackgroundColor: '#aeaeae',
-    onSurfaceColor: '#bababa',
-    onSurfaceSmallColor: 'rgba(201, 201, 201, 0.5)', // 50% opacity of onSurfaceColor
-    onPressColor: '#4a4a4a',
+    brandColor: '#87cc87',
+    accentColor: '#87cc87',
+    backgroundColor: '#1f201f',
+    surfaceColor: '#2c2c2c',
+    onBackgroundColor: '#8b8c8b',
+    onSurfaceColor: '#b2b2b2',
+    onSurfaceSmallColor: '#787978', // 50% opacity of onSurfaceColor
+    elevatedColor: '#414141',
+    onElevatedColor: '#d3d3d3',
+    onElevatedSmallColor: '#bdbdbd',
 }
 
 //brand color #180036
+// brandColor: '#b173ff',
+//     backgroundColor: '#121212',
+//     surfaceColor: '#1d1d1d',
+//     onBackgroundColor: '#aeaeae',
+//     onSurfaceColor: '#bababa',
+//     onSurfaceSmallColor: 'rgba(201, 201, 201, 0.5)', // 50% opacity of onSurfaceColor
+//     onPressColor: '#4a4a4a',

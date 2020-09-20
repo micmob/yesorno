@@ -27,6 +27,9 @@ const HotScreen = props => {
                     questions={questions}
                     navigation={props.navigation}
                     routeName='Hot'
+                    backgroundColor={Colors.surfaceColor}
+                    textColor={Colors.onSurfaceColor}
+                    smallTextColor={Colors.onSurfaceSmallColor}
                 />
             </View>
         </View>

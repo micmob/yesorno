@@ -1,8 +1,7 @@
 import React from 'react';
-import SmallText from './SmallText'
+import SmallText from './SmallText';
 
-const RelativeTime = props => {
-
+const RelativeTime = (props) => {
     var msPerMinute = 60 * 1000;
     var msPerHour = msPerMinute * 60;
     var msPerDay = msPerHour * 24;
@@ -14,49 +13,38 @@ const RelativeTime = props => {
     if (elapsed < msPerMinute) {
         return (
             <SmallText>Now</SmallText>
-        )
-    }
-
-    else if (elapsed < msPerHour) {
+        );
+    } else if (elapsed < msPerHour) {
         return (
             <SmallText>
                 {Math.round(elapsed / msPerMinute)}m ago
             </SmallText>
-        )
-    }
-
-    else if (elapsed < msPerDay) {
+        );
+    } else if (elapsed < msPerDay) {
         return (
             <SmallText>
                 {Math.round(elapsed / msPerHour)}h ago
             </SmallText>
-        )
-    }
-
-    else if (elapsed < msPerMonth) {
+        );
+    } else if (elapsed < msPerMonth) {
         return (
             <SmallText>
                 {Math.round(elapsed / msPerDay)}d ago
             </SmallText>
-        )
-    }
-
-    else if (elapsed < msPerYear) {
+        );
+    } else if (elapsed < msPerYear) {
         return (
             <SmallText>
                 {Math.round(elapsed / msPerMonth)}mo ago
             </SmallText>
-        )
-    }
-
-    else {
+        );
+    } else {
         return (
             <SmallText>
                 {Math.round(elapsed / msPerYear)}y ago
             </SmallText>
-        )
+        );
     }
-
-}
+};
 
 export default RelativeTime;
