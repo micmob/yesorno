@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, StatusBar } from 'react-native';
 import { useSelector } from 'react-redux';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import QuestionList from '../components/QuestionList';
 import Colors from '../constants/Colors';
 
 const HomeScreen = (props) => {
-    const questions = useSelector(
+
+    const [questions, setQuestions] = useState([]);
+
+    const filteredQuestions = useSelector(
         (state) => state.questions.filteredQuestions
-    ).sort((a, b) => a.upvotes < b.upvotes);
+    );
+
+    useEffect(() => {
+        setQuestions(filteredQuestions.sort((a, b) => a.upvotes < b.upvotes));
+    }, [filteredQuestions]);
+    
 
     return (
-        <View style={styles.container}>
+        <LinearGradient colors={[Colors.backgroundColor, Colors.backgroundColorGradient]} style={styles.container}>
             <View style={styles.insideContainer}>
                 <QuestionList
                     questions={questions}
@@ -20,14 +29,13 @@ const HomeScreen = (props) => {
                     backgroundColor={Colors.surfaceColor}
                 />
             </View>
-        </View>
+        </LinearGradient>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.backgroundColor,
     },
     insideContainer: {
         paddingTop: StatusBar.currentHeight,

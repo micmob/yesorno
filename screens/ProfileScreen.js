@@ -7,6 +7,7 @@ import {
     TouchableWithoutFeedback,
 } from 'react-native';
 import { Grid, Col, Row } from 'react-native-easy-grid';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import TitleText from '../components/TitleText';
 import Colors from '../constants/Colors';
@@ -16,8 +17,8 @@ import { useSelector } from 'react-redux';
 
 const ProfileScreen = (props) => {
 
-    const allQuestions = useSelector(state => state.questions.allQuestions);
-    const upvotedQuestions = useSelector(state => state.questions.upvotedQuestions);
+    const allQuestions = useSelector(state => state.questions.allQuestions).sort((a, b) => a.date < b.date);
+    const upvotedQuestions = useSelector(state => state.questions.upvotedQuestions).sort((a, b) => a.date < b.date);
 
     const [questions, setQuestions] = useState(allQuestions);
 
@@ -61,7 +62,7 @@ const ProfileScreen = (props) => {
         );
     };
     return (
-        <View style={styles.container}>
+        <LinearGradient colors={[Colors.backgroundColor, Colors.backgroundColorGradient]} style={styles.container}>
             <View style={styles.insideContainer}>
                 <Grid style={{ height: 250, flex: 0 }}>
                     <Header />
@@ -138,14 +139,13 @@ const ProfileScreen = (props) => {
                     />
                 </View>
             </View>
-        </View>
+        </LinearGradient>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.backgroundColor,
         paddingTop: StatusBar.currentHeight,
     },
     insideContainer: {

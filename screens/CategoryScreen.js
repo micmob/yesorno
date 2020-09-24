@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, StatusBar } from "react-native";
 import { useSelector } from 'react-redux';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import QuestionList from "../components/QuestionList";
 import Colors from "../constants/Colors";
@@ -11,7 +12,7 @@ const CategoryScreen = (props) => {
     (item) => item.catId.find(catId => catId === props.route.params.id)).sort((a, b) => a.upvotes < b.upvotes);
 
   return (
-    <View style={styles.screen}>
+    <LinearGradient colors={[Colors.backgroundColor, Colors.backgroundColorGradient]} style={styles.screen}>
       <View style={styles.container}>
         <CategoryHeader id={props.route.params.id} />
       </View>
@@ -22,7 +23,7 @@ const CategoryScreen = (props) => {
           routeName="Category"
         />
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -30,10 +31,6 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
-    backgroundColor: Colors.backgroundColor,
-  },
-  container: {
-    backgroundColor: Colors.backgroundColor,
   },
   insideContainer: {
     flex: 1,

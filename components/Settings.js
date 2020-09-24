@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Modal from 'react-native-modal';
-import Slider from 'react-native-slider';
+import Slider from '@react-native-community/slider';
 import ModalIcon from 'react-native-vector-icons/AntDesign';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Colors from '../constants/Colors';
 import SmallText from './SmallText';
@@ -14,13 +14,11 @@ import { FILTER } from '../constants/Filters';
 const Settings = (props) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const [sliderLabel, setSliderLabel] = useState('last 24 Hours');
+    const [sliderLabel, setSliderLabel] = useState(props.initialSliderLabel);
     const [sliderFinalValue, setSliderFinalValue] = useState(0);
 
     const dispatch = useDispatch();
-    //dispatch(filterQuestions(props.defaultFilter));
-    //TO DO: add default filter
-    
+
     const changeSliderLabel = (label) => {
         setSliderLabel(label);
     };
@@ -39,7 +37,11 @@ const Settings = (props) => {
                 if (value === 2) {
                     changeSliderLabel('last month');
                 } else {
-                    changeSliderLabel('last year');
+                    if (value === 3) {
+                        changeSliderLabel('last year');
+                    } else {
+                        changeSliderLabel('all time');
+                    }
                 }
             }
         }
@@ -47,24 +49,28 @@ const Settings = (props) => {
 
     const handleSlidingComplete = (value) => {
         setSliderFinalValue(value);
-    }
+    };
 
     const handleCheckPress = () => {
         toggleModal();
-        if(sliderFinalValue === 0) {
+        if (sliderFinalValue === 0) {
             dispatch(filterQuestions(FILTER.LAST_24_HOURS));
         } else {
-            if(sliderFinalValue === 1) {
+            if (sliderFinalValue === 1) {
                 dispatch(filterQuestions(FILTER.LAST_WEEK));
             } else {
-                if(sliderFinalValue === 1) {
+                if (sliderFinalValue === 2) {
                     dispatch(filterQuestions(FILTER.LAST_MONTH));
                 } else {
-                    dispatch(filterQuestions(FILTER.LAST_YEAR));
+                    if (sliderFinalValue === 3) {
+                        dispatch(filterQuestions(FILTER.LAST_YEAR));
+                    } else {
+                        dispatch(filterQuestions(FILTER.ALL_TIME));
+                    }
                 }
             }
         }
-    }
+    };
 
     const Button = (props) => {
         return (
@@ -146,13 +152,12 @@ const Settings = (props) => {
                             onSlidingComplete={(value) => {
                                 handleSlidingComplete(value);
                             }}
-                            value={0}
+                            value={props.sliderInitialValue}
                             minimumValue={0}
-                            maximumValue={3}
+                            maximumValue={4}
                             minimumTrackTintColor="#FFFFFF"
                             maximumTrackTintColor="#000000"
                             step={1}
-                            animationType="spring"
                             thumbTintColor={Colors.brandColor}
                             minimumTrackTintColor={Colors.brandColor}
                             maximumTrackTintColor={Colors.onSurfaceColor}

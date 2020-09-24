@@ -4,7 +4,7 @@ import { FILTER } from '../../constants/Filters';
 
 const initialState = {
     allQuestions: QUESTIONS,
-    filteredQuestions: QUESTIONS,
+    filteredQuestions: QUESTIONS.filter(ques => Math.abs(new Date() - ques.date) < 60 * 1000 * 60 * 24 * 7),
     upvotedQuestions: [],
 };
 
@@ -50,14 +50,19 @@ const questionsReducer = (state = initialState, action) => {
 
             switch (appliedFilter) {
                 case FILTER.LAST_24_HOURS:
-                    console.log('last 24 hours');
                     return filter(state, msPerDay);
                 case FILTER.LAST_WEEK:
-                    return filter(state, msPerDay*7);
+                    return filter(state, msPerDay * 7);
                 case FILTER.LAST_MONTH:
                     return filter(state, msPerMonth);
                 case FILTER.LAST_YEAR:
                     return filter(state, msPerYear);
+                case FILTER.ALL_TIME:
+                    const updatedFilteredQuestions = [...state.allQuestions];
+                    return {
+                        ...state,
+                        filteredQuestions: updatedFilteredQuestions,
+                    };
                 default:
                     return state;
             }

@@ -2,13 +2,14 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import TagSelector from 'react-native-tag-selector';
 import Colors from '../constants/Colors';
+import { CATEGORIES } from '../data/dummy-data';
 
 const CategoriesSmallList = props => {
 
     return (
         <TagSelector
             maxHeight={70}
-            tags={tags}
+            tags={CATEGORIES}
             onChange={(selected) => {if(selected.length > 3){
                 selected.pop();
                 alert('You cannot select more than 3 categories.');
@@ -32,11 +33,11 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         borderRadius: 20,
         alignSelf: 'center',
-        color: Colors.onSurfaceColor,
+        color: Colors.onBackgroundColor,
         margin: 5,
         fontSize: 14,
         borderWidth: 0.5,
-        borderColor: Colors.onSurfaceSmallColor,
+        borderColor: Colors.onBackgroundSmallColor,
     },
     selectedTagStyle: {
         backgroundColor: Colors.brandColor,

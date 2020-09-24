@@ -6,25 +6,17 @@ export default {
     positiveColor: '#cfff8c',
     negativeColor: '#ffa3a3',
 
-    brandColor: '#87cc87',
-    accentColor: '#87cc87',
-    backgroundColor: '#1f201f',
-    surfaceColor: '#2c2c2c',
-    onBackgroundColor: '#8f8f8f',
-    onBackgroundSmallColor: '#626262',
-    onBackgroundSeparatorColor: '#4b4c4b',
-    onSurfaceColor: '#aaaaaa',
-    onSurfaceSmallColor: '#787978',
+    brandColor: '#ff2e2e',
+    accentColor: '#ff2e2e',
+    backgroundColor: '#212121',
+    backgroundColorGradient: '#400b0b',
+    surfaceColor: '#212121', //modify app.json as well
+    onBackgroundColor: '#b4b4b8',
+    onBackgroundSmallColor: '#6e6e70',
+    onBackgroundSeparatorColor: '#39393b',
+    onSurfaceColor: '#b4b4b8',
+    onSurfaceSmallColor: '#6e6e70',
     elevatedColor: '#414141',
     onElevatedColor: '#d3d3d3',
     onElevatedSmallColor: '#bdbdbd',
 }
-
-//brand color #180036
-// brandColor: '#b173ff',
-//     backgroundColor: '#121212',
-//     surfaceColor: '#1d1d1d',
-//     onBackgroundColor: '#aeaeae',
-//     onSurfaceColor: '#bababa',
-//     onSurfaceSmallColor: 'rgba(201, 201, 201, 0.5)', // 50% opacity of onSurfaceColor
-//     onPressColor: '#4a4a4a',

@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useSelector } from 'react-redux';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import SmallText from '../components/SmallText';
 import DefaultTextInput from '../components/DefaultTextInput';
@@ -65,7 +66,7 @@ const SearchScreen = (props) => {
     };
 
     return (
-        <View style={styles.container}>
+        <LinearGradient colors={[Colors.backgroundColor, Colors.backgroundColorGradient]} style={styles.container}>
             <View style={styles.insideContainer}>
                 <View style={styles.inputContainer}>
                     <View style={{ flex: 1 }}>
@@ -130,7 +131,7 @@ const SearchScreen = (props) => {
                     )}
                 </View>
             </View>
-        </View>
+        </LinearGradient>
     );
 };
 
@@ -138,7 +139,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: Colors.backgroundColor,
         paddingTop: StatusBar.currentHeight,
     },
     title: {
@@ -166,7 +166,6 @@ const styles = StyleSheet.create({
     },
     listContainer: {
         flex: 1,
-        backgroundColor: Colors.backgroundColor,
     },
     listInsideContainer: {
         flex: 1,

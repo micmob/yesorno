@@ -1,10 +1,9 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import Colors from '../constants/Colors';
 import TitleText from '../components/TitleText'
-
-import { SafeAreaView } from 'react-native-safe-area-context';
 import Overline from '../components/Overline';
 import Button from '../components/Button';
 
@@ -12,7 +11,7 @@ const QuestionScreen = props => {
     let question = props.route.params.question;
 
     return (
-        <SafeAreaView style={styles.container}>
+        <LinearGradient colors={[Colors.backgroundColor, Colors.backgroundColorGradient]} style={styles.container}>
             <View style={styles.insideContainer}>
                 <View style={styles.overline}>
                     <Overline question={question} />
@@ -23,7 +22,7 @@ const QuestionScreen = props => {
                     <Button text='YES' style={styles.positive} />
                 </View>
             </View>
-        </SafeAreaView>
+        </LinearGradient>
 
     )
 }
@@ -32,7 +31,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: Colors.backgroundColor,
         alignItems: 'center',
         justifyContent: 'center',
     },
