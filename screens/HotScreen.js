@@ -1,20 +1,16 @@
 import React from 'react';
 import { View, StyleSheet, StatusBar } from 'react-native';
+import { useSelector } from 'react-redux';
 
-import { QUESTIONS } from '../data/dummy-data';
 import QuestionList from '../components/QuestionList';
 import Colors from '../constants/Colors';
 
 const HotScreen = props => {
-
-    const three_days_ago = 3 * 24 * 60 * 60 * 1000;
-
     //yoinked from Reddit
 
     const now = new Date();
     const questions =
-        QUESTIONS
-            .filter(item => now - item.date < three_days_ago)
+        useSelector(state => state.questions.filteredQuestions)
             .sort((a, b) =>
                 (Math.log10(a.upvotes) + (now - a.date) / 45000)
                 <
@@ -28,8 +24,6 @@ const HotScreen = props => {
                     navigation={props.navigation}
                     routeName='Hot'
                     backgroundColor={Colors.surfaceColor}
-                    textColor={Colors.onSurfaceColor}
-                    smallTextColor={Colors.onSurfaceSmallColor}
                 />
             </View>
         </View>

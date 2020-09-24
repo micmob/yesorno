@@ -8,7 +8,7 @@ const SmallText = ({style, ...props}) => (
 
 const styles = StyleSheet.create({
     smallText: {
-        color: Colors.onSurfaceSmallColor,
+        color: Colors.onBackgroundSmallColor,
         fontSize: 14,
     }
 })

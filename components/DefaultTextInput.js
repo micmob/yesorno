@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Keyboard } from 'react-native';
 import { TextInput } from 'react-native';
 import Colors from '../constants/Colors';
 
@@ -10,12 +10,13 @@ const DefaultTextInput = (props) => {
             onChangeText={(keyword) => {
                 if (props.routeName === 'Search') {
                     props.searchKeyword(keyword);
-                } else {
-                    console.log(keyword);
                 }
             }}
             onSubmitEditing={(event) => {
-                props.onSubmitEditing(event.nativeEvent.text);
+                if (props.routeName === 'Search') {
+                    Keyboard.dismiss();
+                    props.onSubmitEditing(event.nativeEvent.text);
+                }
             }}
             placeholder={props.placeholder}
             placeholderTextColor={Colors.onSurfaceSmallColor}
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: Colors.surfaceColor,
         textAlignVertical: 'top',
-        color: Colors.onSurfaceColor,
+        color: Colors.onBackgroundColor,
         fontSize: 18,
         padding: 15,
         borderRadius: 20,

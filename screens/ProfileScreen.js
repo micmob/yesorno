@@ -6,18 +6,22 @@ import {
     StatusBar,
     TouchableWithoutFeedback,
 } from 'react-native';
-import TitleText from '../components/TitleText';
-import SmallText from '../components/SmallText';
-import Colors from '../constants/Colors';
 import { Grid, Col, Row } from 'react-native-easy-grid';
+
+import TitleText from '../components/TitleText';
+import Colors from '../constants/Colors';
 import Stats from '../components/Stats';
-import { QUESTIONS } from '../data/dummy-data';
 import QuestionList from '../components/QuestionList';
+import { useSelector } from 'react-redux';
 
 const ProfileScreen = (props) => {
-    const [questions, setQuestions] = useState(QUESTIONS);
 
-    const [postsColor, setPostsColor] = useState(Colors.onBackgroundColor);
+    const allQuestions = useSelector(state => state.questions.allQuestions);
+    const upvotedQuestions = useSelector(state => state.questions.upvotedQuestions);
+
+    const [questions, setQuestions] = useState(allQuestions);
+
+    const [postsColor, setPostsColor] = useState(Colors.brandColor);
 
     const [upvotedColor, setUpvotedColor] = useState(Colors.onBackgroundColor);
 
@@ -27,11 +31,11 @@ const ProfileScreen = (props) => {
 
     const onMenuPress = buttonName => {
         if(buttonName === 'Posts') {
-            setQuestions(QUESTIONS); //TODO
+            setQuestions(allQuestions); //TODO
             setPostsColor(Colors.brandColor);
             setUpvotedColor(Colors.onBackgroundColor);
-        } else {
-            setQuestions(QUESTIONS); //TODO
+        } else { //buttonName === 'Upvoted'
+            setQuestions(upvotedQuestions); //TODO
             setUpvotedColor(Colors.brandColor);
             setPostsColor(Colors.onBackgroundColor);
         }
@@ -198,7 +202,7 @@ const styles = StyleSheet.create({
         height: 35,
         justifyContent: 'center',
         alignItems: 'center',
-        borderColor: Colors.onBackgroundColor,
+        borderColor: Colors.onBackgroundSeparatorColor,
     },
     contentRow: {
         flex: 1,

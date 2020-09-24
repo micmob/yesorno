@@ -5,7 +5,6 @@ import {
     FlatList,
     TouchableNativeFeedback,
     RefreshControl,
-    StatusBar,
 } from 'react-native';
 import TitleText from '../components/TitleText';
 import Colors from '../constants/Colors';
@@ -16,6 +15,7 @@ import QuestionActions from './QuestionActions';
 import DisplayCat from './DisplayCat';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import CategoriesSmallList from './CategoriesSmallList';
+import { useSelector } from 'react-redux';
 
 const QuestionList = (props) => {
     const [refreshing, setRefreshing] = useState(false);
@@ -37,8 +37,7 @@ const QuestionList = (props) => {
             <View style={styles.card}>
                 <TouchableNativeFeedback
                     background={TouchableNativeFeedback.Ripple(
-                        Colors.brandColor,
-                        true
+                        Colors.brandColor
                     )}
                     onPress={() =>
                         props.navigation.navigate('Question', {
@@ -77,12 +76,17 @@ const QuestionList = (props) => {
         );
     };
 
+    const renderSeparator = () => (
+        <View style={styles.separator}></View>
+    )
+
     return (
         <View style={styles.container}>
             <FlatList
                 data={props.questions}
                 keyExtractor={(item, index) => item.id}
                 renderItem={renderQuestion}
+                ItemSeparatorComponent={renderSeparator}
                 ListHeaderComponent={(itemData) => {
                     if (props.routeName === 'Home') return <HomeHeader />;
                     else {
@@ -123,10 +127,13 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     card: {
-        marginBottom: 5,
-        borderRadius: 20,
         marginHorizontal: 5,
-        backgroundColor: Colors.surfaceColor,
+        flex: 1,
+    },
+    separator: {
+        marginHorizontal: 10,
+        height: 0.5,
+        backgroundColor: Colors.onBackgroundSeparatorColor,
     },
     insideCard: {
         flex: 1,

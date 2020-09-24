@@ -1,0 +1,7 @@
+export const FILTER = {
+    LAST_24_HOURS: 'LAST_24_HOURS',
+    LAST_WEEK: 'LAST_WEEK',
+    LAST_MONTH: 'LAST_MONTH',
+    LAST_YEAR: 'LAST_YEAR',
+    ALL_TIME: 'ALL_TIME',
+}

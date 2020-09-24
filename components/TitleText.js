@@ -8,7 +8,7 @@ const TitleText = ({style, ...props}) => (
 
 const styles = StyleSheet.create({
     titleText: {
-        color: Colors.onSurfaceColor,
+        color: Colors.onBackgroundColor,
         fontSize: 18,
     }
 })

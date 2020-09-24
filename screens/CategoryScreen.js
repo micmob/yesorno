@@ -1,14 +1,14 @@
 import React from "react";
 import { View, StyleSheet, StatusBar } from "react-native";
-import { QUESTIONS } from "../data/dummy-data";
+import { useSelector } from 'react-redux';
+
 import QuestionList from "../components/QuestionList";
 import Colors from "../constants/Colors";
 import CategoryHeader from "../components/CategoryHeader";
 
 const CategoryScreen = (props) => {
-  const questions = QUESTIONS.filter(
-    (item) => item.catId.filter((cat) => cat === props.route.params.id)[0]
-  ).sort((a, b) => a.upvotes < b.upvotes);
+  const questions = useSelector(state => state.questions.allQuestions).filter(
+    (item) => item.catId.find(catId => catId === props.route.params.id)).sort((a, b) => a.upvotes < b.upvotes);
 
   return (
     <View style={styles.screen}>

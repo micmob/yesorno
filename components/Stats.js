@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 0,
-        borderRightColor: Colors.onSurfaceSmallColor,
+        borderRightColor: Colors.onBackgroundSeparatorColor,
         paddingHorizontal: 20,
     },
     center: {

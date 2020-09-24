@@ -1,14 +1,24 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Modal from 'react-native-modal';
-import Colors from './constants/Colors';
 import { StatusBar } from 'expo-status-bar';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
+
+import Colors from './constants/Colors';
 import AppNavigator from './navigation/AppNavigator';
 import TitleText from './components/TitleText';
 import { CATEGORIES } from './data/dummy-data';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import CategoriesSmallList from './components/CategoriesSmallList';
 import DefaultTextInput from './components/DefaultTextInput';
+import questionsReducer from './store/reducers/questions';
+
+const rootReducer = combineReducers({
+    questions: questionsReducer,
+});
+
+const store = createStore(rootReducer);
 
 export default function App() {
     const [newModal, setNewModal] = useState(false);
@@ -20,45 +30,47 @@ export default function App() {
     tags = CATEGORIES;
 
     return (
-        <View style={styles.container}>
-            <Modal
-                isVisible={newModal}
-                onBackButtonPress={toggleModal}
-                useNativeDriver={true}
-                animationIn="slideInDown"
-                animationOut="slideOutUp"
-                animationInTiming={200}
-                animationOutTiming={200}
-                backdropOpacity={1}
-                backdropColor={Colors.backgroundColor}
-                style={styles.modal}
-            >
-                <View style={styles.insideModal}>
-                    <View style={styles.headerContainer}>
-                        <TitleText style={styles.header}>New</TitleText>
-                        <View style={styles.iconContainer}>
-                            <Icon
-                                name="paper-plane"
-                                color={Colors.backgroundColor}
-                                size={25}
-                                style={styles.icon}
-                            />
+        <Provider store={store}>
+            <View style={styles.container}>
+                <Modal
+                    isVisible={newModal}
+                    onBackButtonPress={toggleModal}
+                    useNativeDriver={true}
+                    animationIn="slideInDown"
+                    animationOut="slideOutUp"
+                    animationInTiming={200}
+                    animationOutTiming={200}
+                    backdropOpacity={1}
+                    backdropColor={Colors.backgroundColor}
+                    style={styles.modal}
+                >
+                    <View style={styles.insideModal}>
+                        <View style={styles.headerContainer}>
+                            <TitleText style={styles.header}>New</TitleText>
+                            <View style={styles.iconContainer}>
+                                <Icon
+                                    name="paper-plane"
+                                    color={Colors.backgroundColor}
+                                    size={25}
+                                    style={styles.icon}
+                                />
+                            </View>
                         </View>
+                        <DefaultTextInput
+                            placeholder={
+                                'Need inspiration? Well.. too bad, I got none either.'
+                            }
+                            height={300}
+                            multiline={true}
+                            routeName="New"
+                        />
+                        <CategoriesSmallList />
                     </View>
-                    <DefaultTextInput
-                        placeholder={
-                            'Need inspiration? Well.. too bad, I got none either.'
-                        }
-                        height={300}
-                        multiline={true}
-                        routeName='New'
-                    />
-                    <CategoriesSmallList />
-                </View>
-            </Modal>
-            <AppNavigator showNewModal={toggleModal} />
-            <StatusBar style="light" />
-        </View>
+                </Modal>
+                <AppNavigator showNewModal={toggleModal} />
+                <StatusBar style="light" />
+            </View>
+        </Provider>
     );
 }
 

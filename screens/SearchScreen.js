@@ -4,16 +4,20 @@ import {
     StyleSheet,
     StatusBar,
     TouchableNativeFeedback,
+    Keyboard
 } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useSelector } from 'react-redux';
+
 import SmallText from '../components/SmallText';
 import DefaultTextInput from '../components/DefaultTextInput';
 import Colors from '../constants/Colors';
 import CategoriesSmallList from '../components/CategoriesSmallList';
-import { QUESTIONS } from '../data/dummy-data';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import QuestionList from '../components/QuestionList';
 
 const SearchScreen = (props) => {
+    const allQuestions = useSelector(state => state.questions.allQuestions);
+
     const [questions, setQuestions] = useState(null);
 
     const [keyword, setKeyword] = useState('');
@@ -41,11 +45,13 @@ const SearchScreen = (props) => {
     };
 
     const onSearch = (text) => {
+        Keyboard.dismiss();
+
         if (text.length > 0) {
             setKeyword(text);
         }
         if (keyword.length > 0) {
-            const q = QUESTIONS.filter(item => catList.every(val => item.catId.includes(val))).filter(
+            const q = allQuestions.filter(item => catList.every(val => item.catId.includes(val))).filter(
                 (item) =>
                     item.title.toUpperCase().search(keyword.toUpperCase()) >= 0
             );
@@ -55,7 +61,6 @@ const SearchScreen = (props) => {
             } else {
                 setMatchesFound(false);
             }
-            setKeyword('');
         }
     };
 
