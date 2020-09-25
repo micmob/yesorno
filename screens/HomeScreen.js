@@ -18,7 +18,6 @@ const HomeScreen = (props) => {
         setQuestions(filteredQuestions.sort((a, b) => a.upvotes < b.upvotes));
     }, [filteredQuestions]);
     
-
     return (
         <LinearGradient colors={[Colors.backgroundColor, Colors.backgroundColorGradient]} style={styles.container}>
             <View style={styles.insideContainer}>

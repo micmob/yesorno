@@ -37,7 +37,6 @@ const AppNavigator = (props) => {
     return (
         <NavigationContainer>
             <Tab.Navigator
-                
                 activeColor={Colors.brandColor}
                 inactiveColor={Colors.onSurfaceColor}
                 barStyle={{ backgroundColor: Colors.surfaceColor }}

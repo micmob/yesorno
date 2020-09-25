@@ -10,7 +10,7 @@ const Overline = (props) => {
                 Posted by user ~
             </SmallText>
             <RelativeTime
-                current={new Date()}
+                current={(new Date()).getTime()}
                 previous={props.question.date}
             />
         </View>

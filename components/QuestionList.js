@@ -15,7 +15,6 @@ import QuestionActions from './QuestionActions';
 import DisplayCat from './DisplayCat';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import CategoriesSmallList from './CategoriesSmallList';
-import { useSelector } from 'react-redux';
 
 const QuestionList = (props) => {
     const [refreshing, setRefreshing] = useState(false);

@@ -1,29 +1,23 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { StatusBar } from 'expo-status-bar';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import changeNavigationBarColor from 'react-native-navigation-bar-color';
+import ReduxThunk from 'redux-thunk';
 
 import Colors from './constants/Colors';
 import AppNavigator from './navigation/AppNavigator';
-import TitleText from './components/TitleText';
-import CategoriesSmallList from './components/CategoriesSmallList';
-import DefaultTextInput from './components/DefaultTextInput';
 import questionsReducer from './store/reducers/questions';
+import New from './components/New';
 
 const rootReducer = combineReducers({
     questions: questionsReducer,
 });
 
-const store = createStore(rootReducer);
-
-
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 export default function App() {
-    
     const [newModal, setNewModal] = useState(false);
 
     const toggleModal = () => {
@@ -45,28 +39,7 @@ export default function App() {
                     backdropColor={Colors.backgroundColor}
                     style={styles.modal}
                 >
-                    <View style={styles.insideModal}>
-                        <View style={styles.headerContainer}>
-                            <TitleText style={styles.header}>New</TitleText>
-                            <View style={styles.iconContainer}>
-                                <Icon
-                                    name="paper-plane"
-                                    color={Colors.backgroundColor}
-                                    size={25}
-                                    style={styles.icon}
-                                />
-                            </View>
-                        </View>
-                        <DefaultTextInput
-                            placeholder={
-                                'Need inspiration? Well.. too bad, I got none either.'
-                            }
-                            height={300}
-                            multiline={true}
-                            routeName="New"
-                        />
-                        <CategoriesSmallList />
-                    </View>
+                    <New closeModal={toggleModal} />
                 </Modal>
                 <AppNavigator showNewModal={toggleModal} />
                 <StatusBar style="light" />
@@ -78,56 +51,5 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    modal: {
-        flex: 1,
-        margin: 0,
-        padding: 20,
-    },
-    insideModal: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-    },
-    header: {
-        fontSize: 25,
-        fontWeight: 'normal',
-    },
-    dropdown: {
-        backgroundColor: Colors.surfaceColor,
-        fontSize: 18,
-        color: 'white',
-    },
-    cat: {
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        color: Colors.onBackgroundColor,
-        paddingBottom: 20,
-    },
-    picker: {
-        flex: 1,
-        backgroundColor: Colors.onBackgroundColor,
-        borderWidth: 1,
-        marginLeft: 20,
-        color: Colors.backgroundColor,
-    },
-    itemStyle: {
-        color: Colors.backgroundColor,
-    },
-    headerContainer: {
-        flexDirection: 'row',
-        marginBottom: 20,
-        width: '100%',
-        alignItems: 'center',
-    },
-    iconContainer: {
-        alignItems: 'flex-end',
-        flex: 1,
-    },
-    icon: {
-        borderRadius: 100,
-        padding: 15,
-        backgroundColor: Colors.brandColor,
     },
 });

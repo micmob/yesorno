@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Modal from 'react-native-modal';
 import Slider from '@react-native-community/slider';
 import ModalIcon from 'react-native-vector-icons/AntDesign';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Colors from '../constants/Colors';
 import SmallText from './SmallText';
@@ -15,7 +15,9 @@ const Settings = (props) => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const [sliderLabel, setSliderLabel] = useState(props.initialSliderLabel);
-    const [sliderFinalValue, setSliderFinalValue] = useState(0);
+    const [sliderFinalValue, setSliderFinalValue] = useState(
+        props.sliderInitialValue
+    );
 
     const dispatch = useDispatch();
 
@@ -155,8 +157,6 @@ const Settings = (props) => {
                             value={props.sliderInitialValue}
                             minimumValue={0}
                             maximumValue={4}
-                            minimumTrackTintColor="#FFFFFF"
-                            maximumTrackTintColor="#000000"
                             step={1}
                             thumbTintColor={Colors.brandColor}
                             minimumTrackTintColor={Colors.brandColor}
@@ -164,12 +164,12 @@ const Settings = (props) => {
                         />
                         <View style={styles.buttonContainer}>
                             <Button
-                                iconName="close"
+                                iconName='close'
                                 onPress={toggleModal}
                                 color={Colors.onSurfaceColor}
                             />
                             <Button
-                                iconName="check"
+                                iconName='check'
                                 onPress={handleCheckPress}
                                 color={Colors.brandColor}
                             />

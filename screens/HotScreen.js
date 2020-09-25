@@ -15,13 +15,13 @@ const HotScreen = props => {
     );
 
     //yoinked from Reddit
-    const now = new Date();
+    const now = (new Date()).getTime();
     useEffect(() => {
         setQuestions(filteredQuestions
             .sort((a, b) =>
-                (Math.log10(a.upvotes) + (now - a.date) / 45000)
+                (Math.log10(a.upvotes) + (now - Date.parse(a.date)) / 45000)
                 <
-                (Math.log10(b.upvotes) + (now - b.date) / 45000)));
+                (Math.log10(b.upvotes) + (now - Date.parse(b.date)) / 45000)));
     }, [filteredQuestions]);
 
     return (

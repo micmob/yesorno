@@ -4,21 +4,26 @@ import TagSelector from 'react-native-tag-selector';
 import Colors from '../constants/Colors';
 import { CATEGORIES } from '../data/dummy-data';
 
-const CategoriesSmallList = props => {
-
+const CategoriesSmallList = (props) => {
     return (
         <TagSelector
             maxHeight={70}
             tags={CATEGORIES}
-            onChange={(selected) => {if(selected.length > 3){
-                selected.pop();
-                alert('You cannot select more than 3 categories.');
-            }else {
-                if(props.routeName === 'Search') { //temporary fix
-                    props.catList(selected);
+            onChange={(selected) => {
+                if (selected.length > 3) {
+                    selected.pop();
+                    alert('You cannot select more than 3 categories.');
+                } else {
+                    if (props.routeName === 'Search') {
+                        //temporary fix
+                        props.catList(selected);
+                    } else {
+                        if (props.routeName === 'New') {
+                            props.onCatPress(selected);
+                        }
+                    }
                 }
-                
-            }}}
+            }}
             selectedTagStyle={[styles.tagStyle, styles.selectedTagStyle]}
             tagStyle={styles.tagStyle}
             containerStyle={styles.tagContainerStyle}

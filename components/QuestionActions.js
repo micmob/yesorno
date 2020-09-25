@@ -25,7 +25,7 @@ const QuestionActions = (props) => {
                 (ques) => ques.id === props.question.id
             ) >= 0
         ) {
-            setUpvoteButtonColor(Colors.accentColor);
+            setUpvoteButtonColor(Colors.brandColor);
         } else {
             setUpvoteButtonColor(Colors.onBackgroundColor);
         }

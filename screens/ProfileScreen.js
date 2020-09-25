@@ -16,9 +16,12 @@ import QuestionList from '../components/QuestionList';
 import { useSelector } from 'react-redux';
 
 const ProfileScreen = (props) => {
-
-    const allQuestions = useSelector(state => state.questions.allQuestions).sort((a, b) => a.date < b.date);
-    const upvotedQuestions = useSelector(state => state.questions.upvotedQuestions).sort((a, b) => a.date < b.date);
+    const allQuestions = useSelector(
+        (state) => state.questions.allQuestions
+    ).sort((a, b) => Date.parse(a.date) < Date.parse(b.date));
+    const upvotedQuestions = useSelector(
+        (state) => state.questions.upvotedQuestions
+    ).sort((a, b) => Date.parse(a.date) < Date.parse(b.date));
 
     const [questions, setQuestions] = useState(allQuestions);
 
@@ -30,17 +33,18 @@ const ProfileScreen = (props) => {
         setQuestions(q);
     };
 
-    const onMenuPress = buttonName => {
-        if(buttonName === 'Posts') {
+    const onMenuPress = (buttonName) => {
+        if (buttonName === 'Posts') {
             setQuestions(allQuestions); //TODO
             setPostsColor(Colors.brandColor);
             setUpvotedColor(Colors.onBackgroundColor);
-        } else { //buttonName === 'Upvoted'
+        } else {
+            //buttonName === 'Upvoted'
             setQuestions(upvotedQuestions); //TODO
             setUpvotedColor(Colors.brandColor);
             setPostsColor(Colors.onBackgroundColor);
         }
-    }
+    };
 
     const Header = () => {
         return (
@@ -62,7 +66,10 @@ const ProfileScreen = (props) => {
         );
     };
     return (
-        <LinearGradient colors={[Colors.backgroundColor, Colors.backgroundColorGradient]} style={styles.container}>
+        <LinearGradient
+            colors={[Colors.backgroundColor, Colors.backgroundColorGradient]}
+            style={styles.container}
+        >
             <View style={styles.insideContainer}>
                 <Grid style={{ height: 250, flex: 0 }}>
                     <Header />

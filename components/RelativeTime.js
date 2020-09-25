@@ -8,7 +8,7 @@ const RelativeTime = (props) => {
     var msPerMonth = msPerDay * 30;
     var msPerYear = msPerDay * 365;
 
-    var elapsed = Math.abs(props.current - props.previous);
+    var elapsed = Math.abs(props.current - Date.parse(props.previous));
 
     if (elapsed < msPerMinute) {
         return (

@@ -7,9 +7,13 @@ const DefaultTextInput = (props) => {
     return (
         <TextInput
             value={props.keyword}
-            onChangeText={(keyword) => {
+            onChangeText={(input) => {
                 if (props.routeName === 'Search') {
-                    props.searchKeyword(keyword);
+                    props.searchKeyword(input);
+                } else {
+                    if (props.routeName === 'New') {
+                        props.onTextInput(input);
+                    }
                 }
             }}
             onSubmitEditing={(event) => {
