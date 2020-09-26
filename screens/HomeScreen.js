@@ -8,21 +8,20 @@ import Colors from '../constants/Colors';
 
 const HomeScreen = (props) => {
 
-    const [questions, setQuestions] = useState([]);
+    // const [questions, setQuestions] = useState([]);
 
-    const filteredQuestions = useSelector(
-        (state) => state.questions.filteredQuestions
-    );
+    // const filteredQuestions = useSelector(
+    //     (state) => state.questions.filteredQuestions
+    // );
 
-    useEffect(() => {
-        setQuestions(filteredQuestions.sort((a, b) => a.upvotes < b.upvotes));
-    }, [filteredQuestions]);
-    
+    // useEffect(() => {
+    //     setQuestions(filteredQuestions.sort((a, b) => a.upvotes < b.upvotes));
+    // }, [filteredQuestions]);
+
     return (
         <LinearGradient colors={[Colors.backgroundColor, Colors.backgroundColorGradient]} style={styles.container}>
             <View style={styles.insideContainer}>
                 <QuestionList
-                    questions={questions}
                     navigation={props.navigation}
                     routeName="Home"
                     backgroundColor={Colors.surfaceColor}

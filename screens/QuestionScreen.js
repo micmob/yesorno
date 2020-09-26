@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import Colors from '../constants/Colors';
 import TitleText from '../components/TitleText';
 import Overline from '../components/Overline';
-import Button from '../components/Button';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Fontisto';
 
