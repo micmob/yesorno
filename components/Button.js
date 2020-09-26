@@ -7,7 +7,7 @@ const Button = props => {
     let color = props.style;
     return (
         <View style={[styles.button, color]}>
-            <TouchableNativeFeedback onPress={props.onButtonPress} background={TouchableNativeFeedback.Ripple(Colors.accentColor, true)}>
+            <TouchableNativeFeedback onPress={props.onButtonPress} background={TouchableNativeFeedback.Ripple(Colors.brandColor, true)}>
                 <View style={styles.textHolder}>
                     <TitleText style={styles.text}>{props.text}</TitleText>
                 </View>

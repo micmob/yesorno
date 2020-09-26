@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
     View,
     StyleSheet,
     FlatList,
     TouchableNativeFeedback,
-    RefreshControl,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import TitleText from '../components/TitleText';
 import Colors from '../constants/Colors';
 import Overline from './Overline';
@@ -15,21 +15,35 @@ import QuestionActions from './QuestionActions';
 import DisplayCat from './DisplayCat';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import CategoriesSmallList from './CategoriesSmallList';
+import { fetchQuestions } from '../store/actions/questions';
+import Loading from '../components/Loading';
+import { useFocusEffect } from '@react-navigation/native';
 
 const QuestionList = (props) => {
-    const [refreshing, setRefreshing] = useState(false);
+    const questions = useSelector((state) => state.questions.allQuestions);
+    const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
+    const [isRefreshing, setIsRefreshing] = useState(false);
 
-    function fetchData() {
-        return;
-    }
+    const loadQuestions = useCallback(async () => {
+        try {
+            setIsRefreshing(true);
+            await dispatch(fetchQuestions());
+            setIsRefreshing(false);
+        } catch (error) {
+            alert(error.message);
+        }
+    }, [dispatch]);
 
-    const onRefresh = () => {
-        setRefreshing(true);
-        setRefreshing(false); //delete this
-        // fetchData().then(() => {
-        //   setRefreshing(false);
-        // });
-    };
+    useEffect(() => {
+        const focusSub = props.navigation.addListener('focus', () => {
+            setIsLoading(true);
+            loadQuestions().then(() => {
+                setIsLoading(false);
+            });
+        });
+        return focusSub;
+    }, [loadQuestions]);
 
     const renderQuestion = (itemData) => {
         return (
@@ -75,17 +89,23 @@ const QuestionList = (props) => {
         );
     };
 
-    const renderSeparator = () => (
-        <View style={styles.separator}></View>
-    )
+    const renderSeparator = () => <View style={styles.separator}></View>;
+
+    if (isLoading) {
+        return (
+            <Loading />
+        );
+    }
 
     return (
         <View style={styles.container}>
             <FlatList
-                data={props.questions}
+                data={questions}
                 keyExtractor={(item, index) => item.id}
                 renderItem={renderQuestion}
                 ItemSeparatorComponent={renderSeparator}
+                onRefresh={loadQuestions}
+                refreshing={isRefreshing}
                 ListHeaderComponent={(itemData) => {
                     if (props.routeName === 'Home') return <HomeHeader />;
                     else {
@@ -109,12 +129,6 @@ const QuestionList = (props) => {
                         }
                     }
                 }}
-                refreshControl={
-                    <RefreshControl
-                        refreshing={refreshing}
-                        onRefresh={onRefresh}
-                    />
-                }
             />
         </View>
     );

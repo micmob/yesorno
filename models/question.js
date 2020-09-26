@@ -1,10 +1,10 @@
 class Question {
-    constructor(id, title, catId, date, upvotes, yesVotes, noVotes) { //userId
+    constructor(id, userId, catId, title, date, upvotes, yesVotes, noVotes) {
         this.id = id;
         this.title = title;
         this.catId = catId;
         this.date = date;
-        //this.userId = userId;
+        this.userId = userId;
         this.upvotes = upvotes;
         this.yesVotes = yesVotes;
         this.noVotes = noVotes;

@@ -6,17 +6,20 @@ import {
     UPDATE_QUESTION,
     DELETE_QUESTION,
     ANSWER_QUESTION,
+    SET_QUESTIONS,
 } from '../actions/questions';
 import { FILTER } from '../../constants/Filters';
 import Question from '../../models/question';
 
 const initialState = {
     allQuestions: QUESTIONS,
-    filteredQuestions: QUESTIONS.filter(
-        (ques) =>
-            Math.abs(new Date().getTime() - Date.parse(ques.date)) <
-            60 * 1000 * 60 * 24 * 7
-    ),
+    //TO DO: FIX THIS MATE
+    // filteredQuestions: QUESTIONS.filter(
+    //     (ques) =>
+    //         Math.abs(new Date().getTime() - Date.parse(ques.date)) <
+    //         60 * 1000 * 60 * 24 * 7
+    // ),
+    filteredQuestions: QUESTIONS,
     upvotedQuestions: [],
 };
 
@@ -85,16 +88,18 @@ const questionsReducer = (state = initialState, action) => {
             }
         case CREATE_QUESTION:
             const newQuestion = new Question(
-                Math.random().toString(), //TO DO when adding a DB
-                action.questionData.title,
+                action.questionData.id,
+                action.questionData.userId,
                 action.questionData.catId,
-                new Date().toString(),
-                0,
-                0,
-                0
+                action.questionData.title,
+                action.questionData.date,
+                action.questionData.upvotes,
+                action.questionData.yesVotes,
+                action.questionData.noVotes
             );
             return {
                 ...state,
+                filteredQuestions:state.filteredQuestions.concat(newQuestion),
                 allQuestions: state.allQuestions.concat(newQuestion),
             };
         case ANSWER_QUESTION:
@@ -108,6 +113,13 @@ const questionsReducer = (state = initialState, action) => {
                 answeredQuestion.yesVotes++;
             }
             return state;
+        case SET_QUESTIONS:
+            //upvoted questions needs to be modified here
+            return {
+                ...state,
+                allQuestions: action.questions,
+                filteredQuestions: action.questions,
+            }
         default:
             return state;
     }

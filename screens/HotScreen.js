@@ -8,27 +8,26 @@ import Colors from '../constants/Colors';
 
 const HotScreen = props => {
 
-    const [questions, setQuestions] = useState([]);
+    // const [questions, setQuestions] = useState([]);
 
-    const filteredQuestions = useSelector(
-        (state) => state.questions.filteredQuestions
-    );
+    // const filteredQuestions = useSelector(
+    //     (state) => state.questions.filteredQuestions
+    // );
 
-    //yoinked from Reddit
-    const now = (new Date()).getTime();
-    useEffect(() => {
-        setQuestions(filteredQuestions
-            .sort((a, b) =>
-                (Math.log10(a.upvotes) + (now - Date.parse(a.date)) / 45000)
-                <
-                (Math.log10(b.upvotes) + (now - Date.parse(b.date)) / 45000)));
-    }, [filteredQuestions]);
+    // //yoinked from Reddit
+    // const now = (new Date()).getTime();
+    // useEffect(() => {
+    //     setQuestions(filteredQuestions
+    //         .sort((a, b) =>
+    //             (Math.log10(a.upvotes) + (now - Date.parse(a.date)) / 45000)
+    //             <
+    //             (Math.log10(b.upvotes) + (now - Date.parse(b.date)) / 45000)));
+    // }, [filteredQuestions]);
 
     return (
         <LinearGradient colors={[Colors.backgroundColor, Colors.backgroundColorGradient]} style={styles.container}>
             <View style={styles.insideContainer}>
                 <QuestionList
-                    questions={questions}
                     navigation={props.navigation}
                     routeName='Hot'
                     backgroundColor={Colors.surfaceColor}

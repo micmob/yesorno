@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Modal from 'react-native-modal';
 import { StatusBar } from 'expo-status-bar';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import Colors from './constants/Colors';
 import AppNavigator from './navigation/AppNavigator';
@@ -15,7 +16,12 @@ const rootReducer = combineReducers({
     questions: questionsReducer,
 });
 
-const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+const enhancer = compose(
+    applyMiddleware(ReduxThunk),
+    composeWithDevTools()
+);
+
+const store = createStore(rootReducer, enhancer);
 
 export default function App() {
     const [newModal, setNewModal] = useState(false);
