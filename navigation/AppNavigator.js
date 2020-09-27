@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
@@ -15,12 +14,17 @@ import Colors from '../constants/Colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { filterQuestions } from '../store/actions/questions';
 import { FILTER } from '../constants/Filters';
+import { fetchQuestions } from '../store/actions/questions';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const AppNavigator = (props) => {
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchQuestions());
+    }, [dispatch])
 
     const HomeStack = () => {
         return (

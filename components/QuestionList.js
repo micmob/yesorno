@@ -17,7 +17,6 @@ import { Grid, Col, Row } from 'react-native-easy-grid';
 import CategoriesSmallList from './CategoriesSmallList';
 import { fetchQuestions } from '../store/actions/questions';
 import Loading from '../components/Loading';
-import { useFocusEffect } from '@react-navigation/native';
 
 const QuestionList = (props) => {
     const questions = useSelector((state) => state.questions.allQuestions);
@@ -60,7 +59,7 @@ const QuestionList = (props) => {
                 >
                     <View style={styles.insideCard}>
                         <View style={{ paddingHorizontal: 15 }}>
-                            <Overline question={itemData.item} />
+                            <Overline question={itemData.item} routeName='QuestionList' />
                             <TitleText style={styles.title}>
                                 {itemData.item.title}
                             </TitleText>
@@ -80,7 +79,7 @@ const QuestionList = (props) => {
                                 />
                             </Col>
                             <Col style={{ height: '100%', flex: 0 }}>
-                                <QuestionActions question={itemData.item} />
+                                <QuestionActions id={itemData.item.id} />
                             </Col>
                         </Grid>
                     </View>

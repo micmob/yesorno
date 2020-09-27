@@ -19,9 +19,6 @@ const ProfileScreen = (props) => {
     const allQuestions = useSelector(
         (state) => state.questions.allQuestions
     ).sort((a, b) => Date.parse(a.date) < Date.parse(b.date));
-    const upvotedQuestions = useSelector(
-        (state) => state.questions.upvotedQuestions
-    ).sort((a, b) => Date.parse(a.date) < Date.parse(b.date));
 
     const [questions, setQuestions] = useState(allQuestions);
 
@@ -40,7 +37,7 @@ const ProfileScreen = (props) => {
             setUpvotedColor(Colors.onBackgroundColor);
         } else {
             //buttonName === 'Upvoted'
-            setQuestions(upvotedQuestions); //TODO
+            setQuestions(allQuestions); //TODO
             setUpvotedColor(Colors.brandColor);
             setPostsColor(Colors.onBackgroundColor);
         }

@@ -50,9 +50,50 @@ export const fetchQuestions = () => {
 };
 
 export const toggleUpvote = (id) => {
-    return {
-        type: TOGGLE_UPVOTE,
-        questionId: id,
+    return async (dispatch) => {
+        try {
+            const responseGET = await fetch(
+                `https://yesorno-by-mic.firebaseio.com/questions/${id}.json`
+            );
+
+            if(!responseGET.ok) {
+                throw new Error("Error: Couldn't find question.");
+            }
+
+            const responseGETData = await responseGET.json();
+            //TO DO: if currentuser hasn't upvoted this question already
+            responseGETData.upvotes++;
+
+            const response = await fetch(
+                `https://yesorno-by-mic.firebaseio.com/questions/${id}.json`,
+                {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        catId: responseGETData.catId,
+                        userId: responseGETData.userId,
+                        title: responseGETData.title,
+                        date: responseGETData.date,
+                        upvotes: responseGETData.upvotes,
+                        yesVotes: responseGETData.yesVotes,
+                        noVotes: responseGETData.noVotes,
+                    }),
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error: Couldn't upvote question.");
+            }
+
+            dispatch({
+                type: TOGGLE_UPVOTE,
+                id,
+            });
+        } catch (error) {
+            alert(error.message);
+        }
     };
 };
 
@@ -84,7 +125,6 @@ export const createQuestion = (title, catId) => {
             }
         );
         const responseData = await response.json();
-        console.log(responseData);
         dispatch({
             type: CREATE_QUESTION,
             questionData: {
@@ -98,6 +138,55 @@ export const createQuestion = (title, catId) => {
                 noVotes: 0,
             },
         });
+    };
+};
+
+export const editQuestion = (id, title) => {
+    return async (dispatch) => {
+        try {
+            const responseGET = await fetch(
+                `https://yesorno-by-mic.firebaseio.com/questions/${id}.json`
+            );
+
+            if(!responseGET.ok) {
+                throw new Error("Error: Couldn't find question.");
+            }
+
+            const responseGETData = await responseGET.json();
+
+            //TO DO: if currentuser.id === responseGETData.userId
+
+            const response = await fetch(
+                `https://yesorno-by-mic.firebaseio.com/questions/${id}.json`,
+                {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        catId: responseGETData.catId,
+                        userId: responseGETData.userId,
+                        title: title,
+                        date: responseGETData.date,
+                        upvotes: responseGETData.upvotes,
+                        yesVotes: responseGETData.yesVotes,
+                        noVotes: responseGETData.noVotes,
+                    }),
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error: Couldn't edit question.");
+            }
+
+            dispatch({
+                type: UPDATE_QUESTION,
+                id,
+                title
+            });
+        } catch (error) {
+            throw error;
+        }
     };
 };
 

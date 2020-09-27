@@ -12,15 +12,8 @@ import { FILTER } from '../../constants/Filters';
 import Question from '../../models/question';
 
 const initialState = {
-    allQuestions: QUESTIONS,
-    //TO DO: FIX THIS MATE
-    // filteredQuestions: QUESTIONS.filter(
-    //     (ques) =>
-    //         Math.abs(new Date().getTime() - Date.parse(ques.date)) <
-    //         60 * 1000 * 60 * 24 * 7
-    // ),
-    filteredQuestions: QUESTIONS,
-    upvotedQuestions: [],
+    allQuestions: [],
+    filteredQuestions: [],
 };
 
 const filter = (state, value) => {
@@ -36,29 +29,7 @@ const filter = (state, value) => {
 const questionsReducer = (state = initialState, action) => {
     switch (action.type) {
         case TOGGLE_UPVOTE:
-            const selectedQuestionIndex = state.upvotedQuestions.findIndex(
-                (ques) => ques.id === action.questionId
-            );
-
-            const selectedQuestion = state.allQuestions.find(
-                (ques) => ques.id === action.questionId
-            );
-
-            if (selectedQuestionIndex >= 0) {
-                //if it's been upvoted
-                selectedQuestion.upvotes--;
-                const updatedUpvotedQuestions = [...state.upvotedQuestions];
-                updatedUpvotedQuestions.splice(selectedQuestionIndex, 1);
-                return { ...state, upvotedQuestions: updatedUpvotedQuestions };
-            } else {
-                selectedQuestion.upvotes++;
-                return {
-                    ...state,
-                    upvotedQuestions: state.upvotedQuestions.concat(
-                        selectedQuestion
-                    ),
-                };
-            }
+            return state;
         case SET_FILTERS:
             const appliedFilter = action.filterSettings;
 
@@ -99,7 +70,7 @@ const questionsReducer = (state = initialState, action) => {
             );
             return {
                 ...state,
-                filteredQuestions:state.filteredQuestions.concat(newQuestion),
+                filteredQuestions: state.filteredQuestions.concat(newQuestion),
                 allQuestions: state.allQuestions.concat(newQuestion),
             };
         case ANSWER_QUESTION:
@@ -114,12 +85,40 @@ const questionsReducer = (state = initialState, action) => {
             }
             return state;
         case SET_QUESTIONS:
-            //upvoted questions needs to be modified here
-            return {
-                ...state,
-                allQuestions: action.questions,
-                filteredQuestions: action.questions,
+            const newFilteredQuestions = [];
+            for (var ques in state.filteredQuestions) {
+                if (action.questions[ques.id]) {
+                    newFilteredQuestions.push(action.questions[ques.id]);
+                }
             }
+            return {
+                allQuestions: action.questions,
+                filteredQuestions: newFilteredQuestions,
+            };
+        case UPDATE_QUESTION:
+            const updatedQuestion = [...state.allQuestions].find(
+                (ques) => ques.id === action.id
+            );
+            updatedQuestion.title = action.title;
+
+            const indexallQ = state.allQuestions.findIndex(
+                (ques) => ques.id === action.id
+            );
+            const updatedAllQuestions = [...state.allQuestions];
+            updatedAllQuestions[indexallQ] = updatedQuestion;
+
+            const indexfilteredQ = state.filteredQuestions.findIndex(
+                (ques) => ques.id === action.id
+            );
+            const updatedFilteredQuestions = [...state.filteredQuestions];
+            if (indexfilteredQ >= 0) {
+                updatedFilteredQuestions[indexfilteredQ] = updatedQuestion;
+            }
+
+            return {
+                updatedAllQuestions,
+                updatedFilteredQuestions,
+            };
         default:
             return state;
     }

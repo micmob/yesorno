@@ -6,39 +6,27 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Colors from '../constants/Colors';
 import SmallText from './SmallText';
-import { toggleUpvote } from '../store/actions/questions';
+import { toggleUpvote, fetchQuestions } from '../store/actions/questions';
 
 const QuestionActions = (props) => {
-    const upvotedQuestions = useSelector(
-        (state) => state.questions.upvotedQuestions
-    );
-
     const [upvoteButtonColor, setUpvoteButtonColor] = useState(
         Colors.onBackgroundColor
     );
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (
-            upvotedQuestions.findIndex(
-                (ques) => ques.id === props.question.id
-            ) >= 0
-        ) {
-            setUpvoteButtonColor(Colors.brandColor);
-        } else {
-            setUpvoteButtonColor(Colors.onBackgroundColor);
-        }
-    }, [upvotedQuestions.length]);
+    const question = useSelector((state) => state.questions.allQuestions).find(
+        (ques) => ques.id === props.id
+    );
 
     const UpvoteCount = () => (
         <Col style={[styles.center, { alignItems: 'flex-end' }]}>
-            {props.question.upvotes > 999 ? (
+            {question.upvotes > 999 ? (
                 <SmallText>
-                    {Math.round(props.question.upvotes / 100) / 10}k
+                    {Math.round(question.upvotes / 100) / 10}k
                 </SmallText> //display one decimal + 'k'
             ) : (
-                <SmallText>{props.question.upvotes}</SmallText>
+                <SmallText>{question.upvotes}</SmallText>
             )}
         </Col>
     );
@@ -58,7 +46,14 @@ const QuestionActions = (props) => {
     return (
         <TouchableWithoutFeedback
             onPress={() => {
-                dispatch(toggleUpvote(props.question.id));
+                //TO DO: fix slow speed
+                dispatch(toggleUpvote(question.id)).then(() => {
+                    try {
+                        dispatch(fetchQuestions());
+                    } catch (error) {
+                        alert(error);
+                    }
+                });
             }}
         >
             <Grid style={styles.container}>

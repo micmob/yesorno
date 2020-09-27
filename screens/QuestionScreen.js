@@ -39,7 +39,7 @@ const QuestionScreen = (props) => {
         >
             <View style={styles.insideContainer}>
                 <View style={styles.overline}>
-                    <Overline question={question} />
+                    <Overline question={question} routeName='QuestionScreen' />
                 </View>
                 <TitleText style={styles.title}>{question.title}</TitleText>
                 <View style={styles.buttonsHolder}>
