@@ -8,7 +8,6 @@ import RelativeTime from './RelativeTime';
 import Colors from '../constants/Colors';
 
 const Overline = (props) => {
-    console.log(props.routeName);
     return (
         <View style={styles.container}>
             <View style={styles.details}>
@@ -22,9 +21,7 @@ const Overline = (props) => {
                 <View style={styles.actions}>
                     <View style={styles.actionsContainer}>
                         <TouchableNativeFeedback
-                            onPress={() => {
-                                console.log('boop');
-                            }}
+                            onPress={props.onEditPress}
                             background={TouchableNativeFeedback.Ripple(
                                 Colors.brandColor,
                                 true

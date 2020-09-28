@@ -1,16 +1,24 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import Modal from 'react-native-modal';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Colors from '../constants/Colors';
 import TitleText from '../components/TitleText';
 import Overline from '../components/Overline';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Fontisto';
+import Edit from '../components/Edit';
+import DisplayCat from '../components/DisplayCat';
+import Loading from '../components/Loading';
 
 const QuestionScreen = (props) => {
-    const question = props.route.params.question;
+    const question = useSelector((state) => state.questions.allQuestions).find(
+        (ques) => ques.id === props.route.params.id
+    );
 
+    const [isLoading, setIsLoading] = useState(false);
     const [noColor, setNoColor] = useState(Colors.onBackgroundColor);
     const [yesColor, setYesColor] = useState(Colors.onBackgroundColor);
 
@@ -32,6 +40,32 @@ const QuestionScreen = (props) => {
         }
     };
 
+    const [editModal, setEditModal] = useState(false);
+
+    const toggleModal = () => {
+        setEditModal(!editModal);
+    };
+
+    const dispatch = useDispatch();
+
+    const handleIsLoading = (value) => {
+        setIsLoading(value);
+    };
+
+    if (isLoading) {
+        return (
+            <LinearGradient
+                colors={[
+                    Colors.backgroundColor,
+                    Colors.backgroundColorGradient,
+                ]}
+                style={styles.container}
+            >
+                <Loading />
+            </LinearGradient>
+        );
+    }
+
     return (
         <LinearGradient
             colors={[Colors.backgroundColor, Colors.backgroundColorGradient]}
@@ -39,8 +73,25 @@ const QuestionScreen = (props) => {
         >
             <View style={styles.insideContainer}>
                 <View style={styles.overline}>
-                    <Overline question={question} routeName='QuestionScreen' />
+                    <Overline
+                        question={question}
+                        routeName="QuestionScreen"
+                        onEditPress={toggleModal}
+                    />
                 </View>
+                <View
+                    style={{
+                        width: '100%',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <DisplayCat
+                        catId={question.catId}
+                        navigation={props.navigation}
+                    />
+                </View>
+
                 <TitleText style={styles.title}>{question.title}</TitleText>
                 <View style={styles.buttonsHolder}>
                     <TouchableWithoutFeedback onPress={handleNoPress}>
@@ -59,6 +110,25 @@ const QuestionScreen = (props) => {
                     </TouchableWithoutFeedback>
                 </View>
             </View>
+            <Modal
+                isVisible={editModal}
+                onBackButtonPress={toggleModal}
+                useNativeDriver={true}
+                animationIn="slideInDown"
+                animationOut="slideOutUp"
+                animationInTiming={200}
+                animationOutTiming={200}
+                backdropOpacity={1}
+                backdropColor={Colors.backgroundColor}
+            >
+                <Edit
+                    closeModal={toggleModal}
+                    id={question.id}
+                    title={question.title}
+                    catId={question.catId}
+                    onIsLoading={(value) => handleIsLoading(value)}
+                />
+            </Modal>
         </LinearGradient>
     );
 };

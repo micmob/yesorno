@@ -43,7 +43,7 @@ const AppNavigator = (props) => {
             <Tab.Navigator
                 activeColor={Colors.brandColor}
                 inactiveColor={Colors.onSurfaceColor}
-                barStyle={{ backgroundColor: Colors.surfaceColor }}
+                barStyle={{ backgroundColor: Colors.backgroundColor }}
                 shifting={false}
                 screenOptions={({ route }) => ({
                     tabBarIcon: ({ focused }) => {

@@ -72,7 +72,7 @@ const SearchScreen = (props) => {
                     <View style={{ flex: 1 }}>
                         <DefaultTextInput
                             placeholder={'Search for something..'}
-                            keyword={keyword}
+                            value={keyword}
                             height={50}
                             multiline={false}
                             searchKeyword={onKeyword}

@@ -6,12 +6,12 @@ import Colors from '../constants/Colors';
 const DefaultTextInput = (props) => {
     return (
         <TextInput
-            value={props.keyword}
+            value={props.value}
             onChangeText={(input) => {
                 if (props.routeName === 'Search') {
                     props.searchKeyword(input);
                 } else {
-                    if (props.routeName === 'New') {
+                    if (props.routeName === 'New' || props.routeName === 'Edit') {
                         props.onTextInput(input);
                     }
                 }

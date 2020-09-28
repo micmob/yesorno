@@ -46,7 +46,7 @@ const QuestionActions = (props) => {
     return (
         <TouchableWithoutFeedback
             onPress={() => {
-                //TO DO: fix slow speed
+                //TODO fix slow speed
                 dispatch(toggleUpvote(question.id)).then(() => {
                     try {
                         dispatch(fetchQuestions());

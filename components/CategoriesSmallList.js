@@ -1,12 +1,14 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import TagSelector from 'react-native-tag-selector';
+import TagSelector from './TagSelector';
 import Colors from '../constants/Colors';
 import { CATEGORIES } from '../data/dummy-data';
 
 const CategoriesSmallList = (props) => {
+
     return (
         <TagSelector
+            value = {props.catId}
             maxHeight={70}
             tags={CATEGORIES}
             onChange={(selected) => {
@@ -18,7 +20,7 @@ const CategoriesSmallList = (props) => {
                         //temporary fix
                         props.catList(selected);
                     } else {
-                        if (props.routeName === 'New') {
+                        if (props.routeName === 'New' || props.routeName === 'Edit') {
                             props.onCatPress(selected);
                         }
                     }

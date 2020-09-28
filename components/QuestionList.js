@@ -53,13 +53,16 @@ const QuestionList = (props) => {
                     )}
                     onPress={() =>
                         props.navigation.navigate('Question', {
-                            question: itemData.item,
+                            id: itemData.item.id,
                         })
                     }
                 >
                     <View style={styles.insideCard}>
                         <View style={{ paddingHorizontal: 15 }}>
-                            <Overline question={itemData.item} routeName='QuestionList' />
+                            <Overline
+                                question={itemData.item}
+                                routeName="QuestionList"
+                            />
                             <TitleText style={styles.title}>
                                 {itemData.item.title}
                             </TitleText>
@@ -73,10 +76,12 @@ const QuestionList = (props) => {
                                     paddingLeft: 15,
                                 }}
                             >
-                                <DisplayCat
-                                    item={itemData.item.catId}
-                                    navigation={props.navigation}
-                                />
+                                <Col>
+                                    <DisplayCat
+                                        catId={itemData.item.catId}
+                                        navigation={props.navigation}
+                                    />
+                                </Col>
                             </Col>
                             <Col style={{ height: '100%', flex: 0 }}>
                                 <QuestionActions id={itemData.item.id} />
@@ -91,9 +96,7 @@ const QuestionList = (props) => {
     const renderSeparator = () => <View style={styles.separator}></View>;
 
     if (isLoading) {
-        return (
-            <Loading />
-        );
+        return <Loading />;
     }
 
     return (

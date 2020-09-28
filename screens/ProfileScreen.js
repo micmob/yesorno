@@ -16,28 +16,22 @@ import QuestionList from '../components/QuestionList';
 import { useSelector } from 'react-redux';
 
 const ProfileScreen = (props) => {
-    const allQuestions = useSelector(
+    const questions = useSelector(
         (state) => state.questions.allQuestions
     ).sort((a, b) => Date.parse(a.date) < Date.parse(b.date));
-
-    const [questions, setQuestions] = useState(allQuestions);
 
     const [postsColor, setPostsColor] = useState(Colors.brandColor);
 
     const [upvotedColor, setUpvotedColor] = useState(Colors.onBackgroundColor);
 
-    const onQuestions = (q) => {
-        setQuestions(q);
-    };
-
     const onMenuPress = (buttonName) => {
         if (buttonName === 'Posts') {
-            setQuestions(allQuestions); //TODO
+            setQuestions(questions); //TODO
             setPostsColor(Colors.brandColor);
             setUpvotedColor(Colors.onBackgroundColor);
         } else {
             //buttonName === 'Upvoted'
-            setQuestions(allQuestions); //TODO
+            setQuestions(questions); //TODO
             setUpvotedColor(Colors.brandColor);
             setPostsColor(Colors.onBackgroundColor);
         }

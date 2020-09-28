@@ -8,9 +8,9 @@ export default {
 
     brandColor: '#ff2e2e',
     accentColor: '#ff2e2e',
-    backgroundColor: '#212121',
+    backgroundColor: '#212121', //modify app.json as well
     backgroundColorGradient: '#400b0b',
-    surfaceColor: '#212121', //modify app.json as well
+    surfaceColor: '#400b0b',
     onBackgroundColor: '#b4b4b8',
     onBackgroundSmallColor: '#6e6e70',
     onBackgroundSeparatorColor: '#39393b',

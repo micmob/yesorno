@@ -56,12 +56,12 @@ export const toggleUpvote = (id) => {
                 `https://yesorno-by-mic.firebaseio.com/questions/${id}.json`
             );
 
-            if(!responseGET.ok) {
+            if (!responseGET.ok) {
                 throw new Error("Error: Couldn't find question.");
             }
 
             const responseGETData = await responseGET.json();
-            //TO DO: if currentuser hasn't upvoted this question already
+            //TODO if currentuser hasn't upvoted this question already
             responseGETData.upvotes++;
 
             const response = await fetch(
@@ -141,20 +141,20 @@ export const createQuestion = (title, catId) => {
     };
 };
 
-export const editQuestion = (id, title) => {
+export const editQuestion = (id, title, catId) => {
     return async (dispatch) => {
         try {
             const responseGET = await fetch(
                 `https://yesorno-by-mic.firebaseio.com/questions/${id}.json`
             );
 
-            if(!responseGET.ok) {
+            if (!responseGET.ok) {
                 throw new Error("Error: Couldn't find question.");
             }
 
             const responseGETData = await responseGET.json();
 
-            //TO DO: if currentuser.id === responseGETData.userId
+            //TODO if currentuser.id === responseGETData.userId
 
             const response = await fetch(
                 `https://yesorno-by-mic.firebaseio.com/questions/${id}.json`,
@@ -164,7 +164,7 @@ export const editQuestion = (id, title) => {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        catId: responseGETData.catId,
+                        catId: catId,
                         userId: responseGETData.userId,
                         title: title,
                         date: responseGETData.date,
@@ -182,7 +182,8 @@ export const editQuestion = (id, title) => {
             dispatch({
                 type: UPDATE_QUESTION,
                 id,
-                title
+                title,
+                catId,
             });
         } catch (error) {
             throw error;

@@ -11,6 +11,7 @@ import Colors from './constants/Colors';
 import AppNavigator from './navigation/AppNavigator';
 import questionsReducer from './store/reducers/questions';
 import New from './components/New';
+import Edit from './components/Edit';
 
 const rootReducer = combineReducers({
     questions: questionsReducer,
@@ -28,8 +29,6 @@ export default function App() {
         setNewModal(!newModal);
     };
 
-
-
     return (
         <Provider store={store}>
             <View style={styles.container}>
@@ -43,7 +42,6 @@ export default function App() {
                     animationOutTiming={200}
                     backdropOpacity={1}
                     backdropColor={Colors.backgroundColor}
-                    style={styles.modal}
                 >
                     <New closeModal={toggleModal} />
                 </Modal>

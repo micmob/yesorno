@@ -77,7 +77,7 @@ const questionsReducer = (state = initialState, action) => {
             const answeredQuestion = state.allQuestions.find(
                 (ques) => ques.id === action.questionId
             );
-            //TO DO check if user has already voted on this question
+            //TODO check if user has already voted on this question
             if (action.answer === 'no') {
                 answeredQuestion.noVotes++;
             } else {
@@ -100,24 +100,27 @@ const questionsReducer = (state = initialState, action) => {
                 (ques) => ques.id === action.id
             );
             updatedQuestion.title = action.title;
-
-            const indexallQ = state.allQuestions.findIndex(
+            updatedQuestion.catId = action.catId;
+            
+            const updatedAllQuestions = [...state.allQuestions];
+            const indexallQ = updatedAllQuestions.findIndex(
                 (ques) => ques.id === action.id
             );
-            const updatedAllQuestions = [...state.allQuestions];
+            
             updatedAllQuestions[indexallQ] = updatedQuestion;
 
-            const indexfilteredQ = state.filteredQuestions.findIndex(
+            const updatedFilteredQuestions = [...state.filteredQuestions];
+            const indexfilteredQ = updatedFilteredQuestions.findIndex(
                 (ques) => ques.id === action.id
             );
-            const updatedFilteredQuestions = [...state.filteredQuestions];
+            
             if (indexfilteredQ >= 0) {
                 updatedFilteredQuestions[indexfilteredQ] = updatedQuestion;
             }
 
             return {
-                updatedAllQuestions,
-                updatedFilteredQuestions,
+                allQuestions: updatedAllQuestions,
+                filteredQuestions: updatedFilteredQuestions,
             };
         default:
             return state;
