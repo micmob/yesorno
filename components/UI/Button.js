@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import Colors from '../../constants/Colors';
-import TitleText from '../components/TitleText';
+import TitleText from '../../components/UI/TitleText';
 
 const Button = props => {
     let color = props.style;

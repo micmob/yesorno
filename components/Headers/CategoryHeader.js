@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Colors from '../../constants/Colors';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
-import TitleText from './TitleText';
+import TitleText from '../UI/TitleText';
 import { CATEGORIES } from '../../data/dummy-data';
 
 const CategoryHeader = (props) => {

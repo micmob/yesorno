@@ -9,9 +9,9 @@ import {
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import TitleText from '../components/TitleText';
+import TitleText from '../components/UI/TitleText';
 import Colors from '../constants/Colors';
-import Stats from '../components/Stats';
+import Stats from '../components/Profile/Stats';
 import QuestionList from '../components/Question/QuestionList';
 import { useSelector } from 'react-redux';
 

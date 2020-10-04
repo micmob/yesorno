@@ -1,5 +1,5 @@
 import React from 'react';
-import SmallText from './UI/SmallText';
+import SmallText from '../../UI/SmallText';
 
 const RelativeTime = (props) => {
     var msPerMinute = 60 * 1000;

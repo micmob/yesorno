@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
 import SmallText from '../../UI/SmallText';
-import RelativeTime from '../RelativeTime';
+import RelativeTime from './RelativeTime';
 import Colors from '../../../constants/Colors';
 
 const Overline = (props) => {

@@ -5,13 +5,13 @@ import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Colors from '../constants/Colors';
-import TitleText from '../components/TitleText';
+import TitleText from '../components/UI/TitleText';
 import Overline from '../components/Question/Card/Overline';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Fontisto';
 import Edit from '../components/Modals/Edit';
-import DisplayCat from '../components/DisplayCat';
-import Loading from '../components/Loading';
+import DisplayCat from '../components/Modals/DisplayCat';
+import Loading from '../components/UI/Loading';
 import { deleteQuestion } from '../store/actions/questions';
 
 const QuestionScreen = (props) => {

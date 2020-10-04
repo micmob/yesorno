@@ -3,11 +3,11 @@ import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch } from 'react-redux';
 
-import Colors from '../constants/Colors';
-import TitleText from './TitleText';
-import CategoriesSmallList from './CategoriesSmallList';
-import DefaultTextInput from './UI/DefaultTextInput';
-import { createQuestion } from '../store/actions/questions';
+import Colors from '../../constants/Colors';
+import TitleText from '../UI/TitleText';
+import CategoriesSmallList from '../UI/CategoriesSmallList';
+import DefaultTextInput from '../UI/DefaultTextInput';
+import { createQuestion } from '../../store/actions/questions';
 
 const New = (props) => {
     const [textInput, setTextInput] = useState('');

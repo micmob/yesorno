@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import TagSelector from './TagSelector';
-import Colors from '../constants/Colors';
-import { CATEGORIES } from '../data/dummy-data';
+import TagSelector from '../Common/TagSelector';
+import Colors from '../../constants/Colors';
+import { CATEGORIES } from '../../data/dummy-data';
 
 const CategoriesSmallList = (props) => {
 

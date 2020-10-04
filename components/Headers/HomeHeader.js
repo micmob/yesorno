@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Settings from './Settings';
-import { FILTER } from '../constants/Filters';
+import { FILTER } from '../../constants/Filters';
 
 const HomeHeader = () => {
     return (

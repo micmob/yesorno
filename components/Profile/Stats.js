@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import SmallText from './UI/SmallText';
-import Colors from '../constants/Colors';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+
+import SmallText from '../UI/SmallText';
+import Colors from '../../constants/Colors';
 
 const Stats = (props) => {
     return (

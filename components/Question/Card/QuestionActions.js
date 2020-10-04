@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Colors from '../constants/Colors';
-import SmallText from './UI/SmallText';
-import { toggleUpvote, fetchQuestions } from '../store/actions/questions';
+import Colors from '../../../constants/Colors';
+import SmallText from '../../UI/SmallText';
+import { toggleUpvote, fetchQuestions } from '../../../store/actions/questions';
 
 const QuestionActions = (props) => {
     const [upvoteButtonColor, setUpvoteButtonColor] = useState(

@@ -13,7 +13,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import SmallText from '../components/UI/SmallText';
 import DefaultTextInput from '../components/UI/DefaultTextInput';
 import Colors from '../constants/Colors';
-import CategoriesSmallList from '../components/CategoriesSmallList';
+import CategoriesSmallList from '../components/UI/CategoriesSmallList';
 import QuestionList from '../components/Question/QuestionList';
 
 const SearchScreen = (props) => {

@@ -5,11 +5,9 @@ import {
     StyleSheet,
     TouchableNativeFeedback,
 } from 'react-native';
-import { Grid, Col } from 'react-native-easy-grid';
-import Colors from '../constants/Colors';
-import SmallText from './UI/SmallText';
-import { CATEGORIES } from '../data/dummy-data';
-import { useSelector } from 'react-redux';
+import Colors from '../../constants/Colors';
+import SmallText from '../UI/SmallText';
+import { CATEGORIES } from '../../data/dummy-data';
 
 const DisplayCat = (props) => {
     const renderCat = (itemData) => {

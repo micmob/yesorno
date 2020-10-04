@@ -4,11 +4,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch } from 'react-redux';
 
 import Colors from '../../constants/Colors';
-import TitleText from './TitleText';
-import CategoriesSmallList from './CategoriesSmallList';
+import TitleText from '../UI/TitleText';
+import CategoriesSmallList from '../UI/CategoriesSmallList';
 import DefaultTextInput from '../UI/DefaultTextInput';
 import { editQuestion, fetchQuestions } from '../../store/actions/questions';
-import Loading from './Loading';
 
 const Edit = (props) => {
     const [textInput, setTextInput] = useState(props.title);

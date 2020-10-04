@@ -6,17 +6,18 @@ import {
     TouchableNativeFeedback,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import TitleText from '../components/TitleText';
+import { Grid, Col } from 'react-native-easy-grid';
+
+import TitleText from '../../components/UI/TitleText';
 import Colors from '../../constants/Colors';
 import Overline from './Card/Overline';
-import HomeHeader from './HomeHeader';
+import HomeHeader from '../Headers/HomeHeader';
 import HotHeader from '../Headers/HotHeader';
-import QuestionActions from './QuestionActions';
-import DisplayCat from '../DisplayCat';
-import { Grid, Col, Row } from 'react-native-easy-grid';
-import CategoriesSmallList from './CategoriesSmallList';
+import QuestionActions from '../Question/Card/QuestionActions';
+import DisplayCat from '../Modals/DisplayCat';
+import CategoriesSmallList from '../UI/CategoriesSmallList';
 import { fetchQuestions } from '../../store/actions/questions';
-import Loading from '../components/Loading';
+import Loading from '../../components/UI/Loading';
 
 const QuestionList = (props) => {
     

@@ -9,7 +9,7 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
 import AppNavigator from './navigation/AppNavigator';
 import questionsReducer from './store/reducers/questions';
-import New from './components/New';
+import New from './components/Modals/New';
 
 const rootReducer = combineReducers({
     questions: questionsReducer,
