@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet} from 'react-native';
-import Colors from '../constants/Colors';
+import Colors from '../../constants/Colors';
 
 const SmallText = ({style, ...props}) => (
     <Text {...props} style={[styles.smallText, style]} />

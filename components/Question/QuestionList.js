@@ -7,19 +7,26 @@ import {
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import TitleText from '../components/TitleText';
-import Colors from '../constants/Colors';
-import Overline from './Overline';
+import Colors from '../../constants/Colors';
+import Overline from './Card/Overline';
 import HomeHeader from './HomeHeader';
-import HotHeader from './HotHeader';
+import HotHeader from '../Headers/HotHeader';
 import QuestionActions from './QuestionActions';
-import DisplayCat from './DisplayCat';
+import DisplayCat from '../DisplayCat';
 import { Grid, Col, Row } from 'react-native-easy-grid';
 import CategoriesSmallList from './CategoriesSmallList';
-import { fetchQuestions } from '../store/actions/questions';
+import { fetchQuestions } from '../../store/actions/questions';
 import Loading from '../components/Loading';
 
 const QuestionList = (props) => {
-    const questions = useSelector((state) => state.questions.allQuestions);
+    
+    var questions;
+    if(props.routeName === 'Search') {
+        questions = props.questions;
+    } else {
+        questions = useSelector((state) => state.questions.allQuestions);
+    }
+
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
     const [isRefreshing, setIsRefreshing] = useState(false);

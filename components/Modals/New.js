@@ -6,13 +6,12 @@ import { useDispatch } from 'react-redux';
 import Colors from '../constants/Colors';
 import TitleText from './TitleText';
 import CategoriesSmallList from './CategoriesSmallList';
-import DefaultTextInput from './DefaultTextInput';
-import { editQuestion, fetchQuestions } from '../store/actions/questions';
-import Loading from './Loading';
+import DefaultTextInput from './UI/DefaultTextInput';
+import { createQuestion } from '../store/actions/questions';
 
-const Edit = (props) => {
-    const [textInput, setTextInput] = useState(props.title);
-    const [selectedCategories, setSelectedCategories] = useState(props.catId);
+const New = (props) => {
+    const [textInput, setTextInput] = useState('');
+    const [selectedCategories, setSelectedCategories] = useState([]);
 
     const handleTextInput = (input) => {
         setTextInput(input);
@@ -24,13 +23,13 @@ const Edit = (props) => {
 
     const dispatch = useDispatch();
 
-    const handleEditQuestion = () => {
+    const handleNewQuestion = () => {
         if (textInput !== '' && selectedCategories.length > 0) {
-            props.onIsLoading(true);
-            dispatch(editQuestion(props.id, textInput, selectedCategories))
-                .then(() => dispatch(fetchQuestions()))
-                .then(() => props.onIsLoading(false));
+            dispatch(createQuestion(textInput, selectedCategories));
+            setTextInput('');
+            setSelectedCategories([]);
             props.closeModal();
+            alert('You question has been posted.');
         } else {
             alert(
                 'Text input cannot be empty and you need to pick at least 1 category.'
@@ -41,12 +40,12 @@ const Edit = (props) => {
     return (
         <View style={styles.insideModal}>
             <View style={styles.headerContainer}>
-                <TitleText style={styles.header}>Edit</TitleText>
+                <TitleText style={styles.header}>New</TitleText>
                 <View style={styles.touchableContainer}>
                     <TouchableHighlight
                         activeOpacity={0.5}
                         underlayColor={Colors.onBackgroundColor}
-                        onPress={handleEditQuestion}
+                        onPress={handleNewQuestion}
                         style={styles.iconContainer}
                     >
                         <Icon
@@ -58,37 +57,32 @@ const Edit = (props) => {
                     </TouchableHighlight>
                 </View>
             </View>
-            <View style={{ width: '100%' }}>
-                <DefaultTextInput
-                    value={textInput}
-                    height={300}
-                    multiline={true}
-                    routeName="Edit"
-                    onTextInput={(input) => handleTextInput(input)}
-                />
-            </View>
-
+            <DefaultTextInput
+                placeholder={
+                    'Need inspiration? Well.. too bad, I got none either.'
+                }
+                height={300}
+                multiline={true}
+                routeName="New"
+                onTextInput={(input) => handleTextInput(input)}
+            />
             <CategoriesSmallList
-                routeName="Edit"
+                routeName="New"
                 onCatPress={(selectedCategories) =>
                     handleCatPress(selectedCategories)
                 }
-                catId={props.catId}
             />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    modal: {
-        flex: 1,
-        margin: 0,
-        padding: 20,
-    },
     insideModal: {
         flex: 1,
+        padding: 20,
         alignItems: 'center',
         justifyContent: 'flex-start',
+        backgroundColor: Colors.backgroundColor,
     },
     header: {
         fontSize: 25,
@@ -137,4 +131,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Edit;
+export default New;

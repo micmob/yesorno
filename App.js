@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import Modal from 'react-native-modal';
+import React, { useState } from 'react';
+import { StyleSheet, View, Modal } from 'react-native';
+//import Modal from 'react-native-modal';
 import { StatusBar } from 'expo-status-bar';
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
-import Colors from './constants/Colors';
 import AppNavigator from './navigation/AppNavigator';
 import questionsReducer from './store/reducers/questions';
 import New from './components/New';
-import Edit from './components/Edit';
 
 const rootReducer = combineReducers({
     questions: questionsReducer,
@@ -33,20 +31,17 @@ export default function App() {
         <Provider store={store}>
             <View style={styles.container}>
                 <Modal
-                    isVisible={newModal}
-                    onBackButtonPress={toggleModal}
-                    useNativeDriver={true}
-                    animationIn="slideInDown"
-                    animationOut="slideOutUp"
-                    animationInTiming={200}
-                    animationOutTiming={200}
-                    backdropOpacity={1}
-                    backdropColor={Colors.backgroundColor}
+                    visible={newModal}
+                    animationType="slide"
+                    presentationStyle="fullScreen"
+                    transparent={false}
+                    onRequestClose={toggleModal}
+                    style={{ margin: 0 }}
                 >
                     <New closeModal={toggleModal} />
                 </Modal>
                 <AppNavigator showNewModal={toggleModal} />
-                <StatusBar style="light" />
+                <StatusBar style="light" translucent={true} />
             </View>
         </Provider>
     );

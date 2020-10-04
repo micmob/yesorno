@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import Colors from '../constants/Colors';
+import Colors from '../../constants/Colors';
 import TitleText from '../components/TitleText';
 
 const Button = props => {

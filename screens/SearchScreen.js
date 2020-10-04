@@ -4,20 +4,20 @@ import {
     StyleSheet,
     StatusBar,
     TouchableNativeFeedback,
-    Keyboard
+    Keyboard,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useSelector } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import SmallText from '../components/SmallText';
-import DefaultTextInput from '../components/DefaultTextInput';
+import SmallText from '../components/UI/SmallText';
+import DefaultTextInput from '../components/UI/DefaultTextInput';
 import Colors from '../constants/Colors';
 import CategoriesSmallList from '../components/CategoriesSmallList';
-import QuestionList from '../components/QuestionList';
+import QuestionList from '../components/Question/QuestionList';
 
 const SearchScreen = (props) => {
-    const allQuestions = useSelector(state => state.questions.allQuestions);
+    const allQuestions = useSelector((state) => state.questions.allQuestions);
 
     const [questions, setQuestions] = useState(null);
 
@@ -31,9 +31,8 @@ const SearchScreen = (props) => {
     useEffect(() => {
         const unsubscribe = props.navigation.addListener('focus', () => {
             setKeyword('');
-            setQuestions(null);
-        }
-        );
+            setQuestions([]);
+        });
         return unsubscribe;
     }, [props.navigation]);
 
@@ -52,10 +51,16 @@ const SearchScreen = (props) => {
             setKeyword(text);
         }
         if (keyword.length > 0) {
-            const q = allQuestions.filter(item => catList.every(val => item.catId.includes(val))).filter(
-                (item) =>
-                    item.title.toUpperCase().search(keyword.toUpperCase()) >= 0
-            );
+            const q = allQuestions
+                .filter((item) =>
+                    catList.every((val) => item.catId.includes(val))
+                )
+                .filter(
+                    (item) =>
+                        item.title
+                            .toUpperCase()
+                            .search(keyword.toUpperCase()) >= 0
+                );
             setQuestions(q);
             if (q.length > 0) {
                 setMatchesFound(true);
@@ -66,7 +71,10 @@ const SearchScreen = (props) => {
     };
 
     return (
-        <LinearGradient colors={[Colors.backgroundColor, Colors.backgroundColorGradient]} style={styles.container}>
+        <LinearGradient
+            colors={[Colors.backgroundColor, Colors.backgroundColorGradient]}
+            style={styles.container}
+        >
             <View style={styles.insideContainer}>
                 <View style={styles.inputContainer}>
                     <View style={{ flex: 1 }}>
@@ -116,7 +124,10 @@ const SearchScreen = (props) => {
                                     paddingBottom: 20,
                                 }}
                             >
-                                <CategoriesSmallList catList={onCatList} routeName='Search' />
+                                <CategoriesSmallList
+                                    catList={onCatList}
+                                    routeName="Search"
+                                />
                             </View>
                             <SmallText style={styles.noMatchesText}>
                                 No matches found.

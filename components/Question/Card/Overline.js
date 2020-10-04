@@ -1,11 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-import Trash from 'react-native-vector-icons/FontAwesome';
 
-import SmallText from './SmallText';
-import RelativeTime from './RelativeTime';
-import Colors from '../constants/Colors';
+import SmallText from '../../UI/SmallText';
+import RelativeTime from '../RelativeTime';
+import Colors from '../../../constants/Colors';
 
 const Overline = (props) => {
     return (
@@ -39,9 +38,7 @@ const Overline = (props) => {
 
                     <View style={styles.actionsContainer}>
                         <TouchableNativeFeedback
-                            onPress={() => {
-                                console.log('boop');
-                            }}
+                            onPress={props.onDeletePress}
                             background={TouchableNativeFeedback.Ripple(
                                 Colors.brandColor,
                                 true

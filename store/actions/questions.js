@@ -141,6 +141,28 @@ export const createQuestion = (title, catId) => {
     };
 };
 
+export const deleteQuestion = (id) => {
+    return async (dispatch) => {
+        try {
+            const response = await fetch(`https://yesorno-by-mic.firebaseio.com/questions/${id}.json`, {
+                method: 'DELETE'
+            });
+
+            if(!response.ok) {
+                throw new Error("Error: Couldn't find question.");
+            }
+
+            dispatch({
+                type: DELETE_QUESTION,
+                id
+            })
+
+        } catch(error) {
+            throw(error);
+        }
+    }
+}
+
 export const editQuestion = (id, title, catId) => {
     return async (dispatch) => {
         try {

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { useDispatch } from 'react-redux';
@@ -38,8 +38,20 @@ const AppNavigator = (props) => {
         );
     };
 
+    const MyTheme = {
+        dark: false,
+        colors: {
+          primary: 'rgb(255, 45, 85)',
+          background: 'rgb(242, 242, 242)',
+          card: 'rgb(255, 255, 255)',
+          text: 'rgb(28, 28, 30)',
+          border: 'rgb(199, 199, 204)',
+          notification: 'rgb(255, 69, 58)',
+        },
+      };
+
     return (
-        <NavigationContainer>
+        <NavigationContainer theme={MyTheme}>
             <Tab.Navigator
                 activeColor={Colors.brandColor}
                 inactiveColor={Colors.onSurfaceColor}

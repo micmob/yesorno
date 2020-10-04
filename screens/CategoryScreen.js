@@ -3,9 +3,9 @@ import { View, StyleSheet, StatusBar } from "react-native";
 import { useSelector } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import QuestionList from "../components/QuestionList";
+import QuestionList from "../components/Question/QuestionList";
 import Colors from "../constants/Colors";
-import CategoryHeader from "../components/CategoryHeader";
+import CategoryHeader from "../components/Headers/CategoryHeader";
 
 const CategoryScreen = (props) => {
   const questions = useSelector(state => state.questions.allQuestions).filter(

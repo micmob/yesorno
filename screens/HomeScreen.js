@@ -3,7 +3,7 @@ import { View, StyleSheet, StatusBar } from 'react-native';
 import { useSelector } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient';
 
-import QuestionList from '../components/QuestionList';
+import QuestionList from '../components/Question/QuestionList';
 import Colors from '../constants/Colors';
 
 const HomeScreen = (props) => {

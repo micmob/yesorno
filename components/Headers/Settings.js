@@ -6,10 +6,10 @@ import Slider from '@react-native-community/slider';
 import ModalIcon from 'react-native-vector-icons/AntDesign';
 import { useDispatch } from 'react-redux';
 
-import Colors from '../constants/Colors';
-import SmallText from './SmallText';
-import { filterQuestions } from '../store/actions/questions';
-import { FILTER } from '../constants/Filters';
+import Colors from '../../constants/Colors';
+import SmallText from '../UI/SmallText';
+import { filterQuestions } from '../../store/actions/questions';
+import { FILTER } from '../../constants/Filters';
 
 const Settings = (props) => {
     const [isModalVisible, setIsModalVisible] = useState(false);

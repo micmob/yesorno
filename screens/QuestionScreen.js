@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Modal from 'react-native-modal';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Colors from '../constants/Colors';
 import TitleText from '../components/TitleText';
-import Overline from '../components/Overline';
+import Overline from '../components/Question/Card/Overline';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Fontisto';
-import Edit from '../components/Edit';
+import Edit from '../components/Modals/Edit';
 import DisplayCat from '../components/DisplayCat';
 import Loading from '../components/Loading';
+import { deleteQuestion } from '../store/actions/questions';
 
 const QuestionScreen = (props) => {
     const question = useSelector((state) => state.questions.allQuestions).find(
@@ -46,13 +47,42 @@ const QuestionScreen = (props) => {
         setEditModal(!editModal);
     };
 
-    const dispatch = useDispatch();
-
     const handleIsLoading = (value) => {
         setIsLoading(value);
     };
 
-    if (isLoading) {
+    const dispatch = useDispatch();
+
+    const handleDelete = () => {
+        Alert.alert(
+            'Are you sure?',
+            'You cannot restore deleted posts.',
+            [
+                {
+                    text: 'Take me back!',
+                    onPress: () => console.log('Take me back! Pressed'),
+                    style: 'cancel',
+                },
+                {
+                    text: 'Delete',
+                    onPress: () => {
+                        setIsLoading(true);
+                        props.navigation.goBack();
+                        try {
+                            dispatch(
+                                deleteQuestion(props.route.params.id)
+                            ).then(() => setIsLoading(false));
+                        } catch (error) {
+                            console.log(error.message);
+                        }
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
+    };
+
+    if (isLoading || typeof question === 'undefined') {
         return (
             <LinearGradient
                 colors={[
@@ -77,6 +107,7 @@ const QuestionScreen = (props) => {
                         question={question}
                         routeName="QuestionScreen"
                         onEditPress={toggleModal}
+                        onDeletePress={handleDelete}
                     />
                 </View>
                 <View

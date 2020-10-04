@@ -12,7 +12,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import TitleText from '../components/TitleText';
 import Colors from '../constants/Colors';
 import Stats from '../components/Stats';
-import QuestionList from '../components/QuestionList';
+import QuestionList from '../components/Question/QuestionList';
 import { useSelector } from 'react-redux';
 
 const ProfileScreen = (props) => {
@@ -26,12 +26,12 @@ const ProfileScreen = (props) => {
 
     const onMenuPress = (buttonName) => {
         if (buttonName === 'Posts') {
-            setQuestions(questions); //TODO
+            //setQuestions(questions); //TODO
             setPostsColor(Colors.brandColor);
             setUpvotedColor(Colors.onBackgroundColor);
         } else {
             //buttonName === 'Upvoted'
-            setQuestions(questions); //TODO
+            //setQuestions(questions); //TODO
             setUpvotedColor(Colors.brandColor);
             setPostsColor(Colors.onBackgroundColor);
         }

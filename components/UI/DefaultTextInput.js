@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Keyboard } from 'react-native';
 import { TextInput } from 'react-native';
-import Colors from '../constants/Colors';
+import Colors from '../../constants/Colors';
 
 const DefaultTextInput = (props) => {
     return (

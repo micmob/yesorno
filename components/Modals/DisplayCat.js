@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { Grid, Col } from 'react-native-easy-grid';
 import Colors from '../constants/Colors';
-import SmallText from './SmallText';
+import SmallText from './UI/SmallText';
 import { CATEGORIES } from '../data/dummy-data';
 import { useSelector } from 'react-redux';
 

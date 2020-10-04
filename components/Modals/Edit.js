@@ -3,15 +3,16 @@ import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch } from 'react-redux';
 
-import Colors from '../constants/Colors';
+import Colors from '../../constants/Colors';
 import TitleText from './TitleText';
 import CategoriesSmallList from './CategoriesSmallList';
-import DefaultTextInput from './DefaultTextInput';
-import { createQuestion } from '../store/actions/questions';
+import DefaultTextInput from '../UI/DefaultTextInput';
+import { editQuestion, fetchQuestions } from '../../store/actions/questions';
+import Loading from './Loading';
 
-const New = (props) => {
-    const [textInput, setTextInput] = useState('');
-    const [selectedCategories, setSelectedCategories] = useState([]);
+const Edit = (props) => {
+    const [textInput, setTextInput] = useState(props.title);
+    const [selectedCategories, setSelectedCategories] = useState(props.catId);
 
     const handleTextInput = (input) => {
         setTextInput(input);
@@ -23,13 +24,13 @@ const New = (props) => {
 
     const dispatch = useDispatch();
 
-    const handleNewQuestion = () => {
+    const handleEditQuestion = () => {
         if (textInput !== '' && selectedCategories.length > 0) {
-            dispatch(createQuestion(textInput, selectedCategories));
-            setTextInput('');
-            setSelectedCategories([]);
+            props.onIsLoading(true);
+            dispatch(editQuestion(props.id, textInput, selectedCategories))
+                .then(() => dispatch(fetchQuestions()))
+                .then(() => props.onIsLoading(false));
             props.closeModal();
-            alert('You question has been posted.');
         } else {
             alert(
                 'Text input cannot be empty and you need to pick at least 1 category.'
@@ -40,12 +41,12 @@ const New = (props) => {
     return (
         <View style={styles.insideModal}>
             <View style={styles.headerContainer}>
-                <TitleText style={styles.header}>New</TitleText>
+                <TitleText style={styles.header}>Edit</TitleText>
                 <View style={styles.touchableContainer}>
                     <TouchableHighlight
                         activeOpacity={0.5}
                         underlayColor={Colors.onBackgroundColor}
-                        onPress={handleNewQuestion}
+                        onPress={handleEditQuestion}
                         style={styles.iconContainer}
                     >
                         <Icon
@@ -57,20 +58,22 @@ const New = (props) => {
                     </TouchableHighlight>
                 </View>
             </View>
-            <DefaultTextInput
-                placeholder={
-                    'Need inspiration? Well.. too bad, I got none either.'
-                }
-                height={300}
-                multiline={true}
-                routeName="New"
-                onTextInput={(input) => handleTextInput(input)}
-            />
+            <View style={{ width: '100%' }}>
+                <DefaultTextInput
+                    value={textInput}
+                    height={300}
+                    multiline={true}
+                    routeName="Edit"
+                    onTextInput={(input) => handleTextInput(input)}
+                />
+            </View>
+
             <CategoriesSmallList
-                routeName="New"
+                routeName="Edit"
                 onCatPress={(selectedCategories) =>
                     handleCatPress(selectedCategories)
                 }
+                catId={props.catId}
             />
         </View>
     );
@@ -134,4 +137,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default New;
+export default Edit;
