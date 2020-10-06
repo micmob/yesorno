@@ -8,15 +8,16 @@ import Colors from '../../../constants/Colors';
 import SmallText from '../../UI/SmallText';
 import { toggleUpvote, fetchQuestions } from '../../../store/actions/questions';
 
-const QuestionActions = (props) => {
+const QuestionActions = props => {
     const [upvoteButtonColor, setUpvoteButtonColor] = useState(
         Colors.onBackgroundColor
     );
+    const [isUpvoted, setIsUpvoted] = useState(false); //TODO modify here when adding users
 
     const dispatch = useDispatch();
 
-    const question = useSelector((state) => state.questions.allQuestions).find(
-        (ques) => ques.id === props.id
+    const question = useSelector(state => state.questions.allQuestions).find(
+        ques => ques.id === props.id
     );
 
     const UpvoteCount = () => (
@@ -43,19 +44,21 @@ const QuestionActions = (props) => {
         </Col>
     );
 
+    const handleOnUpvotePress = async () => { //TODO fix this, upvotes and UI should be synched
+        if (isUpvoted) {
+            setUpvoteButtonColor(Colors.brandColor);
+            question.upvotes++;
+        } else {
+            setUpvoteButtonColor(Colors.onBackgroundColor);
+            question.upvotes++; //TODO change to -- after implementing users
+        }
+        setIsUpvoted(!isUpvoted);
+        dispatch(toggleUpvote(question.id))
+        
+    };
+
     return (
-        <TouchableWithoutFeedback
-            onPress={() => {
-                //TODO fix slow speed
-                dispatch(toggleUpvote(question.id)).then(() => {
-                    try {
-                        dispatch(fetchQuestions());
-                    } catch (error) {
-                        alert(error);
-                    }
-                });
-            }}
-        >
+        <TouchableWithoutFeedback onPress={handleOnUpvotePress}>
             <Grid style={styles.container}>
                 <Row style={styles.actions}>
                     <UpvoteCount />

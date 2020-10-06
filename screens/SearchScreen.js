@@ -125,7 +125,7 @@ const SearchScreen = (props) => {
                                 }}
                             >
                                 <CategoriesSmallList
-                                    catList={onCatList}
+                                    onChange={onCatList}
                                     routeName="Search"
                                 />
                             </View>

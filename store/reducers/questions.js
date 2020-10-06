@@ -10,6 +10,7 @@ import {
 } from '../actions/questions';
 import { FILTER } from '../../constants/Filters';
 import Question from '../../models/question';
+import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 
 const initialState = {
     allQuestions: [],
@@ -28,8 +29,6 @@ const filter = (state, value) => {
 
 const questionsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case TOGGLE_UPVOTE:
-            return state;
         case SET_FILTERS:
             const appliedFilter = action.filterSettings;
 

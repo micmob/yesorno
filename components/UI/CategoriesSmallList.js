@@ -16,14 +16,7 @@ const CategoriesSmallList = (props) => {
                     selected.pop();
                     alert('You cannot select more than 3 categories.');
                 } else {
-                    if (props.routeName === 'Search') {
-                        //temporary fix
-                        props.catList(selected);
-                    } else {
-                        if (props.routeName === 'New' || props.routeName === 'Edit') {
-                            props.onCatPress(selected);
-                        }
-                    }
+                    props.onChange(selected);
                 }
             }}
             selectedTagStyle={[styles.tagStyle, styles.selectedTagStyle]}

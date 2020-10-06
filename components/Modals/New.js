@@ -68,7 +68,7 @@ const New = (props) => {
             />
             <CategoriesSmallList
                 routeName="New"
-                onCatPress={(selectedCategories) =>
+                onChange={(selectedCategories) =>
                     handleCatPress(selectedCategories)
                 }
             />

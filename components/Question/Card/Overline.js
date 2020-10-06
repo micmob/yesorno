@@ -22,8 +22,7 @@ const Overline = (props) => {
                         <TouchableNativeFeedback
                             onPress={props.onEditPress}
                             background={TouchableNativeFeedback.Ripple(
-                                Colors.brandColor,
-                                true
+                                Colors.brandColor
                             )}
                         >
                             <View style={styles.iconContainer}>
@@ -36,7 +35,7 @@ const Overline = (props) => {
                         </TouchableNativeFeedback>
                     </View>
 
-                    <View style={styles.actionsContainer}>
+                    <View style={{borderRadius: 100}}>
                         <TouchableNativeFeedback
                             onPress={props.onDeletePress}
                             background={TouchableNativeFeedback.Ripple(
@@ -79,13 +78,14 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
     },
     actionsContainer: {
-        borderRadius: 100,
+        borderRadius: 20,
     },
     iconContainer: {
         paddingVertical: 10,
         paddingHorizontal: 10,
         alignItems: 'center',
         justifyContent: 'center',
+        borderRadius: 20,
         flex: 0,
     },
 });

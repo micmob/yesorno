@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Modal from 'react-native-modal';
 import Slider from '@react-native-community/slider';
@@ -10,8 +10,9 @@ import Colors from '../../constants/Colors';
 import SmallText from '../UI/SmallText';
 import { filterQuestions } from '../../store/actions/questions';
 import { FILTER } from '../../constants/Filters';
+import TouchMe from '../UI/TouchMe';
 
-const Settings = (props) => {
+const Settings = props => {
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const [sliderLabel, setSliderLabel] = useState(props.initialSliderLabel);
@@ -21,7 +22,7 @@ const Settings = (props) => {
 
     const dispatch = useDispatch();
 
-    const changeSliderLabel = (label) => {
+    const changeSliderLabel = label => {
         setSliderLabel(label);
     };
 
@@ -29,7 +30,7 @@ const Settings = (props) => {
         setIsModalVisible(!isModalVisible);
     };
 
-    const handleSlider = (value) => {
+    const handleSlider = value => {
         if (value === 0) {
             changeSliderLabel('last 24 Hours');
         } else {
@@ -49,7 +50,7 @@ const Settings = (props) => {
         }
     };
 
-    const handleSlidingComplete = (value) => {
+    const handleSlidingComplete = value => {
         setSliderFinalValue(value);
     };
 
@@ -74,53 +75,15 @@ const Settings = (props) => {
         }
     };
 
-    const Button = (props) => {
-        return (
-            <TouchableNativeFeedback
-                onPress={props.onPress}
-                background={TouchableNativeFeedback.Ripple(
-                    Colors.brandColor,
-                    true
-                )}
-            >
-                <View
-                    style={{
-                        width: 40,
-                        height: 40,
-                        borderRadius: 100,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <ModalIcon
-                        name={props.iconName}
-                        color={props.color}
-                        size={25}
-                    />
-                </View>
-            </TouchableNativeFeedback>
-        );
-    };
-
     return (
         <View style={styles.container}>
-            <View style={styles.touchableContainer}>
-                <TouchableNativeFeedback
-                    onPress={toggleModal}
-                    background={TouchableNativeFeedback.Ripple(
-                        Colors.brandColor,
-                        true
-                    )}
-                >
-                    <View style={styles.iconContainer}>
-                        <Icon
-                            name="settings"
-                            color={Colors.onBackgroundColor}
-                            size={25}
-                        />
-                    </View>
-                </TouchableNativeFeedback>
-            </View>
+            <TouchMe type="medium" onPress={toggleModal}>
+                <Icon
+                    name="settings"
+                    color={Colors.onBackgroundColor}
+                    size={25}
+                />
+            </TouchMe>
             <View>
                 <Modal
                     isVisible={isModalVisible}
@@ -148,10 +111,10 @@ const Settings = (props) => {
                             </SmallText>
                         </View>
                         <Slider
-                            onValueChange={(value) => {
+                            onValueChange={value => {
                                 handleSlider(value);
                             }}
-                            onSlidingComplete={(value) => {
+                            onSlidingComplete={value => {
                                 handleSlidingComplete(value);
                             }}
                             value={props.sliderInitialValue}
@@ -163,16 +126,20 @@ const Settings = (props) => {
                             maximumTrackTintColor={Colors.onSurfaceColor}
                         />
                         <View style={styles.buttonContainer}>
-                            <Button
-                                iconName='close'
-                                onPress={toggleModal}
-                                color={Colors.onSurfaceColor}
-                            />
-                            <Button
-                                iconName='check'
-                                onPress={handleCheckPress}
-                                color={Colors.brandColor}
-                            />
+                            <TouchMe type="medium" onPress={toggleModal}>
+                                <ModalIcon
+                                    name='close'
+                                    color={Colors.brandColor}
+                                    size={25}
+                                />
+                            </TouchMe>
+                            <TouchMe type="medium" onPress={handleCheckPress}>
+                                <ModalIcon
+                                    name='check'
+                                    color={Colors.brandColor}
+                                    size={25}
+                                />
+                            </TouchMe>
                         </View>
                     </View>
                 </Modal>

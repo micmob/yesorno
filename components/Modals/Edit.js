@@ -69,7 +69,7 @@ const Edit = (props) => {
 
             <CategoriesSmallList
                 routeName="Edit"
-                onCatPress={(selectedCategories) =>
+                onChange={(selectedCategories) =>
                     handleCatPress(selectedCategories)
                 }
                 catId={props.catId}

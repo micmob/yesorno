@@ -8,33 +8,26 @@ import {
 import Colors from '../../constants/Colors';
 import SmallText from '../UI/SmallText';
 import { CATEGORIES } from '../../data/dummy-data';
+import TouchMe from '../UI/TouchMe';
 
 const DisplayCat = (props) => {
     const renderCat = (itemData) => {
         return (
-            <View style={styles.catContainer}>
-                <TouchableNativeFeedback
-                    onPress={() =>
-                        props.navigation.navigate('Category', {
-                            id: itemData.item,
-                        })
+            <TouchMe
+                onPress={() =>
+                    props.navigation.navigate('Category', {
+                        id: itemData.item,
+                    })
+                }
+                type='small'
+            >
+                <SmallText style={{ color: Colors.onBackgroundColor }}>
+                    {
+                        CATEGORIES.filter((cat) => cat.id === itemData.item)[0]
+                            .name
                     }
-                    background={TouchableNativeFeedback.Ripple(
-                        Colors.brandColor,
-                        true
-                    )}
-                >
-                    <View style={styles.textContainer}>
-                        <SmallText style={{ color: Colors.onBackgroundColor }}>
-                            {
-                                CATEGORIES.filter(
-                                    (cat) => cat.id === itemData.item
-                                )[0].name
-                            }
-                        </SmallText>
-                    </View>
-                </TouchableNativeFeedback>
-            </View>
+                </SmallText>
+            </TouchMe>
         );
     };
 
@@ -54,25 +47,6 @@ const styles = StyleSheet.create({
     list: {
         flex: 0,
         flexDirection: 'row',
-    },
-    catContainer: {
-        flex: 0,
-        borderRadius: 20,
-        color: Colors.onBackgroundColor,
-        margin: 5,
-        fontSize: 14,
-        height: 25,
-    },
-    textContainer: {
-        flex: 0,
-        borderWidth: 0.5,
-        borderColor: Colors.onBackgroundSmallColor,
-        paddingVertical: 2.5,
-        paddingHorizontal: 10,
-        borderRadius: 20,
-        height: 25,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
 });
 
