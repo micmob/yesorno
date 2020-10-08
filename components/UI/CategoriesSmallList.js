@@ -33,15 +33,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         borderRadius: 20,
         alignSelf: 'center',
-        color: Colors.onBackgroundColor,
+        color: Colors.onSurfaceColor,
         margin: 5,
         fontSize: 14,
         borderWidth: 0.5,
-        borderColor: Colors.onBackgroundSmallColor,
+        borderColor: Colors.onBackgroundColor,
+        elevation: 5,
+        backgroundColor: Colors.accentColor
     },
     selectedTagStyle: {
         backgroundColor: Colors.brandColor,
-        color: Colors.backgroundColor,
+        borderColor: Colors.brandColor,
+        color: Colors.accentColor,
     },
     tagContainerStyle: {
         flexDirection: 'row',

@@ -1,34 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, StatusBar } from 'react-native';
-import { useSelector } from 'react-redux';
-import { LinearGradient } from 'expo-linear-gradient';
+import React from 'react';
 
 import QuestionList from '../components/Question/QuestionList';
 import Colors from '../constants/Colors';
+import Container from '../components/Common/Container';
+import BottomNavigator from '../components/Common/BottomNavigator';
 
-const HomeScreen = (props) => {
+const HomeScreen = props => {
 
     return (
-        <LinearGradient colors={[Colors.backgroundColor, Colors.backgroundColorGradient]} style={styles.container}>
-            <View style={styles.insideContainer}>
-                <QuestionList
-                    navigation={props.navigation}
-                    routeName="Home"
-                    backgroundColor={Colors.surfaceColor}
-                />
-            </View>
-        </LinearGradient>
+        <Container>
+            <QuestionList
+                navigation={props.navigation}
+                routeName="Home"
+                backgroundColor={Colors.surfaceColor}
+            />
+            <BottomNavigator {...props} />
+        </Container>
     );
 };
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    insideContainer: {
-        paddingTop: StatusBar.currentHeight,
-        flex: 1,
-    },
-});
 
 export default HomeScreen;

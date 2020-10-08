@@ -1,7 +1,5 @@
-import { QUESTIONS } from '../../data/dummy-data';
 import {
     SET_FILTERS,
-    TOGGLE_UPVOTE,
     CREATE_QUESTION,
     UPDATE_QUESTION,
     DELETE_QUESTION,
@@ -10,7 +8,6 @@ import {
 } from '../actions/questions';
 import { FILTER } from '../../constants/Filters';
 import Question from '../../models/question';
-import { setStatusBarNetworkActivityIndicatorVisible } from 'expo-status-bar';
 
 const initialState = {
     allQuestions: [],

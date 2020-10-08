@@ -80,7 +80,7 @@ const Settings = props => {
             <TouchMe type="medium" onPress={toggleModal}>
                 <Icon
                     name="settings"
-                    color={Colors.onBackgroundColor}
+                    color={Colors.onSurfaceColor}
                     size={25}
                 />
             </TouchMe>
@@ -128,14 +128,14 @@ const Settings = props => {
                         <View style={styles.buttonContainer}>
                             <TouchMe type="medium" onPress={toggleModal}>
                                 <ModalIcon
-                                    name='close'
+                                    name="close"
                                     color={Colors.brandColor}
                                     size={25}
                                 />
                             </TouchMe>
                             <TouchMe type="medium" onPress={handleCheckPress}>
                                 <ModalIcon
-                                    name='check'
+                                    name="check"
                                     color={Colors.brandColor}
                                     size={25}
                                 />

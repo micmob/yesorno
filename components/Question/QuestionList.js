@@ -19,13 +19,12 @@ import CategoriesSmallList from '../UI/CategoriesSmallList';
 import { fetchQuestions } from '../../store/actions/questions';
 import Loading from '../../components/UI/Loading';
 
-const QuestionList = (props) => {
-    
+const QuestionList = props => {
     var questions;
-    if(props.routeName === 'Search') {
+    if (props.routeName === 'Search') {
         questions = props.questions;
     } else {
-        questions = useSelector((state) => state.questions.allQuestions);
+        questions = useSelector(state => state.questions.allQuestions);
     }
 
     const dispatch = useDispatch();
@@ -52,12 +51,13 @@ const QuestionList = (props) => {
         return focusSub;
     }, [loadQuestions]);
 
-    const renderQuestion = (itemData) => {
+    const renderQuestion = itemData => {
         return (
             <View style={styles.card}>
                 <TouchableNativeFeedback
                     background={TouchableNativeFeedback.Ripple(
-                        Colors.brandColor
+                        Colors.touchColor,
+                        true
                     )}
                     onPress={() =>
                         props.navigation.navigate('Question', {
@@ -101,7 +101,7 @@ const QuestionList = (props) => {
         );
     };
 
-    const renderSeparator = () => <View style={styles.separator}></View>;
+    //const renderSeparator = () => <View style={styles.separator}></View>;
 
     if (isLoading) {
         return <Loading />;
@@ -113,10 +113,10 @@ const QuestionList = (props) => {
                 data={questions}
                 keyExtractor={(item, index) => item.id}
                 renderItem={renderQuestion}
-                ItemSeparatorComponent={renderSeparator}
+                //ItemSeparatorComponent={renderSeparator}
                 onRefresh={loadQuestions}
                 refreshing={isRefreshing}
-                ListHeaderComponent={(itemData) => {
+                ListHeaderComponent={itemData => {
                     if (props.routeName === 'Home') return <HomeHeader />;
                     else {
                         if (props.routeName === 'Hot') {
@@ -150,20 +150,25 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     card: {
-        marginHorizontal: 5,
+        margin: 5,
         flex: 1,
+        backgroundColor: Colors.surfaceColor,
+        borderRadius: 20,
+        elevation: 5,
     },
-    separator: {
-        marginHorizontal: 10,
-        height: 0.5,
-        backgroundColor: Colors.onBackgroundSeparatorColor,
-    },
+    // separator: {
+    //     marginHorizontal: 10,
+    //     height: 0.5,
+    //     backgroundColor: Colors.onBackgroundSeparatorColor,
+    // },
     insideCard: {
         flex: 1,
         paddingVertical: 5,
+        borderRadius: 20,
     },
     title: {
         marginVertical: 5,
+        color: Colors.onSurfaceColor,
     },
 });
 

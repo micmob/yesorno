@@ -21,7 +21,7 @@ const DisplayCat = (props) => {
                 }
                 type='small'
             >
-                <SmallText style={{ color: Colors.onBackgroundColor }}>
+                <SmallText style={{ color: Colors.onSurfaceSmallColor }}>
                     {
                         CATEGORIES.filter((cat) => cat.id === itemData.item)[0]
                             .name

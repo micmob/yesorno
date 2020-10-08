@@ -22,7 +22,7 @@ const Overline = (props) => {
                         <TouchableNativeFeedback
                             onPress={props.onEditPress}
                             background={TouchableNativeFeedback.Ripple(
-                                Colors.brandColor
+                                Colors.touchColor
                             )}
                         >
                             <View style={styles.iconContainer}>
@@ -39,7 +39,7 @@ const Overline = (props) => {
                         <TouchableNativeFeedback
                             onPress={props.onDeletePress}
                             background={TouchableNativeFeedback.Ripple(
-                                Colors.brandColor,
+                                Colors.touchColor,
                                 true
                             )}
                         >

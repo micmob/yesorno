@@ -3,21 +3,22 @@ import { StyleSheet, View, TouchableHighlight } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useDispatch } from 'react-redux';
 
-import Colors from '../../constants/Colors';
-import TitleText from '../UI/TitleText';
-import CategoriesSmallList from '../UI/CategoriesSmallList';
-import DefaultTextInput from '../UI/DefaultTextInput';
-import { createQuestion } from '../../store/actions/questions';
+import Colors from '../constants/Colors';
+import TitleText from '../components/UI/TitleText';
+import CategoriesSmallList from '../components/UI/CategoriesSmallList';
+import DefaultTextInput from '../components/UI/DefaultTextInput';
+import { createQuestion } from '../store/actions/questions';
+import Container from '../components/Common/Container';
 
-const New = (props) => {
+const NewScreen = props => {
     const [textInput, setTextInput] = useState('');
     const [selectedCategories, setSelectedCategories] = useState([]);
 
-    const handleTextInput = (input) => {
+    const handleTextInput = input => {
         setTextInput(input);
     };
 
-    const handleCatPress = (selectedCategories) => {
+    const handleCatPress = selectedCategories => {
         setSelectedCategories(selectedCategories);
     };
 
@@ -38,52 +39,51 @@ const New = (props) => {
     };
 
     return (
-        <View style={styles.insideModal}>
-            <View style={styles.headerContainer}>
-                <TitleText style={styles.header}>New</TitleText>
-                <View style={styles.touchableContainer}>
-                    <TouchableHighlight
-                        activeOpacity={0.5}
-                        underlayColor={Colors.onBackgroundColor}
-                        onPress={handleNewQuestion}
-                        style={styles.iconContainer}
-                    >
-                        <Icon
-                            name="paper-plane"
-                            color={Colors.surfaceColor}
-                            size={25}
-                            style={styles.icon}
-                        />
-                    </TouchableHighlight>
+        <Container>
+            <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <TitleText style={styles.header}>New</TitleText>
+                    <View style={styles.touchableContainer}>
+                        <TouchableHighlight
+                            activeOpacity={0.5}
+                            underlayColor={Colors.onBackgroundColor}
+                            onPress={handleNewQuestion}
+                            style={styles.iconContainer}
+                        >
+                            <Icon
+                                name="paper-plane"
+                                color={Colors.surfaceColor}
+                                size={25}
+                                style={styles.icon}
+                            />
+                        </TouchableHighlight>
+                    </View>
                 </View>
+                <DefaultTextInput
+                    placeholder={
+                        'Need inspiration? Well.. too bad, I got none either.'
+                    }
+                    height={300}
+                    multiline={true}
+                    routeName="New"
+                    onChangeText={input => handleTextInput(input)}
+                    style={{ marginBottom: 20 }}
+                />
+                <CategoriesSmallList
+                    routeName="New"
+                    onChange={selectedCategories =>
+                        handleCatPress(selectedCategories)
+                    }
+                />
             </View>
-            <DefaultTextInput
-                placeholder={
-                    'Need inspiration? Well.. too bad, I got none either.'
-                }
-                height={300}
-                multiline={true}
-                routeName="New"
-                onChangeText={(input) => handleTextInput(input)}
-                style={{marginBottom: 20}}
-            />
-            <CategoriesSmallList
-                routeName="New"
-                onChange={(selectedCategories) =>
-                    handleCatPress(selectedCategories)
-                }
-            />
-        </View>
+        </Container>
     );
 };
 
 const styles = StyleSheet.create({
-    insideModal: {
+    container: {
         flex: 1,
         padding: 20,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        backgroundColor: Colors.backgroundColor,
     },
     header: {
         fontSize: 25,
@@ -133,4 +133,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default New;
+export default NewScreen;

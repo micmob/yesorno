@@ -14,17 +14,18 @@ import Colors from '../constants/Colors';
 import Stats from '../components/Profile/Stats';
 import QuestionList from '../components/Question/QuestionList';
 import { useSelector } from 'react-redux';
+import BottomNavigator from '../components/Common/BottomNavigator';
 
-const ProfileScreen = (props) => {
-    const questions = useSelector(
-        (state) => state.questions.allQuestions
-    ).sort((a, b) => Date.parse(a.date) < Date.parse(b.date));
+const ProfileScreen = props => {
+    const questions = useSelector(state => state.questions.allQuestions).sort(
+        (a, b) => Date.parse(a.date) < Date.parse(b.date)
+    );
 
     const [postsColor, setPostsColor] = useState(Colors.brandColor);
 
     const [upvotedColor, setUpvotedColor] = useState(Colors.onBackgroundColor);
 
-    const onMenuPress = (buttonName) => {
+    const onMenuPress = buttonName => {
         if (buttonName === 'Posts') {
             //setQuestions(questions); //TODO
             setPostsColor(Colors.brandColor);
@@ -49,7 +50,7 @@ const ProfileScreen = (props) => {
                     />
                 </View>
                 <View style={[styles.center, { flex: 1 }]}>
-                    <TitleText style={styles.username}>
+                    <TitleText style={styles.email}>
                         scottytoohottie
                     </TitleText>
                 </View>
@@ -137,6 +138,7 @@ const ProfileScreen = (props) => {
                     />
                 </View>
             </View>
+            <BottomNavigator {...props} />
         </LinearGradient>
     );
 };
@@ -170,7 +172,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 10,
     },
-    username: {
+    email: {
         color: Colors.onBackgroundColor,
         fontSize: 25,
         fontWeight: 'bold',

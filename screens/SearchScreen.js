@@ -15,9 +15,10 @@ import DefaultTextInput from '../components/UI/DefaultTextInput';
 import Colors from '../constants/Colors';
 import CategoriesSmallList from '../components/UI/CategoriesSmallList';
 import QuestionList from '../components/Question/QuestionList';
+import BottomNavigator from '../components/Common/BottomNavigator';
 
-const SearchScreen = (props) => {
-    const allQuestions = useSelector((state) => state.questions.allQuestions);
+const SearchScreen = props => {
+    const allQuestions = useSelector(state => state.questions.allQuestions);
 
     const [questions, setQuestions] = useState(null);
 
@@ -36,15 +37,15 @@ const SearchScreen = (props) => {
         return unsubscribe;
     }, [props.navigation]);
 
-    const onCatList = (cat) => {
+    const onCatList = cat => {
         setCatList(cat);
     };
 
-    const onKeyword = (text) => {
+    const onKeyword = text => {
         setKeyword(text);
     };
 
-    const onSearch = (text) => {
+    const onSearch = text => {
         Keyboard.dismiss();
 
         if (text.length > 0) {
@@ -52,11 +53,9 @@ const SearchScreen = (props) => {
         }
         if (keyword.length > 0) {
             const q = allQuestions
-                .filter((item) =>
-                    catList.every((val) => item.catId.includes(val))
-                )
+                .filter(item => catList.every(val => item.catId.includes(val)))
                 .filter(
-                    (item) =>
+                    item =>
                         item.title
                             .toUpperCase()
                             .search(keyword.toUpperCase()) >= 0
@@ -83,10 +82,11 @@ const SearchScreen = (props) => {
                             value={keyword}
                             height={50}
                             multiline={false}
-                            searchKeyword={onKeyword}
+                            onChangeText={onKeyword}
                             routeName="Search"
                             borderRadiusRight={0}
                             onSubmitEditing={onSearch}
+                            style={{ marginBottom: 20 }}
                         />
                     </View>
                     <View
@@ -99,7 +99,7 @@ const SearchScreen = (props) => {
                         <TouchableNativeFeedback
                             onPress={onSearch}
                             background={TouchableNativeFeedback.Ripple(
-                                Colors.brandColor,
+                                Colors.touchColor,
                                 true
                             )}
                         >
@@ -142,6 +142,7 @@ const SearchScreen = (props) => {
                     )}
                 </View>
             </View>
+            <BottomNavigator {...props} />
         </LinearGradient>
     );
 };

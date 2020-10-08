@@ -63,7 +63,7 @@ const Edit = (props) => {
                     height={300}
                     multiline={true}
                     routeName="Edit"
-                    onTextInput={(input) => handleTextInput(input)}
+                    onChangeText={(input) => handleTextInput(input)}
                 />
             </View>
 

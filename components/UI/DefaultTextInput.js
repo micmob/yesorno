@@ -8,13 +8,7 @@ const DefaultTextInput = (props) => {
         <TextInput
             value={props.value}
             onChangeText={(input) => {
-                if (props.routeName === 'Search') {
-                    props.searchKeyword(input);
-                } else {
-                    if (props.routeName === 'New' || props.routeName === 'Edit') {
-                        props.onTextInput(input);
-                    }
-                }
+                props.onChangeText(input)
             }}
             onSubmitEditing={(event) => {
                 if (props.routeName === 'Search') {
@@ -32,8 +26,14 @@ const DefaultTextInput = (props) => {
                     borderTopRightRadius: props.borderRadiusRight,
                     borderBottomRightRadius: props.borderRadiusRight,
                 },
+                props.style
             ]}
             multiline={props.multiline}
+            textContentType={props.textContentType}
+            secureTextEntry={props.secureTextEntry}
+            autoCompleteType={props.autoCompleteType}
+            keyboardType={props.keyboardType}
+            textContentType={props.textContentType}
         />
     );
 };
@@ -41,12 +41,12 @@ const DefaultTextInput = (props) => {
 const styles = StyleSheet.create({
     input: {
         backgroundColor: Colors.surfaceColor,
+        elevation: 5,
         textAlignVertical: 'top',
         color: Colors.onBackgroundColor,
         fontSize: 18,
         padding: 15,
         borderRadius: 20,
-        marginBottom: 20,
     },
 });
 

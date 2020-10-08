@@ -1,6 +1,10 @@
 {
   "expo": {
     "name": "yesorno",
+    "android": {
+      "package": "com.yesorno",
+      "googleServicesFile": "./google-services.json"
+    },
     "slug": "yesorno",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,7 +25,13 @@
       "supportsTablet": true
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "config": {
+        "firebase": {
+          "appId": "yesorno-by-mic",
+          "apiKey": "AIzaSyCYLuU3qxYJz903cV5rFNkcayl81Dfg6y0"
+        }
+      }
     },
     "description": "",
     "androidNavigationBar": {

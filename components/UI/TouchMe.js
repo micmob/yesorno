@@ -1,30 +1,21 @@
 import React from 'react';
 import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
+import { colors } from 'react-native-elements';
 import Colors from '../../constants/Colors';
 
-const TouchMe = (props) => {
+const TouchMe = props => {
     return (
         <View
             style={
                 props.type === 'medium'
-                    ? {
-                          ...styles.container,
-
-                          borderRadius: 100,
-                      }
-                    : [
-                          styles.container,
-                          {
-                              borderWidth: 0.5,
-                              borderColor: Colors.onBackgroundSmallColor,
-                          },
-                      ]
+                    ? [styles.container, { borderRadius: 100 }, props.style]
+                    : [styles.container, props.style]
             }
         >
             <TouchableNativeFeedback
                 onPress={props.onPress}
                 background={TouchableNativeFeedback.Ripple(
-                    Colors.brandColor,
+                    props.touchColor ? props.touchColor : Colors.brandColor,
                     true
                 )}
             >
@@ -38,6 +29,7 @@ const TouchMe = (props) => {
                                       paddingHorizontal: 10,
                                       borderRadius: 100,
                                   },
+                                  props.insideTouchable
                               ]
                             : styles.insideTouchable
                     }
@@ -54,9 +46,10 @@ const styles = StyleSheet.create({
         flex: 0,
         borderRadius: 20,
         color: Colors.onBackgroundColor,
-        margin: 5,
         alignItems: 'center',
         justifyContent: 'center',
+        elevation: 5,
+        backgroundColor: Colors.surfaceColor,
     },
     insideTouchable: {
         flex: 0,
@@ -65,6 +58,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingVertical: 2.5,
         paddingHorizontal: 10,
+        width: '100%',
     },
 });
 
