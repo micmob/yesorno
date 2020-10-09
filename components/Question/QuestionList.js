@@ -88,6 +88,7 @@ const QuestionList = props => {
                                     <DisplayCat
                                         catId={itemData.item.catId}
                                         navigation={props.navigation}
+                                        style={{margin: 5}}
                                     />
                                 </Col>
                             </Col>

@@ -8,9 +8,11 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
 import AppNavigator from './navigation/AppNavigator';
 import questionsReducer from './store/reducers/questions';
+import authReducer from './store/reducers/auth';
 
 const rootReducer = combineReducers({
-    questions: questionsReducer
+    questions: questionsReducer,
+    auth: authReducer,
 });
 
 const store = createStore(

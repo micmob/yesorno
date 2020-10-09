@@ -8,7 +8,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:346180944520:android:66a72173a63cea2774553d",
+        "mobilesdk_app_id": "1:346180944520:android:dfd56afb6f9a02f674553d",
         "android_client_info": {
           "package_name": "com.yesorno"
         }
@@ -30,6 +30,13 @@
             {
               "client_id": "346180944520-7e0trnpgdtlkgbbljuhui4lcki9orrqb.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "346180944520-q3hfef39gb64gjrjhase8dn2vh4vlbsd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "ffd"
+              }
             }
           ]
         }

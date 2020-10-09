@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Form from '../components/Auth/Form';
+import Authentication from '../components/Auth/Authentication';
 
 const LoginScreen = (props) => {
     return (
-        <Form title='LOG IN' action='Login' navigation={props.navigation} />
+        <Authentication title='LOG IN' action='Login' navigation={props.navigation} />
     );
 };
 

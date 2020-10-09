@@ -20,6 +20,7 @@ const DisplayCat = (props) => {
                     })
                 }
                 type='small'
+                style={props.style}
             >
                 <SmallText style={{ color: Colors.onSurfaceSmallColor }}>
                     {

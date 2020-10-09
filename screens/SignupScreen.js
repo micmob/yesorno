@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Form from '../components/Auth/Form';
+import Authentication from '../components/Auth/Authentication';
 
 const SignupScreen = (props) => {
     return (
-        <Form title='SIGN UP' action='Signup' navigation={props.navigation} />
+        <Authentication title='SIGN UP' action='Signup' navigation={props.navigation} />
     );
 };
 

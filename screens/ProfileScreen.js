@@ -20,6 +20,7 @@ const ProfileScreen = props => {
     const questions = useSelector(state => state.questions.allQuestions).sort(
         (a, b) => Date.parse(a.date) < Date.parse(b.date)
     );
+    const user = useSelector(state => state.auth.user);
 
     const [postsColor, setPostsColor] = useState(Colors.brandColor);
 
@@ -42,16 +43,18 @@ const ProfileScreen = props => {
         return (
             <Row style={[styles.row, { height: 120 }]}>
                 <View style={[styles.center, { paddingRight: 20 }]}>
+                    <View style={{borderRadius: 100, flex: 0, elevation: 5}}>
                     <Image
                         source={{
                             uri: 'https://reactjs.org/logo-og.png',
                         }}
                         style={styles.image}
                     />
+                    </View>
                 </View>
                 <View style={[styles.center, { flex: 1 }]}>
                     <TitleText style={styles.email}>
-                        scottytoohottie
+                        {user.email}
                     </TitleText>
                 </View>
             </Row>

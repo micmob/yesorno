@@ -9,9 +9,6 @@ import SmallText from '../../UI/SmallText';
 import { toggleUpvote, fetchQuestions } from '../../../store/actions/questions';
 
 const QuestionActions = props => {
-    const [upvoteButtonColor, setUpvoteButtonColor] = useState(
-        Colors.onBackgroundColor
-    );
     const [isUpvoted, setIsUpvoted] = useState(false); //TODO modify here when adding users
 
     const dispatch = useDispatch();
@@ -23,11 +20,11 @@ const QuestionActions = props => {
     const UpvoteCount = () => (
         <Col style={[styles.center, { alignItems: 'flex-end' }]}>
             {question.upvotes > 999 ? (
-                <SmallText>
+                <SmallText style={{color: isUpvoted ? Colors.surfaceColor : Colors.onSurfaceColor}}>
                     {Math.round(question.upvotes / 100) / 10}k
                 </SmallText> //display one decimal + 'k'
             ) : (
-                <SmallText>{question.upvotes}</SmallText>
+                <SmallText style={{color: isUpvoted ? Colors.surfaceColor : Colors.onSurfaceColor}}>{question.upvotes}</SmallText>
             )}
         </Col>
     );
@@ -36,31 +33,24 @@ const QuestionActions = props => {
         <Col style={[styles.center, { paddingLeft: 2, alignSelf: 'flex-end' }]}>
             <View>
                 <Icon
-                    name="arrow-up-bold-circle"
-                    color={upvoteButtonColor}
-                    size={30}
+                    name="arrow-up"
+                    color={isUpvoted ? Colors.surfaceColor : Colors.onSurfaceColor}
+                    size={25}
                 />
             </View>
         </Col>
     );
 
-    const handleOnUpvotePress = async () => { //TODO fix this, upvotes and UI should be synched
-        if (isUpvoted) {
-            setUpvoteButtonColor(Colors.brandColor);
-            question.upvotes++;
-        } else {
-            setUpvoteButtonColor(Colors.onBackgroundColor);
-            question.upvotes++; //TODO change to -- after implementing users
-        }
+    const handleOnUpvotePress = async () => {
+        //TODO fix this, upvotes and UI should be synched
         setIsUpvoted(!isUpvoted);
-        dispatch(toggleUpvote(question.id))
-        
+        dispatch(toggleUpvote(question.id));
     };
 
     return (
         <TouchableWithoutFeedback onPress={handleOnUpvotePress}>
             <Grid style={styles.container}>
-                <Row style={styles.actions}>
+                <Row style={[styles.actions, {backgroundColor: isUpvoted ? Colors.brandColor : Colors.surfaceColor}]}>
                     <UpvoteCount />
                     <UpvoteIcon />
                 </Row>
@@ -73,11 +63,17 @@ const styles = StyleSheet.create({
     container: {
         alignSelf: 'flex-end',
         width: 80,
+        justifyContent: 'center'
     },
     actions: {
         alignItems: 'flex-end',
         justifyContent: 'center',
-        paddingRight: 15,
+        height: 25,
+        paddingRight: 5,
+        marginRight: 10,
+        flex: 0,
+        elevation: 5,
+        borderRadius: 100,
     },
     center: {
         alignItems: 'center',

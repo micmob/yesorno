@@ -5,31 +5,20 @@ import {
     KeyboardAvoidingView,
     StatusBar,
 } from 'react-native';
-import auth from '@react-native-firebase/auth';
+import { getSelector, useDispatch } from 'react-redux';
 
-import DefaultInputText from '../UI/DefaultTextInput';
+import DefaultTextInput from '../UI/DefaultTextInput';
 import Container from '../Common/Container';
 import Colors from '../../constants/Colors';
 import TitleText from '../UI/TitleText';
 import TouchMe from '../UI/TouchMe';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import Loading from '../../components/UI/Loading';
+import { signup, login } from '../../store/actions/auth';
+import LargeButton from '../Common/LargeButton';
 
 const Form = props => {
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
-    const [signupClicked, setSignupClicked] = useState(false);
-
-    const handleEmailChange = email => {
-        setEmail(email);
-    };
-
-    const handlePasswordChange = password => {
-        setPassword(password);
-    };
-
-    // const handleContinuePress = () => {
-        
-    // };
+    const [bottomButtonClicked, setBottomButtonClicked] = useState(false);
 
     //TODO fix KeyboardAvoidingView: behaviour and the other one
 
@@ -39,105 +28,38 @@ const Form = props => {
                 <View style={styles.titleContainer}>
                     <TitleText style={styles.title}>{props.title}</TitleText>
                 </View>
-                <View>
-                    <DefaultInputText
-                        style={{
-                            marginBottom: '3%',
-                            color: Colors.onSurfaceColor,
-                        }}
-                        value={email}
-                        onChangeText={handleEmailChange}
-                        placeholder="Email"
-                        textContentType="emailAddress"
-                        autoCompleteType="email"
-                        keyboardType="email-address"
-                    />
-                    <DefaultInputText
-                        style={{
-                            marginBottom: '10%',
-                            color: Colors.onSurfaceColor,
-                        }}
-                        value={password}
-                        onChangeText={handlePasswordChange}
-                        placeholder="Password"
-                        textContentType="password"
-                        secureTextEntry={true}
-                        autoCompleteType="password"
-                    />
-                </View>
+                <View>{props.children}</View>
 
-                <TouchMe
-                    type="small"
-                    onPress={() => {}}
-                    style={{
-                        backgroundColor: Colors.brandColor,
-                        borderWidth: 0,
-                        height: 60,
-                        width: '100%',
-                    }}
-                    touchColor={Colors.accentColor}
-                >
-                    <TitleText
-                        style={{
-                            fontSize: 18,
-                            fontWeight: 'bold',
-                            color: Colors.accentColor,
-                        }}
-                    >
-                        Continue
-                    </TitleText>
-                </TouchMe>
+                <LargeButton
+                    style={{ marginTop: '10%' }}
+                    text={props.buttonText}
+                    onPress={props.onButtonPress}
+                />
 
                 <View style={styles.bottomTextContainer}>
-                    {props.action === 'Login' && (
-                        <TitleText style={styles.bottomText}>
-                            Don't have an account yet?{' '}
-                        </TitleText>
-                    )}
-                    {props.action === 'Signup' && (
-                        <TitleText style={styles.bottomText}>
-                            Already have an account?{' '}
-                        </TitleText>
-                    )}
+                    <TitleText style={styles.bottomText}>
+                        {props.bottomPhrase}
+                    </TitleText>
+
                     <TouchableHighlight
-                        onPress={() => {
-                            props.navigation.navigate(
-                                props.action === 'Login' ? 'Signup' : 'Login'
-                            );
-                        }}
-                        onHideUnderlay={() => setSignupClicked(false)}
-                        onShowUnderlay={() => setSignupClicked(true)}
+                        onPress={props.onBottomButtonPress}
+                        onHideUnderlay={() => setBottomButtonClicked(false)}
+                        onShowUnderlay={() => setBottomButtonClicked(true)}
                         underlayColor="transparent"
                     >
-                        {props.action === 'Login' ? (
-                            <TitleText
-                                style={[
-                                    styles.bottomText,
-                                    {
-                                        color: signupClicked
-                                            ? Colors.surfaceColor
-                                            : Colors.brandColor,
-                                        fontWeight: 'bold',
-                                    },
-                                ]}
-                            >
-                                SIGN UP!{' '}
-                            </TitleText>
-                        ) : (
-                            <TitleText
-                                style={[
-                                    styles.bottomText,
-                                    {
-                                        color: signupClicked
-                                            ? Colors.surfaceColor
-                                            : Colors.brandColor,
-                                        fontWeight: 'bold',
-                                    },
-                                ]}
-                            >
-                                LOG IN!{' '}
-                            </TitleText>
-                        )}
+                        <TitleText
+                            style={[
+                                styles.bottomText,
+                                {
+                                    color: bottomButtonClicked
+                                        ? Colors.surfaceColor
+                                        : Colors.brandColor,
+                                    fontWeight: 'bold',
+                                },
+                            ]}
+                        >
+                            {props.bottomButtonText}
+                        </TitleText>
                     </TouchableHighlight>
                 </View>
             </KeyboardAvoidingView>
