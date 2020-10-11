@@ -1,20 +1,17 @@
 import React, { useState } from 'react';
-import {
-    View,
-    Image,
-    StyleSheet,
-    StatusBar,
-    TouchableWithoutFeedback,
-} from 'react-native';
-import { Grid, Col, Row } from 'react-native-easy-grid';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import Icon from 'react-native-vector-icons/AntDesign';
+import { useDispatch } from 'react-redux';
 
 import TitleText from '../components/UI/TitleText';
 import Colors from '../constants/Colors';
-import Stats from '../components/Profile/Stats';
-import QuestionList from '../components/Question/QuestionList';
 import { useSelector } from 'react-redux';
 import BottomNavigator from '../components/Common/BottomNavigator';
+import ProfileImage from '../components/Profile/ProfileImage';
+import TouchMe from '../components/UI/TouchMe';
+import QuestionList from '../components/Question/QuestionList';
+import { logOut } from '../store/actions/auth';
 
 const ProfileScreen = props => {
     const questions = useSelector(state => state.questions.allQuestions).sort(
@@ -22,117 +19,72 @@ const ProfileScreen = props => {
     );
     const user = useSelector(state => state.auth.user);
 
+    const dispatch = useDispatch();
+
     const [postsColor, setPostsColor] = useState(Colors.brandColor);
 
-    const [upvotedColor, setUpvotedColor] = useState(Colors.onBackgroundColor);
+    const [upvotedColor, setUpvotedColor] = useState(Colors.onSurfaceColor);
 
     const onMenuPress = buttonName => {
         if (buttonName === 'Posts') {
             //setQuestions(questions); //TODO
             setPostsColor(Colors.brandColor);
-            setUpvotedColor(Colors.onBackgroundColor);
+            setUpvotedColor(Colors.onSurfaceColor);
         } else {
             //buttonName === 'Upvoted'
             //setQuestions(questions); //TODO
             setUpvotedColor(Colors.brandColor);
-            setPostsColor(Colors.onBackgroundColor);
+            setPostsColor(Colors.onSurfaceColor);
         }
     };
 
-    const Header = () => {
-        return (
-            <Row style={[styles.row, { height: 120 }]}>
-                <View style={[styles.center, { paddingRight: 20 }]}>
-                    <View style={{borderRadius: 100, flex: 0, elevation: 5}}>
-                    <Image
-                        source={{
-                            uri: 'https://reactjs.org/logo-og.png',
-                        }}
-                        style={styles.image}
-                    />
-                    </View>
-                </View>
-                <View style={[styles.center, { flex: 1 }]}>
-                    <TitleText style={styles.email}>
-                        {user.email}
-                    </TitleText>
-                </View>
-            </Row>
-        );
-    };
+    const handleLogOut = () => {
+        dispatch(logOut()).then(() => {
+            console.log('signed out');
+        });
+    }
+
     return (
         <LinearGradient
             colors={[Colors.backgroundColor, Colors.backgroundColorGradient]}
             style={styles.container}
         >
+            <View style={styles.logOut}>
+                <TouchMe type="medium" onPress={handleLogOut}>
+                    <Icon
+                        name="logout"
+                        size={25}
+                        color={Colors.onSurfaceColor}
+                    />
+                </TouchMe>
+            </View>
             <View style={styles.insideContainer}>
-                <Grid style={{ height: 250, flex: 0 }}>
-                    <Header />
-                    <Row style={[styles.row, { height: 70 }]}>
-                        <Stats
-                            iconName="arrow-up"
-                            value="3.1k"
-                            text="Most"
-                            borderWidth={0.5}
-                        />
-                        <Stats
-                            iconName="arrow-up"
-                            value="1.3m"
-                            text="Total"
-                            borderWidth={0.5}
-                        />
-                        <Stats
-                            iconName="pen"
-                            value="1438"
-                            text="Posts"
-                            borderWidth={0}
-                        />
-                    </Row>
-                    <Row style={styles.contentRow}>
-                        <Grid style={{ height: 50 }}>
-                            <Row style={styles.menuRow}>
-                                <TouchableWithoutFeedback
-                                    onPress={() => {
-                                        onMenuPress('Posts');
-                                    }}
-                                >
-                                    <Col style={styles.menuCol}>
-                                        <TitleText
-                                            style={[
-                                                styles.menuText,
-                                                { color: postsColor },
-                                            ]}
-                                        >
-                                            Posts
-                                        </TitleText>
-                                    </Col>
-                                </TouchableWithoutFeedback>
-
-                                <TouchableWithoutFeedback
-                                    onPress={() => {
-                                        onMenuPress('Upvoted');
-                                    }}
-                                >
-                                    <Col
-                                        style={[
-                                            styles.menuCol,
-                                            { borderLeftWidth: 0.5 },
-                                        ]}
-                                    >
-                                        <TitleText
-                                            style={[
-                                                styles.menuText,
-                                                { color: upvotedColor },
-                                            ]}
-                                        >
-                                            Upvoted
-                                        </TitleText>
-                                    </Col>
-                                </TouchableWithoutFeedback>
-                            </Row>
-                        </Grid>
-                    </Row>
-                </Grid>
+                <View style={styles.headerContainer}>
+                    <ProfileImage image={user.profileImage} />
+                    <TitleText style={styles.username}>
+                        {user.username}
+                    </TitleText>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <TouchMe
+                        type="small"
+                        onPress={() => onMenuPress('Posts')}
+                        style={{ height: 40, width: '40%' }}
+                    >
+                        <TitleText style={{ color: Colors.onSurfaceColor }}>
+                            Posts
+                        </TitleText>
+                    </TouchMe>
+                    <TouchMe
+                        type="small"
+                        onPress={() => onMenuPress('Upvoted')}
+                        style={{ height: 40, width: '40%' }}
+                    >
+                        <TitleText style={{ color: Colors.onSurfaceColor }}>
+                            Upvoted
+                        </TitleText>
+                    </TouchMe>
+                </View>
                 <View style={{ flex: 1, marginHorizontal: 5 }}>
                     <QuestionList
                         questions={questions}
@@ -153,68 +105,25 @@ const styles = StyleSheet.create({
     },
     insideContainer: {
         flex: 1,
-        paddingTop: 10,
+        paddingTop: '5%',
     },
-    title: {
-        fontSize: 30,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        color: Colors.onBackgroundColor,
-    },
-    center: {
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-    },
-    image: {
-        width: 100,
-        height: 100,
-        borderRadius: 100,
-    },
-    row: {
-        flex: 0,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-    },
-    email: {
+    username: {
         color: Colors.onBackgroundColor,
         fontSize: 25,
         fontWeight: 'bold',
     },
-    icon: {
-        borderRadius: 100,
-        width: 20,
-        backgroundColor: Colors.brandColor,
-    },
-    insideCol: {
-        height: 30,
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
         alignItems: 'center',
-        justifyContent: 'center',
+        paddingVertical: '5%',
     },
-    centerCol: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 0,
-        paddingVertical: 2,
-    },
-    menuRow: {
-        height: 50,
-        justifyContent: 'center',
+    headerContainer: {
         alignItems: 'center',
     },
-    menuCol: {
-        height: 35,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: Colors.onBackgroundSeparatorColor,
-    },
-    contentRow: {
-        flex: 1,
-        paddingTop: 10,
-        paddingHorizontal: 5,
-        height: 50,
-    },
-    menuText: {
-        fontWeight: 'bold',
+    logOut: {
+        padding: 5,
+        alignItems: 'flex-end',
     },
 });
 

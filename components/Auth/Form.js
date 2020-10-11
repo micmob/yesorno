@@ -3,18 +3,11 @@ import {
     View,
     StyleSheet,
     KeyboardAvoidingView,
-    StatusBar,
 } from 'react-native';
-import { getSelector, useDispatch } from 'react-redux';
-
-import DefaultTextInput from '../UI/DefaultTextInput';
 import Container from '../Common/Container';
 import Colors from '../../constants/Colors';
 import TitleText from '../UI/TitleText';
-import TouchMe from '../UI/TouchMe';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import Loading from '../../components/UI/Loading';
-import { signup, login } from '../../store/actions/auth';
 import LargeButton from '../Common/LargeButton';
 
 const Form = props => {

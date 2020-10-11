@@ -31,7 +31,7 @@ const Authentication = props => {
         if (props.action === 'Signup') {
             dispatch(signup(email, password))
                 .then(() => {
-                    props.navigation.navigate('EditProfile', {
+                    props.navigation.navigate('ConfigProfileAfterSignup', {
                         email,
                         password,
                         initialProfileSetup: true,
@@ -51,10 +51,7 @@ const Authentication = props => {
                     
                 });
         } else {
-            setIsLoading(true);
-            dispatch(login(email, password)).then(() => {
-                setIsLoading(false);
-            });
+            dispatch(login(email, password));
         }
     };
 

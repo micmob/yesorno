@@ -14,13 +14,14 @@ const BottomNavigator = props => {
                 onPress={() => navigation.navigate('Home')}
                 type="medium"
                 style={styles.iconContainer}
+                touchColor = {Colors.surfaceColor}
             >
                 <Icon
                     name="home"
                     size={25}
                     color={
                         route.name === 'Home'
-                            ? Colors.brandColor
+                            ? Colors.surfaceColor
                             : Colors.backgroundColor
                     }
                 />
@@ -29,13 +30,14 @@ const BottomNavigator = props => {
                 onPress={() => navigation.navigate('Hot')}
                 type="medium"
                 style={styles.iconContainer}
+                touchColor = {Colors.surfaceColor}
             >
                 <Icon
                     name="fire"
                     size={25}
                     color={
                         route.name === 'Hot'
-                            ? Colors.brandColor
+                            ? Colors.surfaceColor
                             : Colors.backgroundColor
                     }
                 />
@@ -44,13 +46,14 @@ const BottomNavigator = props => {
                 onPress={() => navigation.navigate('New')}
                 type="medium"
                 style={styles.iconContainer}
+                touchColor = {Colors.surfaceColor}
             >
                 <Icon
                     name="plus"
                     size={25}
                     color={
                         route.name === 'New'
-                            ? Colors.brandColor
+                            ? Colors.surfaceColor
                             : Colors.backgroundColor
                     }
                 />
@@ -59,13 +62,14 @@ const BottomNavigator = props => {
                 onPress={() => navigation.navigate('Search')}
                 type="medium"
                 style={styles.iconContainer}
+                touchColor = {Colors.surfaceColor}
             >
                 <Icon
                     name="magnify"
                     size={25}
                     color={
                         route.name === 'Search'
-                            ? Colors.brandColor
+                            ? Colors.surfaceColor
                             : Colors.backgroundColor
                     }
                 />
@@ -74,13 +78,14 @@ const BottomNavigator = props => {
                 onPress={() => navigation.navigate('Profile')}
                 type="medium"
                 style={styles.iconContainer}
+                touchColor = {Colors.surfaceColor}
             >
                 <Icon
                     name="account"
                     size={25}
                     color={
-                        route.name === 'Account'
-                            ? Colors.brandColor
+                        route.name === 'Profile'
+                            ? Colors.surfaceColor
                             : Colors.backgroundColor
                     }
                 />
@@ -95,10 +100,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-evenly',
         height: 100,
+        width: '100%',
+        position: 'absolute',
+        bottom: 0,
     },
     iconContainer: {
         height: 55,
         width: 55,
+        backgroundColor: Colors.brandColor
     },
 });
 

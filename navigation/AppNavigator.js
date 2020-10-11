@@ -15,13 +15,13 @@ import NewScreen from '../screens/NewScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import QuestionScreen from '../screens/QuestionScreen';
-import EditProfileScreen from '../screens/EditProfileScreen';
+import ConfigProfileAfterSignupScreen from '../screens/ConfigProfileAfterSignupScreen';
+import ConfigProfileScreen from '../screens/ConfigProfileScreen';
 
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
     const isAuth = useSelector(state => state.auth.isAuth);
-    console.log(isAuth);
 
     const dispatch = useDispatch();
 
@@ -35,8 +35,8 @@ const AppNavigator = () => {
                 <Stack.Screen name="Login" component={LoginScreen} />
                 <Stack.Screen name="Signup" component={SignupScreen} />
                 <Stack.Screen
-                    name="EditProfile"
-                    component={EditProfileScreen}
+                    name="ConfigProfileAfterSignup"
+                    component={ConfigProfileAfterSignupScreen}
                 />
             </Stack.Navigator>
         );
@@ -72,12 +72,10 @@ const AppNavigator = () => {
                 <Stack.Screen name="Search" component={SearchScreen} />
                 <Stack.Screen name="Profile" component={ProfileScreen} />
                 <Stack.Screen name="Question" component={QuestionScreen} />
-                {/* BUG make it so that you include editprofile in this stack
-                    <Stack.Screen
-                    name="EditProfile"
-                    component={EditProfileScreen}
-                /> */}
-                
+                <Stack.Screen
+                    name="ConfigProfile"
+                    component={ConfigProfileScreen}
+                />
             </Stack.Navigator>
         );
     };

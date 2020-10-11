@@ -29,7 +29,7 @@ const NewScreen = props => {
             dispatch(createQuestion(textInput, selectedCategories));
             setTextInput('');
             setSelectedCategories([]);
-            props.closeModal();
+            props.navigation.navigate('Home'); // TODO redirect to the question's page, make it so that when u press back u don't go to new
             alert('You question has been posted.');
         } else {
             alert(

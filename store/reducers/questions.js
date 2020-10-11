@@ -98,8 +98,6 @@ const questionsReducer = (state = initialState, action) => {
             updatedQuestion.title = action.title;
             updatedQuestion.catId = action.catId;
 
-            console.log(updatedQuestion);
-
             const updatedAllQuestions = [...state.allQuestions];
             const indexallQ = updatedAllQuestions.findIndex(
                 (ques) => ques.id === action.id

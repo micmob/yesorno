@@ -18,6 +18,7 @@ const Container = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        zIndex: 1,
     },
     insideContainer: {
         paddingTop: StatusBar.currentHeight,

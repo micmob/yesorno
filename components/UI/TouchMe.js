@@ -8,7 +8,7 @@ const TouchMe = props => {
         <View
             style={
                 props.type === 'medium'
-                    ? [styles.container, { borderRadius: 100 }, props.style]
+                    ? [styles.container, { borderRadius: 100, height: 50, width: 50 }, props.style]
                     : [styles.container, props.style]
             }
         >
@@ -45,14 +45,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 0,
         borderRadius: 20,
-        color: Colors.onBackgroundColor,
         alignItems: 'center',
         justifyContent: 'center',
         elevation: 5,
         backgroundColor: Colors.surfaceColor,
     },
     insideTouchable: {
-        flex: 0,
+        flex: 1,
         borderRadius: 20,
         alignItems: 'center',
         justifyContent: 'center',
