@@ -10,7 +10,7 @@ import Colors from '../../constants/Colors';
 const CustomizeProfile = props => {
     const [username, setUsername] = useState();
     const oldUsername = useSelector(state => state.auth.user.username);
-    const userId = useSelector(state => state.auth.user.userId);
+    const userId = useSelector(state => state.auth.user.id);
 
     useEffect(() => {
         if (oldUsername) {

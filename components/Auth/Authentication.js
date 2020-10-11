@@ -46,7 +46,7 @@ const Authentication = props => {
                         case 'auth/weak-password':
                             alert('Pick a stronger password.');
                         default:
-                            alert('Something went wrong. Check your details again!');
+                            alert(error.message);
                     }
                     
                 });
@@ -80,6 +80,7 @@ const Authentication = props => {
                 textContentType="emailAddress"
                 autoCompleteType="email"
                 keyboardType="email-address"
+                importantForAutofill='yes'
             />
             <DefaultTextInput
                 style={{
@@ -91,6 +92,7 @@ const Authentication = props => {
                 textContentType="password"
                 secureTextEntry={true}
                 autoCompleteType="password"
+                importantForAutofill='yes'
             />
         </Form>
     );

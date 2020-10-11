@@ -1,4 +1,5 @@
 import Question from '../../models/question';
+import Firebase from '../../config/Firebase';
 
 export const TOGGLE_UPVOTE = 'TOGGLE_UPVOTE';
 export const SET_FILTERS = 'SET_FILTERS';
@@ -106,6 +107,7 @@ export const filterQuestions = (filterSettings) => {
 
 export const createQuestion = (title, catId) => {
     return async (dispatch) => {
+        const currentUserId = Firebase.auth().currentUser.uid;
         const response = await fetch(
             'https://yesorno-by-mic.firebaseio.com/questions.json',
             {
@@ -114,7 +116,7 @@ export const createQuestion = (title, catId) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    userId: 'u1',
+                    userId: currentUserId,
                     catId,
                     title,
                     date: new Date().toString(),
@@ -129,7 +131,7 @@ export const createQuestion = (title, catId) => {
             type: CREATE_QUESTION,
             questionData: {
                 id: responseData.name,
-                userId: 'u1',
+                userId: currentUserId,
                 catId,
                 title,
                 date: new Date().toString(),

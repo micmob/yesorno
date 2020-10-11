@@ -11,12 +11,14 @@ import ProfileScreen from '../screens/ProfileScreen';
 import { filterQuestions } from '../store/actions/questions';
 import { FILTER } from '../constants/Filters';
 import { fetchQuestions } from '../store/actions/questions';
+import { fetchUsers } from '../store/actions/auth';
 import NewScreen from '../screens/NewScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import QuestionScreen from '../screens/QuestionScreen';
 import ConfigProfileAfterSignupScreen from '../screens/ConfigProfileAfterSignupScreen';
 import ConfigProfileScreen from '../screens/ConfigProfileScreen';
+import CategoryScreen from '../screens/CategoryScreen';
 
 const Stack = createStackNavigator();
 
@@ -26,7 +28,9 @@ const AppNavigator = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchQuestions());
+        dispatch(fetchUsers()).then(() => {
+            dispatch(fetchQuestions());
+        })
     }, [dispatch]);
 
     const AuthStack = () => {
@@ -53,7 +57,9 @@ const AppNavigator = () => {
                     component={HomeScreen}
                     listeners={({ navigation }) => ({
                         tabPress: event => {
-                            dispatch(filterQuestions(FILTER.LAST_WEEK));
+                            dispatch(fetchUsers()).then(() => {
+                                dispatch(filterQuestions(FILTER.LAST_WEEK));
+                            });
                             navigation.navigate('Home');
                         },
                     })}
@@ -63,18 +69,49 @@ const AppNavigator = () => {
                     component={HotScreen}
                     listeners={({ navigation }) => ({
                         tabPress: event => {
-                            dispatch(filterQuestions(FILTER.LAST_24_HOURS));
+                            dispatch(fetchUsers()).then(() => {
+                                dispatch(filterQuestions(FILTER.LAST_24_HOURS));
+                            });
                             navigation.navigate('Hot');
                         },
                     })}
                 />
                 <Stack.Screen name="New" component={NewScreen} />
-                <Stack.Screen name="Search" component={SearchScreen} />
-                <Stack.Screen name="Profile" component={ProfileScreen} />
+                <Stack.Screen
+                    name="Search"
+                    component={SearchScreen}
+                    listeners={({ navigation }) => ({
+                        tabPress: event => {
+                            dispatch(fetchUsers());
+                            navigation.navigate('Search');
+                        },
+                    })}
+                />
+                <Stack.Screen
+                    name="Profile"
+                    component={ProfileScreen}
+                    listeners={({ navigation }) => ({
+                        tabPress: event => {
+                            dispatch(fetchUsers());
+
+                            navigation.navigate('Profile');
+                        },
+                    })}
+                />
                 <Stack.Screen name="Question" component={QuestionScreen} />
                 <Stack.Screen
                     name="ConfigProfile"
                     component={ConfigProfileScreen}
+                />
+                <Stack.Screen
+                    name="Category"
+                    component={CategoryScreen}
+                    listeners={({ navigation }) => ({
+                        tabPress: event => {
+                            dispatch(fetchUsers());
+                            navigation.navigate('Category');
+                        },
+                    })}
                 />
             </Stack.Navigator>
         );

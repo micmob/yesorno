@@ -13,6 +13,7 @@ import Container from '../components/Common/Container';
 const NewScreen = props => {
     const [textInput, setTextInput] = useState('');
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const [height, setHeight] = useState();
 
     const handleTextInput = input => {
         setTextInput(input);
@@ -29,7 +30,7 @@ const NewScreen = props => {
             dispatch(createQuestion(textInput, selectedCategories));
             setTextInput('');
             setSelectedCategories([]);
-            props.navigation.navigate('Home'); // TODO redirect to the question's page, make it so that when u press back u don't go to new
+            props.navigation.goBack(); // TODO redirect to the question's page
             alert('You question has been posted.');
         } else {
             alert(
@@ -61,13 +62,16 @@ const NewScreen = props => {
                 </View>
                 <DefaultTextInput
                     placeholder={
-                        'Need inspiration? Well.. too bad, I got none either.'
+                        'Awesome questions go here!'
                     }
                     height={300}
                     multiline={true}
                     routeName="New"
+                    onChange={event => {
+                        setHeight(event.nativeEvent.contentSize.height);
+                    }}
                     onChangeText={input => handleTextInput(input)}
-                    style={{ marginBottom: 20 }}
+                    style={{ marginBottom: 20, color: Colors.onSurfaceColor, height: height }}
                 />
                 <CategoriesSmallList
                     routeName="New"

@@ -34,6 +34,8 @@ const DefaultTextInput = (props) => {
             autoCompleteType={props.autoCompleteType}
             keyboardType={props.keyboardType}
             textContentType={props.textContentType}
+            autoCapitalize='none'
+            importantForAutofill={props.importantForAutofill}
         />
     );
 };

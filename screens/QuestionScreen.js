@@ -20,24 +20,24 @@ const QuestionScreen = (props) => {
     );
 
     const [isLoading, setIsLoading] = useState(false);
-    const [noColor, setNoColor] = useState(Colors.onBackgroundColor);
-    const [yesColor, setYesColor] = useState(Colors.onBackgroundColor);
+    const [noColor, setNoColor] = useState(Colors.backgroundColor);
+    const [yesColor, setYesColor] = useState(Colors.backgroundColorGradient);
 
     const handleNoPress = () => {
-        if (noColor === Colors.onBackgroundColor) {
+        if (noColor === Colors.backgroundColor) {
             setNoColor(Colors.brandColor);
-            setYesColor(Colors.onBackgroundColor);
+            setYesColor(Colors.backgroundColorGradient);
         } else {
-            setNoColor(Colors.onBackgroundColor);
+            setNoColor(Colors.backgroundColor);
         }
     };
 
     const handleYesPress = () => {
-        if (yesColor === Colors.onBackgroundColor) {
+        if (yesColor === Colors.backgroundColorGradient) {
             setYesColor(Colors.brandColor);
-            setNoColor(Colors.onBackgroundColor);
+            setNoColor(Colors.backgroundColor);
         } else {
-            setYesColor(Colors.onBackgroundColor);
+            setYesColor(Colors.backgroundColorGradient);
         }
     };
 
@@ -120,6 +120,7 @@ const QuestionScreen = (props) => {
                     <DisplayCat
                         catId={question.catId}
                         navigation={props.navigation}
+                        style={{margin: 5}}
                     />
                 </View>
 
@@ -127,16 +128,12 @@ const QuestionScreen = (props) => {
                 <View style={styles.buttonsHolder}>
                     <TouchableWithoutFeedback onPress={handleNoPress}>
                         <View style={styles.iconContainer}>
-                            <Icon
-                                name="expressionless"
-                                size={50}
-                                color={noColor}
-                            />
+                            <TitleText style={{fontSize: 70, color: noColor}}>NO</TitleText>
                         </View>
                     </TouchableWithoutFeedback>
                     <TouchableWithoutFeedback onPress={handleYesPress}>
                         <View style={styles.iconContainer}>
-                            <Icon name="smiling" size={50} color={yesColor} />
+                        <TitleText style={{fontSize: 70, color: yesColor}}>YES</TitleText>
                         </View>
                     </TouchableWithoutFeedback>
                 </View>
@@ -175,7 +172,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold',
         textAlign: 'center',
-        color: Colors.onBackgroundColor,
+        color: Colors.onSurfaceColor,
         marginBottom: 20,
         marginTop: 20,
     },
@@ -190,11 +187,17 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     insideContainer: {
-        padding: 20,
+        padding: 10,
+        backgroundColor: Colors.surfaceColor,
+        borderRadius: 20,
+        margin: 20
     },
     iconContainer: {
-        flex: 0,
         padding: 10,
+        borderRadius: 100,
+        flex: 0,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 });
 

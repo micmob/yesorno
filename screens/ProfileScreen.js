@@ -11,7 +11,7 @@ import BottomNavigator from '../components/Common/BottomNavigator';
 import ProfileImage from '../components/Profile/ProfileImage';
 import TouchMe from '../components/UI/TouchMe';
 import QuestionList from '../components/Question/QuestionList';
-import { logOut } from '../store/actions/auth';
+import { logout, toggleIsAuth } from '../store/actions/auth';
 
 const ProfileScreen = props => {
     const questions = useSelector(state => state.questions.allQuestions).sort(
@@ -39,10 +39,10 @@ const ProfileScreen = props => {
     };
 
     const handleLogOut = () => {
-        dispatch(logOut()).then(() => {
-            console.log('signed out');
+        dispatch(logout()).then(() => {
+            dispatch(toggleIsAuth(false));
         });
-    }
+    };
 
     return (
         <LinearGradient

@@ -1,19 +1,32 @@
-import { SIGNUP, LOGIN, TOGGLE_IS_AUTH, EDIT_PROFILE } from '../actions/auth';
+import {
+    SIGNUP,
+    LOGIN,
+    TOGGLE_IS_AUTH,
+    EDIT_PROFILE,
+    LOGOUT,
+    SET_USERS
+} from '../actions/auth';
 
 const initialState = {
     isAuth: false,
     user: {
-        userId: null,
+        id: null,
         email: null,
         username: null,
         profilePicture: null,
         createdQuestions: [],
         upvotedQuestions: [],
     },
+    users: []
 };
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_USERS:
+            return {
+                ...state,
+                users: action.users
+            }
         case TOGGLE_IS_AUTH:
             return {
                 ...state,
@@ -23,23 +36,40 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 user: {
-                    userId: action.user.userId,
+                    id: action.user.id,
                     email: action.user.email,
                     username: action.user.username,
                     profilePicture: action.user.profilePicture,
                     createdQuestions: action.user.createdQuestions,
-                    upvotedQuestions: action.user.upvotedQuestions
+                    upvotedQuestions: action.user.upvotedQuestions,
                 },
             };
         case LOGIN:
-            console.log('login was here');
+            return {
+                ...state,
+                isAuth: true,
+                user: action.user,
+            };
+        case LOGOUT:
+            return {
+                ...state,
+                isAuth: false,
+                user: {
+                    id: null,
+                    email: null,
+                    username: null,
+                    profilePicture: null,
+                    createdQuestions: [],
+                    upvotedQuestions: [],
+                },
+            };
         case EDIT_PROFILE:
             const updatedUser = state.user;
             updatedUser.username = action.user.username; // TODO add pic
             return {
                 ...state,
-                user: updatedUser
-            }
+                user: updatedUser,
+            };
         default:
             return state;
     }

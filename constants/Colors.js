@@ -5,9 +5,9 @@ export default {
     backgroundColorGradient: '#4bc0c8',
     surfaceColor: 'white',
     onBackgroundColor: 'white',
-    onBackgroundSmallColor: '#c4c4c4',
+    onBackgroundSmallColor: '#878787',
     onBackgroundSeparatorColor: '#cfcfcf',
     onSurfaceColor: '#636363',
-    onSurfaceSmallColor: '#c4c4c4',
+    onSurfaceSmallColor: '#878787',
     touchColor: '#d1d1d1'
 }

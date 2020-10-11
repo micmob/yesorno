@@ -10,8 +10,8 @@ import SmallText from '../UI/SmallText';
 import { CATEGORIES } from '../../data/dummy-data';
 import TouchMe from '../UI/TouchMe';
 
-const DisplayCat = (props) => {
-    const renderCat = (itemData) => {
+const DisplayCat = props => {
+    const renderCat = itemData => {
         return (
             <TouchMe
                 onPress={() =>
@@ -19,14 +19,11 @@ const DisplayCat = (props) => {
                         id: itemData.item,
                     })
                 }
-                type='small'
-                style={props.style}
+                type="small"
+                style={[props.style, { height: 24 }]}
             >
                 <SmallText style={{ color: Colors.onSurfaceSmallColor }}>
-                    {
-                        CATEGORIES.filter((cat) => cat.id === itemData.item)[0]
-                            .name
-                    }
+                    {CATEGORIES.filter(cat => cat.id === itemData.item)[0].name}
                 </SmallText>
             </TouchMe>
         );

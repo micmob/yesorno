@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
     title: {
         marginVertical: 5,
         color: Colors.onSurfaceColor,
+        fontWeight: 'bold'
     },
 });
 

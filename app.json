@@ -33,10 +33,6 @@
         }
       }
     },
-    "description": "",
-    "androidNavigationBar": {
-      "barStyle": "light-content",
-      "backgroundColor": "#212121"
-    }
+    "description": ""
   }
 }
