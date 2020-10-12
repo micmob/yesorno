@@ -12,7 +12,6 @@ const LoginScreen = (props) => {
     useEffect(() => {
         const currentUser = Firebase.auth().currentUser;
         if(currentUser) {
-            console.log(currentUser.email);
             dispatch(autoLogIn(currentUser.email)).then(() => {
                 dispatch(toggleIsAuth(true));
             })

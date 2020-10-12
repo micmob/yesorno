@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import Form from './Form';
 import DefaultTextInput from '../UI/DefaultTextInput';
 import Colors from '../../constants/Colors';
@@ -46,7 +46,7 @@ const Authentication = props => {
                         case 'auth/weak-password':
                             alert('Pick a stronger password.');
                         default:
-                            alert(error.message);
+                            alert('Authentication.js', error.message);
                     }
                     
                 });

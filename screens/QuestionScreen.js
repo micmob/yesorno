@@ -8,7 +8,6 @@ import Colors from '../constants/Colors';
 import TitleText from '../components/UI/TitleText';
 import Overline from '../components/Question/Card/Overline';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/Fontisto';
 import Edit from '../components/Modals/Edit';
 import DisplayCat from '../components/Modals/DisplayCat';
 import Loading from '../components/UI/Loading';
@@ -73,7 +72,7 @@ const QuestionScreen = (props) => {
                                 deleteQuestion(props.route.params.id)
                             ).then(() => setIsLoading(false));
                         } catch (error) {
-                            console.log(error.message);
+                            console.log(error.message, 'QuestionScreen.js');
                         }
                     },
                 },
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     title: {
-        fontSize: 30,
+        //fontSize: 30,
         fontWeight: 'bold',
         textAlign: 'center',
         color: Colors.onSurfaceColor,
@@ -187,7 +186,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
     },
     insideContainer: {
-        padding: 10,
+        padding: 20,
         backgroundColor: Colors.surfaceColor,
         borderRadius: 20,
         margin: 20

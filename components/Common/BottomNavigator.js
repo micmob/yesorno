@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import Colors from '../../constants/Colors';
 import TouchMe from '../UI/TouchMe';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Style from '../../constants/Style';
 
 const BottomNavigator = props => {
     const route = props.route;
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        height: 100,
+        height: Style.bottomMenuHeight,
         width: '100%',
         position: 'absolute',
         bottom: 0,

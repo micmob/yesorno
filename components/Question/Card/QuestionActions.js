@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Grid, Col, Row } from 'react-native-easy-grid';
@@ -6,10 +6,22 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Colors from '../../../constants/Colors';
 import SmallText from '../../UI/SmallText';
-import { toggleUpvote, fetchQuestions } from '../../../store/actions/questions';
+import * as questions from '../../../store/actions/questions';
+import * as auth from '../../../store/actions/auth';
 
 const QuestionActions = props => {
-    const [isUpvoted, setIsUpvoted] = useState(false); //TODO modify here when adding users
+    console.ignoredYellowBox = ['Setting a timer']
+    const upvotedByCurrentUser = useSelector(
+        state => state.auth.user.upvotedQuestions
+    );
+
+    const [isUpvoted, setIsUpvoted] = useState(
+        upvotedByCurrentUser
+            ? upvotedByCurrentUser.includes(props.id)
+                ? true
+                : false
+            : false
+    );
 
     const dispatch = useDispatch();
 
@@ -20,11 +32,25 @@ const QuestionActions = props => {
     const UpvoteCount = () => (
         <Col style={[styles.center, { alignItems: 'flex-end' }]}>
             {question.upvotes > 999 ? (
-                <SmallText style={{color: isUpvoted ? Colors.surfaceColor : Colors.onSurfaceColor}}>
+                <SmallText
+                    style={{
+                        color: isUpvoted
+                            ? Colors.surfaceColor
+                            : Colors.onSurfaceColor,
+                    }}
+                >
                     {Math.round(question.upvotes / 100) / 10}k
                 </SmallText> //display one decimal + 'k'
             ) : (
-                <SmallText style={{color: isUpvoted ? Colors.surfaceColor : Colors.onSurfaceColor}}>{question.upvotes}</SmallText>
+                <SmallText
+                    style={{
+                        color: isUpvoted
+                            ? Colors.surfaceColor
+                            : Colors.onSurfaceColor,
+                    }}
+                >
+                    {question.upvotes}
+                </SmallText>
             )}
         </Col>
     );
@@ -34,23 +60,42 @@ const QuestionActions = props => {
             <View>
                 <Icon
                     name="arrow-up"
-                    color={isUpvoted ? Colors.surfaceColor : Colors.onSurfaceColor}
+                    color={
+                        isUpvoted ? Colors.surfaceColor : Colors.onSurfaceColor
+                    }
                     size={25}
                 />
             </View>
         </Col>
     );
 
-    const handleOnUpvotePress = async () => {
+    const handleOnUpvotePress = () => {
         //TODO fix this, upvotes and UI should be synched
         setIsUpvoted(!isUpvoted);
-        dispatch(toggleUpvote(question.id));
+        if (!isUpvoted) {
+            dispatch(questions.toggleUpvote(question.id, true)).then(() => {
+                dispatch(auth.toggleUpvoteAuth(question.id, true));
+            });
+        } else {
+            dispatch(questions.toggleUpvote(question.id, false)).then(() => {
+                dispatch(auth.toggleUpvoteAuth(question.id, false));
+            });
+        }
     };
 
     return (
         <TouchableWithoutFeedback onPress={handleOnUpvotePress}>
             <Grid style={styles.container}>
-                <Row style={[styles.actions, {backgroundColor: isUpvoted ? Colors.brandColor : Colors.surfaceColor}]}>
+                <Row
+                    style={[
+                        styles.actions,
+                        {
+                            backgroundColor: isUpvoted
+                                ? Colors.brandColor
+                                : Colors.surfaceColor,
+                        },
+                    ]}
+                >
                     <UpvoteCount />
                     <UpvoteIcon />
                 </Row>
@@ -63,7 +108,7 @@ const styles = StyleSheet.create({
     container: {
         alignSelf: 'flex-end',
         width: 80,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     actions: {
         alignItems: 'flex-end',

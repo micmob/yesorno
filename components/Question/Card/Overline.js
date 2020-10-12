@@ -20,8 +20,7 @@ const Overline = props => {
     const author = useSelector(state => state.auth.users).find(
         user => user.id === props.question.userId
     );
-    console.log(useSelector(state => state.auth.users));
-    console.log(author);
+
     return (
         <View style={styles.container}>
             <View style={styles.details}>

@@ -5,13 +5,14 @@ import {
     DELETE_QUESTION,
     ANSWER_QUESTION,
     SET_QUESTIONS,
+    TOGGLE_UPVOTE
 } from '../actions/questions';
 import { FILTER } from '../../constants/Filters';
 import Question from '../../models/question';
 
 const initialState = {
-    allQuestions: [],
-    filteredQuestions: [],
+    allQuestions: null,
+    filteredQuestions: null,
 };
 
 const filter = (state, value) => {
@@ -26,6 +27,39 @@ const filter = (state, value) => {
 
 const questionsReducer = (state = initialState, action) => {
     switch (action.type) {
+        case TOGGLE_UPVOTE:
+            console.log('plus');
+            const updatedAllQues = [...state.allQuestions];
+            if(updatedAllQues) {
+                const updatedQues = updatedAllQues.find(ques => ques.id === action.quesId);
+                
+                if(action.hasUpvoted) {
+                    updatedQues.upvotes++;
+                    
+                } else {
+                    updatedQues.upvotes--;
+                }
+                console.log(updatedQues);
+            }
+
+            const updatedFilteredQues = [...state.filteredQuestions];
+            if(updatedFilteredQues) {
+                const filteredQues = updatedFilteredQues.find(ques => ques.id === action.quesId);
+                if(filteredQues) {
+                    if(action.hasUpvoted) {
+                        filteredQues.upvotes++;
+                    } else {
+                        filteredQues.upvotes--;
+                    }
+                }
+            }
+
+            return {
+                ...state,
+                allQuestions: updatedAllQues,
+                filteredQuestions: updatedFilteredQues,
+            }
+            
         case SET_FILTERS:
             const appliedFilter = action.filterSettings;
 

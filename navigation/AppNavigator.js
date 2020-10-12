@@ -28,7 +28,7 @@ const AppNavigator = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchUsers()).then(() => {
+        dispatch(fetchUsers('appnav')).then(() => {
             dispatch(fetchQuestions());
         })
     }, [dispatch]);
@@ -57,7 +57,7 @@ const AppNavigator = () => {
                     component={HomeScreen}
                     listeners={({ navigation }) => ({
                         tabPress: event => {
-                            dispatch(fetchUsers()).then(() => {
+                            dispatch(fetchUsers('appnav home')).then(() => {
                                 dispatch(filterQuestions(FILTER.LAST_WEEK));
                             });
                             navigation.navigate('Home');
@@ -69,7 +69,7 @@ const AppNavigator = () => {
                     component={HotScreen}
                     listeners={({ navigation }) => ({
                         tabPress: event => {
-                            dispatch(fetchUsers()).then(() => {
+                            dispatch(fetchUsers('appnav hot')).then(() => {
                                 dispatch(filterQuestions(FILTER.LAST_24_HOURS));
                             });
                             navigation.navigate('Hot');
@@ -82,7 +82,7 @@ const AppNavigator = () => {
                     component={SearchScreen}
                     listeners={({ navigation }) => ({
                         tabPress: event => {
-                            dispatch(fetchUsers());
+                            dispatch(fetchUsers('appnav search'));
                             navigation.navigate('Search');
                         },
                     })}
@@ -92,7 +92,7 @@ const AppNavigator = () => {
                     component={ProfileScreen}
                     listeners={({ navigation }) => ({
                         tabPress: event => {
-                            dispatch(fetchUsers());
+                            dispatch(fetchUsers('appnav profile'));
 
                             navigation.navigate('Profile');
                         },
@@ -108,7 +108,7 @@ const AppNavigator = () => {
                     component={CategoryScreen}
                     listeners={({ navigation }) => ({
                         tabPress: event => {
-                            dispatch(fetchUsers());
+                            dispatch(fetchUsers('appnav cat'));
                             navigation.navigate('Category');
                         },
                     })}

@@ -10,7 +10,7 @@ export const ANSWER_QUESTION = 'ANSWER_QUESTION';
 export const SET_QUESTIONS = 'SET_QUESTIONS';
 
 export const fetchQuestions = () => {
-    return async (dispatch) => {
+    return async dispatch => {
         try {
             const response = await fetch(
                 'https://yesorno-by-mic.firebaseio.com/questions.json'
@@ -50,11 +50,11 @@ export const fetchQuestions = () => {
     };
 };
 
-export const toggleUpvote = (id) => {
-    return async (dispatch) => {
-        try {
+export const toggleUpvote = (quesId, hasUpvoted) => {
+    return async dispatch => {
+
             const responseGET = await fetch(
-                `https://yesorno-by-mic.firebaseio.com/questions/${id}.json`
+                `https://yesorno-by-mic.firebaseio.com/questions/${quesId}.json`
             );
 
             if (!responseGET.ok) {
@@ -62,11 +62,17 @@ export const toggleUpvote = (id) => {
             }
 
             const responseGETData = await responseGET.json();
-            //TODO if currentuser hasn't upvoted this question already
-            responseGETData.upvotes++;
+
+            console.log(responseGETData);
+
+            if (hasUpvoted) {
+                responseGETData.upvotes++;
+            } else {
+                responseGETData.upvotes--;
+            }
 
             const response = await fetch(
-                `https://yesorno-by-mic.firebaseio.com/questions/${id}.json`,
+                `https://yesorno-by-mic.firebaseio.com/questions/${quesId}.json`,
                 {
                     method: 'PATCH',
                     headers: {
@@ -90,15 +96,14 @@ export const toggleUpvote = (id) => {
 
             dispatch({
                 type: TOGGLE_UPVOTE,
-                id,
+                quesId,
+                hasUpvoted,
             });
-        } catch (error) {
-            alert(error.message);
-        }
+        
     };
 };
 
-export const filterQuestions = (filterSettings) => {
+export const filterQuestions = filterSettings => {
     return {
         type: SET_FILTERS,
         filterSettings: filterSettings,
@@ -106,7 +111,7 @@ export const filterQuestions = (filterSettings) => {
 };
 
 export const createQuestion = (title, catId) => {
-    return async (dispatch) => {
+    return async dispatch => {
         const currentUserId = Firebase.auth().currentUser.uid;
         const response = await fetch(
             'https://yesorno-by-mic.firebaseio.com/questions.json',
@@ -143,30 +148,32 @@ export const createQuestion = (title, catId) => {
     };
 };
 
-export const deleteQuestion = (id) => {
-    return async (dispatch) => {
+export const deleteQuestion = id => {
+    return async dispatch => {
         try {
-            const response = await fetch(`https://yesorno-by-mic.firebaseio.com/questions/${id}.json`, {
-                method: 'DELETE'
-            });
+            const response = await fetch(
+                `https://yesorno-by-mic.firebaseio.com/questions/${id}.json`,
+                {
+                    method: 'DELETE',
+                }
+            );
 
-            if(!response.ok) {
+            if (!response.ok) {
                 throw new Error("Error: Couldn't find question.");
             }
 
             dispatch({
                 type: DELETE_QUESTION,
-                id
-            })
-
-        } catch(error) {
-            throw(error);
+                id,
+            });
+        } catch (error) {
+            throw error;
         }
-    }
-}
+    };
+};
 
 export const editQuestion = (id, title, catId) => {
-    return async (dispatch) => {
+    return async dispatch => {
         try {
             const responseGET = await fetch(
                 `https://yesorno-by-mic.firebaseio.com/questions/${id}.json`

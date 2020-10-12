@@ -7,9 +7,11 @@ export const LOGIN = 'LOGIN';
 export const TOGGLE_IS_AUTH = 'TOGGLE_IS_AUTH';
 export const EDIT_PROFILE = 'EDIT_PROFILE';
 export const SET_USERS = 'SET_USERS';
+export const TOGGLE_UPVOTE_AUTH = 'TOGGLE_UPVOTE_AUTH';
 
-export const fetchUsers = () => {
+export const fetchUsers = (text) => {
     return async dispatch => {
+        console.log(text, 'wtf');
         const response = await fetch(
             'https://yesorno-by-mic.firebaseio.com/users.json'
         );
@@ -30,7 +32,6 @@ export const fetchUsers = () => {
                 )
             );
         }
-        console.log('FETCHED!!')
         dispatch({
             type: SET_USERS,
             users: loadedUsers,
@@ -71,7 +72,7 @@ export const toggleIsAuth = value => {
 export const login = (email, password) => {
     return async dispatch => {
         try {
-            const response = await Firebase.auth()
+            await Firebase.auth()
                 .signInWithEmailAndPassword(email, password)
                 .catch(error => {
                     throw error;
@@ -79,7 +80,7 @@ export const login = (email, password) => {
         } catch (error) {
             throw error;
         }
-        const user = getUserByEmail(email);
+        const user = await getUserByEmail(email);
         dispatch({
             type: LOGIN,
             user,
@@ -99,8 +100,8 @@ export const signup = (email, password) => {
             throw error;
         }
         const uid = Firebase.auth().currentUser.uid;
-        
-        const ref = Firebase.database().ref('users').child(uid)
+
+        const ref = Firebase.database().ref('users').child(uid);
         ref.child('email').set(email);
         ref.child('username').set(null);
         ref.child('profilePicture').set(null);
@@ -139,6 +140,48 @@ export const autoLogIn = email => {
             type: LOGIN,
             user,
         });
+    };
+};
+
+export const toggleUpvoteAuth = (quesId, hasUpvoted) => {
+    return dispatch => {
+        const userId = Firebase.auth().currentUser.uid;
+        fetch(`https://yesorno-by-mic.firebaseio.com/users/${userId}.json`)
+            .then(responseGET => {
+                if (!responseGET.ok) {
+                    alert("Couldn't find user.");
+                }
+                return responseGET.json();
+            })
+            .then(responseDataGET => {
+                console.log(responseDataGET, 'nice data');
+                var upvotedQuestions = [];
+                if (responseDataGET.upvotedQuestions) {
+                    upvotedQuestions = responseDataGET.upvotedQuestions;
+                }
+                if (hasUpvoted) {
+                    upvotedQuestions.push(quesId);
+                } else {
+                    if (upvotedQuestions) {
+                        upvotedQuestions = [...upvotedQuestions].filter(
+                            ques => ques !== quesId
+                        );
+                    }
+                }
+                Firebase.database()
+                    .ref('users')
+                    .child(userId)
+                    .update({ upvotedQuestions: upvotedQuestions })
+                    .then(() => {
+                        console.log('ok dispatch');
+                        dispatch({
+                            type: TOGGLE_UPVOTE_AUTH,
+                            userId,
+                            quesId,
+                            hasUpvoted,
+                        });
+                    });
+            });
     };
 };
 

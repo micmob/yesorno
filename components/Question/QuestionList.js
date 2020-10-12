@@ -18,6 +18,8 @@ import DisplayCat from '../Modals/DisplayCat';
 import CategoriesSmallList from '../UI/CategoriesSmallList';
 import { fetchQuestions } from '../../store/actions/questions';
 import Loading from '../../components/UI/Loading';
+import Style from '../../constants/Style';
+import SmallText from '../UI/SmallText';
 
 const QuestionList = props => {
     var questions;
@@ -37,7 +39,7 @@ const QuestionList = props => {
             await dispatch(fetchQuestions());
             setIsRefreshing(false);
         } catch (error) {
-            alert(error.message);
+            alert('QuestionList.js', error.message);
         }
     }, [dispatch]);
 
@@ -88,7 +90,7 @@ const QuestionList = props => {
                                     <DisplayCat
                                         catId={itemData.item.catId}
                                         navigation={props.navigation}
-                                        style={{margin: 5}}
+                                        style={{ margin: 5 }}
                                     />
                                 </Col>
                             </Col>
@@ -140,6 +142,18 @@ const QuestionList = props => {
                         }
                     }
                 }}
+                ListFooterComponent={itemdata => {
+                    return (
+                        <View>
+                        <View style={{alignItems: 'center', paddingVertical: Style.bottomMenuHeight/2}}>
+                            <SmallText style={{color: Colors.onBackgroundColor}}>You've reached the end.</SmallText>
+                        </View>
+                            <View
+                                style={{ height: Style.bottomMenuHeight }}
+                            ></View>
+                        </View>
+                    );
+                }}
             />
         </View>
     );
@@ -157,11 +171,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         elevation: 5,
     },
-    // separator: {
-    //     marginHorizontal: 10,
-    //     height: 0.5,
-    //     backgroundColor: Colors.onBackgroundSeparatorColor,
-    // },
     insideCard: {
         flex: 1,
         paddingVertical: 5,
@@ -170,7 +179,7 @@ const styles = StyleSheet.create({
     title: {
         marginVertical: 5,
         color: Colors.onSurfaceColor,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     },
 });
 
