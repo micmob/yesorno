@@ -1,6 +1,7 @@
 import {
     SIGNUP,
     LOGIN,
+    AUTO_LOGIN,
     TOGGLE_IS_AUTH,
     EDIT_PROFILE,
     LOGOUT,
@@ -10,6 +11,8 @@ import {
 
 const initialState = {
     isAuth: false,
+    token: null,
+    refreshToken: null,
     user: {
         id: null,
         email: null,
@@ -77,6 +80,8 @@ const authReducer = (state = initialState, action) => {
         case SIGNUP:
             return {
                 ...state,
+                token: action.token,
+                refreshToken: action.refreshToken,
                 user: {
                     id: action.user.id,
                     email: action.user.email,
@@ -90,6 +95,8 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isAuth: true,
+                token: action.token,
+                refreshToken: action.refreshToken,
                 user: {
                     id: action.user.id,
                     email: action.user.email,
@@ -99,10 +106,20 @@ const authReducer = (state = initialState, action) => {
                     upvotedQuestions: action.user.upvotedQuestions,
                 },
             };
+        case AUTO_LOGIN:
+            return {
+                ...state,
+                isAuth: true,
+                token: action.token,
+                refreshToken: action.refreshToken,
+                user: action.user
+            };
         case LOGOUT:
             return {
                 ...state,
                 isAuth: false,
+                token: null,
+                refreshToken: null,
                 user: {
                     id: null,
                     email: null,

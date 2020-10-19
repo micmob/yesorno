@@ -6,16 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import SmallText from '../../UI/SmallText';
 import RelativeTime from './RelativeTime';
 import Colors from '../../../constants/Colors';
-import { fetchUsers } from '../../../store/actions/auth';
 import Firebase from '../../../config/Firebase';
 
 const Overline = props => {
-    const currentUserId = Firebase.auth().currentUser.uid;
+    const currentUserId = useSelector(state => state.auth.user.id);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(fetchUsers());
-    }, []);
 
     const author = useSelector(state => state.auth.users).find(
         user => user.id === props.question.userId

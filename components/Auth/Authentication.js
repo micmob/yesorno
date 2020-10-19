@@ -27,31 +27,24 @@ const Authentication = props => {
         return <Loading />;
     }
 
-    const handleContinuePress = () => {
+    const handleContinuePress = async () => {
         if (props.action === 'Signup') {
-            dispatch(signup(email, password))
-                .then(() => {
-                    props.navigation.navigate('ConfigProfileAfterSignup', {
-                        email,
-                        password,
-                        initialProfileSetup: true,
-                    });
-                })
-                .catch((error) => {
-                    switch(error.code){
-                        case 'auth/email-already-in-use':
-                            alert('That email address is taken.');
-                        case 'auth/invalid-email':
-                            alert('Your email address is invalid!');
-                        case 'auth/weak-password':
-                            alert('Pick a stronger password.');
-                        default:
-                            alert('Authentication.js', error.message);
-                    }
-                    
-                });
+            setIsLoading(true);
+            await dispatch(signup(email, password)).catch(error => {
+                alert(error.message);
+            });
+            setIsLoading(false);
+            props.navigation.navigate('ConfigProfileAfterSignup', {
+                email,
+                password,
+                initialProfileSetup: true,
+            });
         } else {
-            dispatch(login(email, password));
+            setIsLoading(true);
+            await dispatch(login(email, password)).catch(error => {
+                alert(error.message);
+            });
+            setIsLoading(false);
         }
     };
 
@@ -80,7 +73,7 @@ const Authentication = props => {
                 textContentType="emailAddress"
                 autoCompleteType="email"
                 keyboardType="email-address"
-                importantForAutofill='yes'
+                importantForAutofill="yes"
             />
             <DefaultTextInput
                 style={{
@@ -92,7 +85,7 @@ const Authentication = props => {
                 textContentType="password"
                 secureTextEntry={true}
                 autoCompleteType="password"
-                importantForAutofill='yes'
+                importantForAutofill="yes"
             />
         </Form>
     );

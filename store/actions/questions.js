@@ -51,10 +51,12 @@ export const fetchQuestions = () => {
 };
 
 export const toggleUpvote = (quesId, hasUpvoted) => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
+
+            const userToken = getState().auth.token;
 
             const responseGET = await fetch(
-                `https://yesorno-by-mic.firebaseio.com/questions/${quesId}.json`
+                `https://yesorno-by-mic.firebaseio.com/questions/${quesId}.json?auth=${userToken}`
             );
 
             if (!responseGET.ok) {
@@ -63,8 +65,6 @@ export const toggleUpvote = (quesId, hasUpvoted) => {
 
             const responseGETData = await responseGET.json();
 
-            console.log(responseGETData);
-
             if (hasUpvoted) {
                 responseGETData.upvotes++;
             } else {
@@ -72,7 +72,7 @@ export const toggleUpvote = (quesId, hasUpvoted) => {
             }
 
             const response = await fetch(
-                `https://yesorno-by-mic.firebaseio.com/questions/${quesId}.json`,
+                `https://yesorno-by-mic.firebaseio.com/questions/${quesId}.json?auth=${userToken}`,
                 {
                     method: 'PATCH',
                     headers: {
@@ -111,10 +111,11 @@ export const filterQuestions = filterSettings => {
 };
 
 export const createQuestion = (title, catId) => {
-    return async dispatch => {
-        const currentUserId = Firebase.auth().currentUser.uid;
+    return async (dispatch, getState) => {
+        const currentUserId = getState().auth.user.id;
+        const userToken = getState().auth.token;
         const response = await fetch(
-            'https://yesorno-by-mic.firebaseio.com/questions.json',
+            `https://yesorno-by-mic.firebaseio.com/questions.json?auth=${userToken}`,
             {
                 method: 'POST',
                 headers: {
@@ -149,10 +150,11 @@ export const createQuestion = (title, catId) => {
 };
 
 export const deleteQuestion = id => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
         try {
+            const userToken = getState().auth.token;
             const response = await fetch(
-                `https://yesorno-by-mic.firebaseio.com/questions/${id}.json`,
+                `https://yesorno-by-mic.firebaseio.com/questions/${id}.json?auth=${userToken}`,
                 {
                     method: 'DELETE',
                 }
@@ -173,10 +175,11 @@ export const deleteQuestion = id => {
 };
 
 export const editQuestion = (id, title, catId) => {
-    return async dispatch => {
+    return async (dispatch, getState) => {
         try {
+            const userToken = getState().auth.token;
             const responseGET = await fetch(
-                `https://yesorno-by-mic.firebaseio.com/questions/${id}.json`
+                `https://yesorno-by-mic.firebaseio.com/questions/${id}.json?auth=${userToken}`
             );
 
             if (!responseGET.ok) {

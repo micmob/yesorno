@@ -19,6 +19,7 @@ import QuestionScreen from '../screens/QuestionScreen';
 import ConfigProfileAfterSignupScreen from '../screens/ConfigProfileAfterSignupScreen';
 import ConfigProfileScreen from '../screens/ConfigProfileScreen';
 import CategoryScreen from '../screens/CategoryScreen';
+import StartupScreen from '../screens/StartupScreen';
 
 const Stack = createStackNavigator();
 
@@ -36,6 +37,7 @@ const AppNavigator = () => {
     const AuthStack = () => {
         return (
             <Stack.Navigator screenOptions={{ headerShown: false }}>
+                <Stack.Screen name='Startup' component={StartupScreen} />
                 <Stack.Screen name="Login" component={LoginScreen} />
                 <Stack.Screen name="Signup" component={SignupScreen} />
                 <Stack.Screen

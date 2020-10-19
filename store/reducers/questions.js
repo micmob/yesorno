@@ -28,7 +28,6 @@ const filter = (state, value) => {
 const questionsReducer = (state = initialState, action) => {
     switch (action.type) {
         case TOGGLE_UPVOTE:
-            console.log('plus');
             const updatedAllQues = [...state.allQuestions];
             if(updatedAllQues) {
                 const updatedQues = updatedAllQues.find(ques => ques.id === action.quesId);
@@ -39,7 +38,6 @@ const questionsReducer = (state = initialState, action) => {
                 } else {
                     updatedQues.upvotes--;
                 }
-                console.log(updatedQues);
             }
 
             const updatedFilteredQues = [...state.filteredQuestions];
